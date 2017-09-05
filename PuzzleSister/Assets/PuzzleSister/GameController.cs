@@ -59,7 +59,7 @@ namespace PuzzleSister {
 
 	void StartQuestionGame() {
 		Repository.shared.LoadPackages();
-		Package pkg = Repository.shared.GetPackageById("Test0001");
+		Package pkg = Repository.shared.GetPackageById("PKG0001");
 		questionList = pkg.Load();
 		totalCount = questionList.Count;
 		questionCoroutine = StartCoroutine(NextQuestion());
