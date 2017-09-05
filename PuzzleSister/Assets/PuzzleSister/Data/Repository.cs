@@ -10,7 +10,11 @@ namespace PuzzleSister {
     public static readonly Repository shared = new Repository();
 
     public readonly UnityEvent OnPackageChanged = new UnityEvent();
+    public readonly UnityEvent OnPackagesLoaded = new UnityEvent();
 
+    public bool IsPackagesLoaded { get { return isPackagesLoaded; } }
+
+    private bool isPackagesLoaded = false;
     private List<Package> packageList = new List<Package>();
 
     public void LoadPackages() {
@@ -27,6 +31,13 @@ namespace PuzzleSister {
           AddPackage(pkg);
         }
       }
+
+      isPackagesLoaded = true;
+      OnPackagesLoaded.Invoke();
+    }
+
+    public Package[] GetAllPackages() {
+      return packageList.ToArray();
     }
 
     public Package GetPackageById(string id) {

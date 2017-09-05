@@ -7,27 +7,56 @@ using Steamworks;
 namespace PuzzleSister {
 	public class GameController : MonoBehaviour {
 	
+	public GameObject oStartScreen;
+	public GameObject oPackagePanel;
 	public GameObject oQuestionPanel;
 	public GameObject oQuestionCT;
-	public GameObject oStartScreen;
+	public PackageListView cPackageListView;
+	public Text cHeartText;
+	public Text cProgressText;
 
-	private int totalScore = 0;
 	private int totalCount = 0;
+	private int heartCount = 5;
+	private int answerCount = 0;
 	private Coroutine questionCoroutine;
-	private Coroutine scoreAnimCoroutine;
 	private Question.Result result = Question.Result.Unknow;
 	private List<Question> questionList;
 
 	void Start() {
+		Repository.shared.LoadPackages();
 		oStartScreen.SetActive(true);
+		oPackagePanel.SetActive(false);
 		oQuestionPanel.SetActive(false);
+		
+		cPackageListView.OnItemClick.AddListener(OnClickPackageItem);
 	}
 
 	public void OnTapBtnStart() {
 		oStartScreen.SetActive(false);
-		oQuestionPanel.SetActive(true);
+		oPackagePanel.SetActive(true);
+		oQuestionPanel.SetActive(false);
+	}
 
-		StartQuestionGame();
+	public void OnClickPackageItem(Package package) {
+		oStartScreen.SetActive(false);
+		oPackagePanel.SetActive(false);
+		oQuestionPanel.SetActive(true);
+		StartQuestionGame(package);
+	}
+
+	public void BackFromPackagePanel() {
+		oStartScreen.SetActive(true);
+		oPackagePanel.SetActive(false);
+		oQuestionPanel.SetActive(false);
+	}
+
+	public void BackFromQuestionPanel() {
+		if (questionCoroutine != null) {
+			StopCoroutine(questionCoroutine);
+		}
+		oStartScreen.SetActive(false);
+		oPackagePanel.SetActive(true);
+		oQuestionPanel.SetActive(false);
 	}
 
 	public void OnSelectA() {
@@ -58,25 +87,34 @@ namespace PuzzleSister {
 		result = Question.Result.D;
 	}
 
-	void StartQuestionGame() {
-		Repository.shared.LoadPackages();
-		Package pkg = Repository.shared.GetPackageById("PKG0001");
-		questionList = pkg.Load();
+	void StartQuestionGame(Package package) {
+		questionList = package.Load();
 		totalCount = questionList.Count;
+		heartCount = 5;
+		if (questionCoroutine != null) {
+			StopCoroutine(questionCoroutine);
+		}
+		UpdateHeartAndProgress();
 		questionCoroutine = StartCoroutine(NextQuestion());
+	}
+
+	void UpdateHeartAndProgress() {
+		cHeartText.text = "星：" + heartCount + "个";
+		cProgressText.text = "进度：" + (1+totalCount-questionList.Count) + "/" + totalCount;
 	}
 
 	IEnumerator NextQuestion() {
 		if (questionList.Count > 0) {
 			yield return HandleNextQuestion();
 		}
+		BackFromQuestionPanel();
 	}
 
 	IEnumerator HandleNextQuestion() {
-		result = Question.Result.Unknow;
+		UpdateHeartAndProgress();
+
 		int idx = Random.Range(0, questionList.Count);
 		var question = questionList[idx];
-		questionList.Remove(question);
 
 		var oQuestion = oQuestionCT.transform.Find("Question").gameObject;
 		var oExplain = oQuestionCT.transform.Find("Explain").gameObject;
@@ -94,6 +132,8 @@ namespace PuzzleSister {
 		foreach(var optName in options) {
 			var oOption = oQuestionCT.transform.Find("Options/" + optName).gameObject;
 			var cOptionText = oOption.transform.Find("Text").GetComponent<Text>();
+			oOption.GetComponent<Image>().color = Color.white;
+			oOption.GetComponent<Button>().interactable = true;
 			switch(optName) {
 				case "OptionA": 
 					oOption.SetActive(question.optionA != null);
@@ -114,36 +154,69 @@ namespace PuzzleSister {
 			}
 		}
 
-		while(result == Question.Result.Unknow) {
-			yield return 1;
+		result = Question.Result.Unknow;
+		answerCount = 0;
+
+		bool answerCorrect = false;
+
+		while(answerCount < 3 && !answerCorrect) {
+			while(result == Question.Result.Unknow) {
+				yield return 1;
+			}
+			Debug.Log(question.result);
+			Debug.Log(result);
+
+			bool correct = result == question.result;
+
+			// resolving heart
+			if (result == question.result) {
+				heartCount ++;
+				if (heartCount > 5) {
+					heartCount = 5;
+				}
+			} else {
+				heartCount --;
+				if (heartCount < 0) {
+					heartCount = 0;
+				}
+			}
+			UpdateHeartAndProgress();
+
+			if (correct) {
+				answerCorrect = true;
+				break;
+			}
+
+			// warning incorrect option
+			GameObject oOption = null;
+			switch(result) {
+				case Question.Result.A: oOption = oOptions.transform.Find("OptionA").gameObject; break;
+				case Question.Result.B: oOption = oOptions.transform.Find("OptionB").gameObject; break;
+				case Question.Result.C: oOption = oOptions.transform.Find("OptionC").gameObject; break;
+				case Question.Result.D: oOption = oOptions.transform.Find("OptionD").gameObject; break;
+			}
+			oOption.GetComponent<Button>().interactable = false;
+			oOption.GetComponent<Image>().color = Color.red;
+
+			// reset result
+			result = Question.Result.Unknow;
+			answerCount ++;
 		}
 
+		
 		// explaination
 		oExplain.SetActive(false);
 		var cExplainText = oExplain.GetComponent<Text>();
 		var resultText = result == question.result ? "回答正确" : "回答错误";
-		if (result != question.result) {
-			cExplainText.text = resultText + "\r\n\r\n" + (string.IsNullOrEmpty(question.explain) ? "不解释" : question.explain);
-		} else {
-			cExplainText.text = resultText;
-		}
-
-		if (result == question.result) {
-			// TODO
-		}
-		
+		cExplainText.text = resultText + "\r\n\r\n" + 
+			(string.IsNullOrEmpty(question.explain) ? "此题没有解释" : question.explain);
 
 		yield return new WaitForSeconds(0.2f);
 		oExplain.SetActive(true);
 		oOptions.SetActive(false);
-		if (result == question.result) {
-			yield return new WaitForSeconds(1f);
-		} else {
-			yield return new WaitForSeconds(3f);
-		}
-
-		// TODO: dispose question
-
+		
+		yield return new WaitForSeconds(3f);
+		questionList.Remove(question);
 		yield return NextQuestion();
 	}
 	
