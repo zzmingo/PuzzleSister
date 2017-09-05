@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 448373688}
   - component: {fileID: 448373687}
   - component: {fileID: 448373692}
+  - component: {fileID: 448373693}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -729,6 +730,17 @@ MonoBehaviour:
   cPackageListView: {fileID: 470133830}
   cHeartText: {fileID: 341978829}
   cProgressText: {fileID: 368652050}
+--- !u!114 &448373693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 448373686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038403af9dbba0d49b9a62588939bfb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470133827
 GameObject:
   m_ObjectHideFlags: 0
