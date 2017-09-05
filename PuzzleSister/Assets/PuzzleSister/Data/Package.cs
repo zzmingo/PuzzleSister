@@ -42,6 +42,15 @@ namespace PuzzleSister {
       }
     }
 
+    public void FromDict(Dictionary<string, object> dict, string path, Type type = Type.CSV, Source source = Source.Resources) {
+      this.id = dict["id"].ToString();
+      this.name = dict["name"].ToString();
+      this.thumb = SpriteExtensions.Base64ToSprite(dict["thumb"].ToString());
+      this.path = path;
+      this.type = type;
+      this.source = source;
+    }
+
   }
 
 }

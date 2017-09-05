@@ -8,9 +8,48 @@ namespace PuzzleSister {
   
   public class CSVUtils
   {
+    public static string LINE_SPLIT = "\n";
     public static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
     public static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     public static char[] TRIM_CHARS = { '\"' };
+    public static string QUESTION_BEGIN = "#QuestionBegin";
+    public static string QUESTION_LIST = "#QuestionList";
+    public static string QUESTION_END = "#QuestionEnd";
+
+
+    public static string ExtractPackage(string text) {
+      var lines = Regex.Split(text, CSVUtils.LINE_SPLIT_RE);
+      string[] pkgData = new string[] { lines[0], lines[2] };
+      return String.Join(CSVUtils.LINE_SPLIT, pkgData);
+    }
+
+    public static string ExtractQuestions(string text) {
+      var lines = Regex.Split(text, CSVUtils.LINE_SPLIT_RE);
+      List<string> questionList = new List<string>();
+      var begin = false;
+      var listBegin = false;
+      var end = false;
+      foreach(var line in lines) {
+        if (line.StartsWith(QUESTION_BEGIN)) {
+          begin = true;
+        } else if (line.StartsWith(QUESTION_LIST)) {
+          listBegin = true;
+        } else if (line.StartsWith(QUESTION_END)) {
+          end = true;
+        } else {
+          if (end) {
+            break;
+          }
+          if (listBegin) {
+            questionList.Add(line);
+          } else if(begin) {
+            questionList.Add(line);
+            begin = false;
+          }
+        }
+      }
+      return String.Join(CSVUtils.LINE_SPLIT, questionList.ToArray());
+    }
 
     public static List<Dictionary<string, object>> Parse(string text)
     {

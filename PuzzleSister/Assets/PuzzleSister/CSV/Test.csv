@@ -1,6 +1,6 @@
 id,name,thumb,,,,,
 DLC包的id,DLC包名称,图片用于显示,,,,,
-PKG0001,测试包,"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVR42mNgYGD4TyQmXSEuMLwVUiccAbGoP8GX7AJ0AAAAAElFTkSuQmCC",,,,,
+PKG0001,测试包,"iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVR42mNgYGD4TyQmXSEuMLwVUiccAbGoP8GX7AJ0AAAAAElFTkSuQmCC",,,,,
 #QuestionBegin,,,,,,,
 id,title,result,explain,A,B,C,D
 问题的唯一ID,问题描述部分,正确答案(A/B/C/D),解释部分,,,,

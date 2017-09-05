@@ -15,13 +15,13 @@ namespace PuzzleSister {
 
     public void LoadPackages() {
       if (Application.isEditor) {
-        Package pkg = new Package();
-        pkg.id = "Test0001";
-        pkg.name = "测试包";
-        pkg.path = "Test";
-        pkg.type = Package.Type.CSV;
-        pkg.source = Package.Source.Resources;
-        AddPackage(pkg);
+        foreach(var entry in Const.BUILTIN_PACKAGES) {
+          Package pkg = new Package();
+          var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
+          var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
+          pkg.FromDict(pkgDict, entry.Value.questionPath);
+          AddPackage(pkg);
+        }
       }
     }
 
