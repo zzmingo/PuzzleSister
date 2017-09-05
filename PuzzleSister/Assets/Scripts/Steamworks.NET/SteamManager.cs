@@ -102,7 +102,6 @@ public class SteamManager : MonoBehaviour {
 
 			return;
 		}
-
 		s_EverInialized = true;
 	}
 

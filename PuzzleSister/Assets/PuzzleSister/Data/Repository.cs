@@ -14,8 +14,12 @@ namespace PuzzleSister {
     private List<Package> packageList = new List<Package>();
 
     public void LoadPackages() {
-      if (Application.isEditor) {
-        foreach(var entry in Const.BUILTIN_PACKAGES) {
+      bool internalTesting = false;
+#if InternalTesting
+      internalTesting = true;
+#endif
+      if (internalTesting || Application.isEditor) {
+        foreach(var entry in DataConst.BUILTIN_PACKAGES) {
           Package pkg = new Package();
           var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
           var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];

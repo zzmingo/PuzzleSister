@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PuzzleSister {
 
-  public static class Const {
+  public static class DataConst {
 
 
     public static readonly string RESOURCES_PATH = "Assets/PuzzleSister/Resources/";

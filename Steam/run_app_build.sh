@@ -1,0 +1,1 @@
+~/Steam/steamcmd +login zzm2q +run_app_build_http ~/Documents/Mingo/PuzzleSister/Steam/scripts/app_build_710190.vdf +quit
