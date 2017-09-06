@@ -7,8 +7,12 @@ namespace PuzzleSister {
 
 
     public static readonly string RESOURCES_PATH = "Assets/PuzzleSister/Resources/";
-    public static readonly Dictionary<string, PackageItem> BUILTIN_PACKAGES = new Dictionary<string, PackageItem> {
+
+    public static readonly Dictionary<string, PackageItem> TESTING_PACKAGES = new Dictionary<string, PackageItem> {
       { "Assets/PuzzleSister/CSV/Test.csv", new PackageItem("Packages/Test", "Packages/Test/Package", "Packages/Test/Question", ".csv") }
+    };
+
+    public static readonly Dictionary<string, PackageItem> BUILTIN_PACKAGES = new Dictionary<string, PackageItem> {
     };
 
     public class PackageItem {

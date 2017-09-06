@@ -10,7 +10,7 @@ namespace PuzzleSister {
   public class CSVParser : Package.Parser {
 
     public List<Question> Parse(Package package, object data) {
-      var csvStr = (data as TextAsset).text;
+      var csvStr = data.ToString();
       var questionDictList = CSVUtils.Parse(csvStr);
       var questionList = new List<Question>();
       foreach(var row in questionDictList) {

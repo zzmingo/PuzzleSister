@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Steamworks;
+using System.IO;
 
 namespace PuzzleSister {
 
@@ -23,7 +25,7 @@ namespace PuzzleSister {
       internalTesting = true;
 #endif
       if (internalTesting || Application.isEditor) {
-        foreach(var entry in DataConst.BUILTIN_PACKAGES) {
+        foreach(var entry in DataConst.TESTING_PACKAGES) {
           Package pkg = new Package();
           var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
           var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
@@ -31,6 +33,33 @@ namespace PuzzleSister {
           AddPackage(pkg);
         }
       }
+
+      foreach(var entry in DataConst.BUILTIN_PACKAGES) {
+        Package pkg = new Package();
+        var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
+        var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
+        pkg.FromDict(pkgDict, entry.Value.questionPath);
+        AddPackage(pkg);
+      }
+
+      // DLC
+      // TODO check file broken
+      string appInstallDir = null;
+      SteamApps.GetAppInstallDir(new AppId_t(Const.STEAM_APP_ID), out appInstallDir, 1024);
+      Debug.Log("Load DLC at " + appInstallDir);
+      foreach(var path in Directory.GetDirectories(appInstallDir)) {
+        if (File.Exists(path + "/Package.csv")) {
+          Debug.Log("Loading DLC");
+          Package pkg = new Package();
+          string pkgCSVStr = File.ReadAllText(path + "/Package.csv");
+          var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
+          pkg.FromDict(pkgDict, path + "/Question.csv", Package.Type.CSV, Package.Source.DLC);
+          Debug.Log("  ID: " + pkg.id);
+          AddPackage(pkg);
+          Debug.Log("Loaded");
+        }
+      }
+      
 
       isPackagesLoaded = true;
       OnPackagesLoaded.Invoke();

@@ -19,7 +19,8 @@ namespace PuzzleSister {
     }
 
     public enum Source {
-      Resources
+      Resources,
+      DLC
     }
     
     public string id;
@@ -32,6 +33,9 @@ namespace PuzzleSister {
     public List<Question> Load() {
       object data;
       switch(source) {
+        case Source.DLC:
+          data = new DLCReader().Read(this);
+          break;
         default:
           data = new ResourcesReader().Read(this);
           break;

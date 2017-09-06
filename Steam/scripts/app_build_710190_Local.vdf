@@ -1,16 +1,15 @@
 "appbuild"
 {
 	"appid"	"710190"
-	"desc" "Internal testing"
+	"desc" "Local testing"
 	"buildoutput" "..\output\"
 	"contentroot" "..\content\"
 	"setlive"	""
 	"preview" "0"
-	"local"	""
+	"local"	"../Steam/local"
 	"depots"
 	{
 		"710192" "depot_build_710192.vdf"
-		"710193" "depot_build_710193.vdf"
 		"711420" "depot_build_711420.vdf"
 	}
 }

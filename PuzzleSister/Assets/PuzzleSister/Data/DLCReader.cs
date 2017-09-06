@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.IO;
 
 namespace PuzzleSister {
 
-  public class ResourcesReader : Package.Reader {
+  public class DLCReader : Package.Reader {
 
     public object Read(Package package) {
-      return Resources.Load<TextAsset>(package.path).text;
+      return File.ReadAllText(package.path);
     }
 
   }

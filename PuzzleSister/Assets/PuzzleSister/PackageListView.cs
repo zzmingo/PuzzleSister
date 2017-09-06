@@ -32,6 +32,10 @@ namespace PuzzleSister {
 				item.transform.localScale = new Vector3(1, 1, 1);
 				if (i < packages.Length) {
 					AdaptItem(item, packages[i]);
+				} else {
+					item.GetComponent<Button>().onClick.AddListener(() => {
+						OnItemClick.Invoke(null);
+					});
 				}
 			}
 		}

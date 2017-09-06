@@ -38,10 +38,14 @@ namespace PuzzleSister {
 	}
 
 	public void OnClickPackageItem(Package package) {
-		oStartScreen.SetActive(false);
-		oPackagePanel.SetActive(false);
-		oQuestionPanel.SetActive(true);
-		StartQuestionGame(package);
+		if (package == null) {
+			return;
+		} else {
+			oStartScreen.SetActive(false);
+			oPackagePanel.SetActive(false);
+			oQuestionPanel.SetActive(true);
+			StartQuestionGame(package);
+		}
 	}
 
 	public void BackFromPackagePanel() {
