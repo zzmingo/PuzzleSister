@@ -25,20 +25,21 @@ namespace PuzzleSister {
       internalTesting = true;
 #endif
       if (internalTesting || Application.isEditor) {
-        foreach(var entry in DataConst.TESTING_PACKAGES) {
+        foreach(var pkgItem in DataConst.TESTING_PACKAGES) {
           Package pkg = new Package();
-          var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
+          var pkgCSVStr = DecriptUtils.Descript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
+          Debug.Log(pkgCSVStr);
           var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-          pkg.FromDict(pkgDict, entry.Value.questionPath);
+          pkg.FromDict(pkgDict, pkgItem.questionPath);
           AddPackage(pkg);
         }
       }
 
-      foreach(var entry in DataConst.BUILTIN_PACKAGES) {
+      foreach(var pkgItem in DataConst.BUILTIN_PACKAGES) {
         Package pkg = new Package();
-        var pkgCSVStr = Resources.Load<TextAsset>(entry.Value.packagePath).text;
+        var pkgCSVStr = DecriptUtils.Descript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
         var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-        pkg.FromDict(pkgDict, entry.Value.questionPath);
+        pkg.FromDict(pkgDict, pkgItem.questionPath);
         AddPackage(pkg);
       }
 
@@ -46,20 +47,22 @@ namespace PuzzleSister {
       // TODO check file broken
       string appInstallDir = null;
       SteamApps.GetAppInstallDir(new AppId_t(Const.STEAM_APP_ID), out appInstallDir, 1024);
-      Debug.Log("Load DLC at " + appInstallDir);
-      foreach(var path in Directory.GetDirectories(appInstallDir)) {
-        if (File.Exists(path + "/Package.csv")) {
-          Debug.Log("Loading DLC");
-          Package pkg = new Package();
-          string pkgCSVStr = File.ReadAllText(path + "/Package.csv");
-          var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-          pkg.FromDict(pkgDict, path + "/Question.csv", Package.Type.CSV, Package.Source.DLC);
-          Debug.Log("  ID: " + pkg.id);
-          AddPackage(pkg);
-          Debug.Log("Loaded");
+
+      if (Directory.Exists(appInstallDir)) {
+        Debug.Log("Load DLC at " + appInstallDir);
+        foreach(var path in Directory.GetDirectories(appInstallDir)) {
+          if (File.Exists(path + "/Package.csv")) {
+            Debug.Log("Loading DLC");
+            Package pkg = new Package();
+            string pkgCSVStr = File.ReadAllText(path + "/Package.csv");
+            var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
+            pkg.FromDict(pkgDict, path + "/Question.csv", Package.Type.CSV, Package.Source.DLC);
+            Debug.Log("  ID: " + pkg.id);
+            AddPackage(pkg);
+            Debug.Log("Loaded");
+          }
         }
       }
-      
 
       isPackagesLoaded = true;
       OnPackagesLoaded.Invoke();

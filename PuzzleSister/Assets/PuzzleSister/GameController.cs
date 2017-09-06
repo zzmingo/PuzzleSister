@@ -39,7 +39,7 @@ namespace PuzzleSister {
 
 	public void OnClickPackageItem(Package package) {
 		if (package == null) {
-			return;
+			SteamFriends.ActivateGameOverlayToStore(new AppId_t(Const.STEAM_APP_ID), EOverlayToStoreFlag.k_EOverlayToStoreFlag_None);
 		} else {
 			oStartScreen.SetActive(false);
 			oPackagePanel.SetActive(false);

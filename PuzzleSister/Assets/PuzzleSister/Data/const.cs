@@ -5,14 +5,15 @@ namespace PuzzleSister {
 
   public static class DataConst {
 
+    public static readonly string ENSCRIPT_KEY = "7ydsdgbp";
 
     public static readonly string RESOURCES_PATH = "Assets/PuzzleSister/Resources/";
 
-    public static readonly Dictionary<string, PackageItem> TESTING_PACKAGES = new Dictionary<string, PackageItem> {
-      { "Assets/PuzzleSister/CSV/Test.csv", new PackageItem("Packages/Test", "Packages/Test/Package", "Packages/Test/Question", ".csv") }
+    public static readonly List<PackageItem> TESTING_PACKAGES = new List<PackageItem> {
+      new PackageItem("Packages/TEST0001", "Packages/TEST0001/Package", "Packages/TEST0001/Question", ".csv")
     };
 
-    public static readonly Dictionary<string, PackageItem> BUILTIN_PACKAGES = new Dictionary<string, PackageItem> {
+    public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
     };
 
     public class PackageItem {
