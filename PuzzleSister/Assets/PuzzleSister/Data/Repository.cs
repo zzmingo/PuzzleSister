@@ -54,7 +54,7 @@ namespace PuzzleSister {
           if (File.Exists(path + "/Package.csv")) {
             Debug.Log("Loading DLC");
             Package pkg = new Package();
-            string pkgCSVStr = File.ReadAllText(path + "/Package.csv");
+            string pkgCSVStr = DecriptUtils.Descript(File.ReadAllText(path + "/Package.csv"));
             var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
             pkg.FromDict(pkgDict, path + "/Question.csv", Package.Type.CSV, Package.Source.DLC);
             Debug.Log("  ID: " + pkg.id);
