@@ -8,7 +8,7 @@ namespace PuzzleSister {
   public class ResourcesReader : Package.Reader {
 
     public object Read(Package package) {
-      return DecriptUtils.Descript(Resources.Load<TextAsset>(package.path).text);
+      return CryptoUtils.Decript(Resources.Load<TextAsset>(package.path).text);
     }
 
   }

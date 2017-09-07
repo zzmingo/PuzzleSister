@@ -27,7 +27,7 @@ namespace PuzzleSister {
       if (internalTesting || Application.isEditor) {
         foreach(var pkgItem in DataConst.TESTING_PACKAGES) {
           Package pkg = new Package();
-          var pkgCSVStr = DecriptUtils.Descript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
+          var pkgCSVStr = CryptoUtils.Decript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
           Debug.Log(pkgCSVStr);
           var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
           pkg.FromDict(pkgDict, pkgItem.questionPath);
@@ -37,7 +37,7 @@ namespace PuzzleSister {
 
       foreach(var pkgItem in DataConst.BUILTIN_PACKAGES) {
         Package pkg = new Package();
-        var pkgCSVStr = DecriptUtils.Descript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
+        var pkgCSVStr = CryptoUtils.Decript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
         var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
         pkg.FromDict(pkgDict, pkgItem.questionPath);
         AddPackage(pkg);
@@ -45,18 +45,17 @@ namespace PuzzleSister {
 
       // DLC
       // TODO check file broken
-      string appInstallDir = null;
-      SteamApps.GetAppInstallDir(new AppId_t(Const.STEAM_APP_ID), out appInstallDir, 1024);
+      string appInstallDir = Utils.GetAppInstallDir();
 
       if (Directory.Exists(appInstallDir)) {
         Debug.Log("Load DLC at " + appInstallDir);
         foreach(var path in Directory.GetDirectories(appInstallDir)) {
-          if (File.Exists(path + "/Package.csv")) {
+          if (File.Exists(Path.Combine(path, "Package.csv"))) {
             Debug.Log("Loading DLC");
             Package pkg = new Package();
-            string pkgCSVStr = DecriptUtils.Descript(File.ReadAllText(path + "/Package.csv"));
+            string pkgCSVStr = CryptoUtils.Decript(File.ReadAllText(Path.Combine(path, "Package.csv")));
             var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-            pkg.FromDict(pkgDict, path + "/Question.csv", Package.Type.CSV, Package.Source.DLC);
+            pkg.FromDict(pkgDict, Path.Combine(path, "Question.csv"), Package.Type.CSV, Package.Source.DLC);
             Debug.Log("  ID: " + pkg.id);
             AddPackage(pkg);
             Debug.Log("Loaded");

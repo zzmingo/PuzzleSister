@@ -11,6 +11,7 @@ namespace PuzzleSister {
 
     public List<Question> Parse(Package package, object data) {
       var csvStr = data.ToString();
+      Debug.Log(csvStr);
       var questionDictList = CSVUtils.Parse(csvStr);
       var questionList = new List<Question>();
       foreach(var row in questionDictList) {

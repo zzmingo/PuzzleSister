@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PuzzleSister {
 
@@ -7,10 +8,20 @@ namespace PuzzleSister {
 
     public static readonly string ENSCRIPT_KEY = "7ydsdgbp";
 
-    public static readonly string RESOURCES_PATH = "Assets/PuzzleSister/Resources/";
+    public static readonly string RESOURCES_PATH = Utils.Path("Assets", "PuzzleSister", "Resources");
+
+    public static readonly string PACKAGES_DIR = "Packages";
+    public static readonly string PACKAGE_FILE_NAME = "Package";
+    public static readonly string QUESTION_FILE_NAME = "Question";
+    public static readonly string FILE_EXT = ".csv";
 
     public static readonly List<PackageItem> TESTING_PACKAGES = new List<PackageItem> {
-      new PackageItem("Packages/TEST0001", "Packages/TEST0001/Package", "Packages/TEST0001/Question", ".csv")
+      new PackageItem(
+        Utils.Path(PACKAGES_DIR, "TEST0001"), 
+        Utils.Path(PACKAGES_DIR, "TEST0001", PACKAGE_FILE_NAME), 
+        Utils.Path(PACKAGES_DIR, "TEST0001", QUESTION_FILE_NAME),
+        FILE_EXT
+      )
     };
 
     public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {

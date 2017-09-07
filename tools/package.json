@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "faker": "^4.1.0",
     "fs-extra": "^4.0.1",
     "glob": "^7.1.2",
-    "js-xlsx": "^0.8.22"
+    "js-xlsx": "^0.8.22",
+    "shuffle-array": "^1.0.1"
   }
 }

@@ -9,7 +9,7 @@ namespace PuzzleSister {
   public class DLCReader : Package.Reader {
 
     public object Read(Package package) {
-      return DecriptUtils.Descript(File.ReadAllText(package.path));
+      return CryptoUtils.Decript(File.ReadAllText(package.path));
     }
 
   }
