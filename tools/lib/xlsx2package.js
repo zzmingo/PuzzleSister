@@ -6,7 +6,7 @@ const XLSX = require('js-xlsx')
 
 const encryptKey = "7ydsdgbp"
 
-module.exports = function(xlsxFile, dist) {
+module.exports = function(xlsxFile) {
   const workbook = XLSX.readFile(xlsxFile)
   const dlcSheet = workbook.Sheets["DLC"]
   const questionSheet = workbook.Sheets["Question"]
@@ -26,7 +26,6 @@ module.exports = function(xlsxFile, dist) {
     return item
   })
   let dlcCSV = array2csv(dlcArray)
-  let dlcPath = path.resolve(dist, dlcId)
 
   // handle questions
   let questionArray = XLSX.utils.sheet_to_json(questionSheet, {
