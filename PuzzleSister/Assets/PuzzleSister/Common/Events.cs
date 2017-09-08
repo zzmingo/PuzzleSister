@@ -4,7 +4,13 @@ using UnityEngine.Events;
 namespace PuzzleSister {
 
   public enum EventType {
-    Test
+    Test,
+    MenuStartClick,
+    MenuIllustrationClick,
+    MenuSettingsClick,
+    MenuManualClick,
+    PackageItemClick,
+    PackageListBackBtnClick,
   }
 
   public class GlobalEvent : UnityEvent<EventData> {
@@ -19,6 +25,10 @@ namespace PuzzleSister {
 
     public EventType type;
 
+  }
+
+  public class PackageClickEventData : EventData {
+    public Package package;
   }
 
 }

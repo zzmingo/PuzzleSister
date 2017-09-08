@@ -9,10 +9,6 @@ namespace PuzzleSister {
 
 	public class PackageListView : MonoBehaviour {
 
-		public class ItemClickEvent : UnityEvent<Package> {}
-
-		public readonly ItemClickEvent OnItemClick = new ItemClickEvent();
-
 		public GameObject packageItemPrefab;
 
 		void Start () {
@@ -24,7 +20,6 @@ namespace PuzzleSister {
 		}
 
 		void InitPackageList() {
-			Debug.Log("init");
 			var packages = Repository.shared.GetAllPackages();
 			for(int i=0; i<12; i++) {
 				var item = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
@@ -33,8 +28,11 @@ namespace PuzzleSister {
 				if (i < packages.Length) {
 					AdaptItem(item, packages[i]);
 				} else {
+					item.transform.Find("Name").GetComponent<Text>().text = "获取DLC";
 					item.GetComponent<Button>().onClick.AddListener(() => {
-						OnItemClick.Invoke(null);
+						var data = new PackageClickEventData();
+						data.type = EventType.PackageItemClick;
+						GlobalEvent.shared.Invoke(data);
 					});
 				}
 			}
@@ -43,7 +41,10 @@ namespace PuzzleSister {
 		void AdaptItem(GameObject item, Package package) {
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
 			item.GetComponent<Button>().onClick.AddListener(() => {
-				OnItemClick.Invoke(package);
+				var data = new PackageClickEventData();
+				data.type = EventType.PackageItemClick;
+				data.package = package;
+				GlobalEvent.shared.Invoke(data);
 			});
 		}
 
