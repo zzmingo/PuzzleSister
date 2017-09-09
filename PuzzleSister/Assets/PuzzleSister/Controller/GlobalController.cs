@@ -10,11 +10,13 @@ namespace PuzzleSister {
 
     public GameObject oMenuView;
     public GameObject oPackageListView;
+    public GameObject oQuestionPanel;
   
     void Start() {
 
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);
+      oQuestionPanel.SetActive(false);
 
       GlobalEvent.shared.AddListener(OnGlobalEvent);
       Repository.shared.LoadPackages();
@@ -28,6 +30,9 @@ namespace PuzzleSister {
         case EventType.PackageListBackBtnClick:
           TransitionPackageListViewToMenu();
           break;
+        case EventType.PackageItemClick:
+          TransitionPackageListViewToQuestionPanel((data as PackageClickEventData).package);
+          break;
       }
     }
 
@@ -39,6 +44,12 @@ namespace PuzzleSister {
     void TransitionPackageListViewToMenu() {
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);
+    }
+
+    void TransitionPackageListViewToQuestionPanel(Package package) {
+      oPackageListView.SetActive(false);
+      oQuestionPanel.SetActive(true);
+      GetComponent<QuestionController>().StartPackage(package);
     }
 
 

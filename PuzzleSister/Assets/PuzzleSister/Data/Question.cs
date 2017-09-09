@@ -28,6 +28,15 @@ namespace PuzzleSister {
     
     [HideInInspector] public bool completed;
     
+    public string GetOptionByName(string name) {
+      switch(name) {
+        case "A": return optionA;
+        case "B": return optionB;
+        case "C": return optionC;
+        case "D": return optionD;
+        default: throw new UnityException("Unknow option name: " + name);
+      }
+    }
   }
 
 }

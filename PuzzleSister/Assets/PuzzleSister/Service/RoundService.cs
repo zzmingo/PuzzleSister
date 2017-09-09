@@ -9,13 +9,16 @@ namespace PuzzleSister {
   /// </summary>
   public class RoundService {
     
-    public int Heart { get { return heart; } }
+    public int Energy { get { return energy; } }
+    public int Total { get { return totalCount; } }
+    public int Current { get { return currentNum; } }
+    public Question CurrentQuestion { get { return currentQuestion; } }
     public int Combo { get { return combo; } }
     public bool IsCorrect { get { return correct; } }
-    public bool IsCurrentCompleted { get { return correct && answerTimes == 3; } }
+    public bool IsCurrentCompleted { get { return correct || answerTimes == 3; } }
     
     private List<Question> questionList;
-    private int heart = 5;
+    private int energy = 5;
     private int combo = 0;
     private int totalCount = 10;
     private int currentNum = 0;
@@ -45,9 +48,9 @@ namespace PuzzleSister {
     public void SubmitAnswer(Question.Result answer) {
       correct = answer == currentQuestion.result;
       if (correct) {
-        if (heart < 5) heart++;
+        if (energy < 5) energy++;
       } else {
-        if (heart > 0) heart --;
+        if (energy > 0) energy --;
       }
       answerTimes ++;
       if (answerTimes == 1 && correct) {

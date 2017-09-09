@@ -11,6 +11,11 @@ namespace PuzzleSister {
     MenuManualClick,
     PackageItemClick,
     PackageListBackBtnClick,
+    DialogueConfirmed,
+    SelectOptionA,
+    SelectOptionB,
+    SelectOptionC,
+    SelectOptionD
   }
 
   public class GlobalEvent : UnityEvent<EventData> {
