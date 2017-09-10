@@ -65,7 +65,7 @@ namespace PuzzleSister {
       correct = answer == currentQuestion.result;
       if (correct) {
         if (energy < 5) energy++;
-      } else if(answerTimes == 0) {
+      } else {
         if (energy > 0) energy --;
       }
       answerTimes ++;
