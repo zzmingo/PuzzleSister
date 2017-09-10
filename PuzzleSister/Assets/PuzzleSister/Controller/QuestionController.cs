@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
 using System.IO;
+using System;
 
 namespace PuzzleSister {
 	public class QuestionController : MonoBehaviour {
@@ -39,12 +40,11 @@ namespace PuzzleSister {
     }
     
     public void StartPackage(Package package) {
+      questionView.gameObject.SetActive(false);
       cPackageTitle.SetText("「" + package.name + "」");
 
       roundService = new RoundService();
       roundService.Start(package);
-
-      questionView.gameObject.SetActive(false);
 
       SetEnergy(roundService.Energy);
       SetProgress(roundService.Current, roundService.Total);
@@ -60,14 +60,14 @@ namespace PuzzleSister {
     }
 
     public IEnumerator StartQuestion() {
-      ShowDialogue(true, true, "答题马上要开始了，点击『对话框』任意位置开始答题");
+      yield return ShowDialogue(true, true, "答题马上要开始了，点击『对话框』任意位置开始答题");
       yield return WaitDialogueConfirm();
       
       while(roundService.HasNextQuestion()) {
         questionView.ShowQuestion(roundService.NextQuestion());
         questionView.gameObject.SetActive(true);
         SetProgress(roundService.Current, roundService.Total);
-        ShowDialogue(true, false, "请作答...");
+        yield return ShowDialogue(true, false, "请作答...");
 
         while(!roundService.IsCurrentCompleted) {
           yield return WaitForAnswer();
@@ -83,11 +83,9 @@ namespace PuzzleSister {
 
         // show explaination
         var resultText = "『" + (roundService.IsCorrect ? "回答正确" : "回答错误") + "』\n";
-        ShowDialogue(true, true, resultText + "『解释』" + roundService.CurrentQuestion.explain);
+        yield return ShowDialogue(true, true, resultText + "『解释』" + roundService.CurrentQuestion.explain);
         yield return WaitDialogueConfirm();
       }
-
-
     }
 
     IEnumerator WaitDialogueConfirm() {
@@ -120,9 +118,14 @@ namespace PuzzleSister {
       cProgress.SetText(current + "/" + total);
     }
 
-    void ShowDialogue(bool animate, bool pointer, string text) {
+    IEnumerator ShowDialogue(bool animate, bool pointer, string text) {
       cDialogue.SetText(text);
       oDialogue.transform.Find("Pointer").gameObject.SetActive(pointer);
+      if (pointer) {
+        while(cDialogue.IsShowing()) {
+          yield return 1;
+        }
+      }
     }
 
   }
