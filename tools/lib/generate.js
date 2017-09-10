@@ -12,12 +12,14 @@ writePackage(pkg, path.resolve(__dirname, '../generated/builtin'))
 
 const builtins = glob.sync(path.resolve(__dirname, '../../xlsx/builtin/*.xlsx'))
 builtins.forEach(xlsxFile => {
+  if (xlsxFile.startsWith('~$')) return
   const pkg = xlsx2package(xlsxFile)
   writePackage(pkg, path.resolve(__dirname, '../generated/builtin'))
 })
 
 const dlcs = glob.sync(path.resolve(__dirname, '../../xlsx/dlc/*.xlsx'))
 dlcs.forEach(xlsxFile => {
+  if (path.basename(xlsxFile).startsWith('~$')) return
   const pkg = xlsx2package(xlsxFile)
   writePackage(pkg, path.resolve(__dirname, '../generated/dlc'))
 })

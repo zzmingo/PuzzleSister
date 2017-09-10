@@ -51,9 +51,14 @@ function array2csv(array) {
   array.forEach(item => {
     const values = []
     keys.forEach(key => {
-      values.push(item[key] || '')
+      values.push(escape(item[key] || ''))
     })
     lines.push(values.join(','))
   })
   return lines.join('\n')
+}
+
+function escape(value) {
+  value = value.trim().replace(/\n/g, "。").replace(/\r/g, "").replace(/\n\r/g, "。")
+  return value;
 }
