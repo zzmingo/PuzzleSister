@@ -22,7 +22,7 @@ namespace PuzzleSister {
     private List<Question> questionList;
     private int energy = 5;
     private int combo = 0;
-    private int totalCount = 3;
+    private int totalCount = 10;
     private int currentNum = 0;
     private Question currentQuestion;
     private int answerTimes = 0;
