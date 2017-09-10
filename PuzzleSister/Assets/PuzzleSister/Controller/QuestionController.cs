@@ -41,12 +41,13 @@ namespace PuzzleSister {
     }
     
     public void StartPackage(Package package) {
+
       questionView.gameObject.SetActive(false);
       cPackageTitle.SetText("「" + package.name + "」");
       oDialogue.SetActive(false);
 
-      roundService = new RoundService();
-      roundService.Start(package);
+      roundService = new RoundService(package);
+      roundService.Start();
 
       SetEnergy(roundService.Energy);
       SetProgress(roundService.Current, roundService.Total);
@@ -62,7 +63,7 @@ namespace PuzzleSister {
     }
 
     public IEnumerator StartQuestion() {
-      yield return ShowDialogue(true, true, "答题马上要开始了，点击『对话框』任意位置开始答题");
+      yield return ShowDialogue(true, true, "『答题回合』马上要开始了，点击『对话框』任意位置开始答题");
       yield return WaitDialogueConfirm();
       
       while(roundService.HasNextQuestion()) {
@@ -73,9 +74,11 @@ namespace PuzzleSister {
 
         while(!roundService.IsCurrentCompleted) {
           yield return WaitForAnswer();
+          Debug.Log(answer);
           roundService.SubmitAnswer(answer);
           
           if (!roundService.IsCorrect) {
+            questionView.DisableOption(answer);
             yield return ShowDialogue(false, false, "好像不正确哦，请继续作答...");
           }
 
@@ -83,11 +86,32 @@ namespace PuzzleSister {
           SetEnergy(roundService.Energy);
         }
 
+        questionView.HighlightOptions(roundService.CurrentQuestion.result);
+
         // show explaination
-        var resultText = "『" + (roundService.IsCorrect ? "回答正确" : "回答错误") + "』\n";
-        yield return ShowDialogue(false, true, resultText + "『解释』" + roundService.CurrentQuestion.explain);
+        string resultTpl = "{1}，解释如下：\n『{2}』";
+        string result = (roundService.IsCorrect ? "回答正确" : "回答错误");
+        string dialogue = String.Format(
+          resultTpl, Const.COLOR_CORRECT_HEX_STRING, result, roundService.CurrentQuestion.explain);
+        yield return ShowDialogue(false, true, dialogue);
         yield return WaitDialogueConfirm();
       }
+
+      var completedCount = 0;
+      var pkgService = PackageService.For(roundService.package);
+      pkgService.Load();
+      foreach(var answerItem in roundService.CompletedList) {
+        if (answerItem.completed) {
+          completedCount ++;
+          pkgService.SetCompleted(answerItem.question);
+        }
+      }
+      pkgService.Save();
+      string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击『对话框』任意位置返回";
+      roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
+      yield return ShowDialogue(true, true, roundResult);
+      yield return WaitDialogueConfirm();
+      GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
     }
 
     IEnumerator WaitDialogueConfirm() {
@@ -122,6 +146,7 @@ namespace PuzzleSister {
 
     IEnumerator ShowDialogue(bool animate, bool pointer, string text) {
       oDialogue.SetActive(true);
+      cDialogue.SetText("");
       if (animate) {
         oDialogue.ScaleFrom(new Vector3(0, 1f, 1f), 0.2f, 0);
         yield return new WaitForSeconds(0.2f);

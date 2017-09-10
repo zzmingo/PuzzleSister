@@ -18,6 +18,8 @@ namespace PuzzleSister {
             using (var sw = new StreamWriter(cs)) {
               sw.Write(message);
               sw.Flush();
+              cs.FlushFinalBlock();
+              sw.Flush();
               return Convert.ToBase64String(ms.ToArray());
             }
           }

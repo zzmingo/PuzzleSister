@@ -11,12 +11,19 @@ namespace PuzzleSister {
   /// </summary>
   public class PackageService {
 
+    private static PackageService last;
+
     public static PackageService For(Package package) {
-      return new PackageService(package);
+      if (last != null && last.package == package) {
+        return last;
+      }
+      last = new PackageService(package);
+      return last;
     }
 
     private Package package;
     private Dictionary<string, QuestionSaveData> packageSaveDict;
+    private bool loaded;
     
     private PackageService(Package package) {
       this.package = package;
@@ -24,18 +31,24 @@ namespace PuzzleSister {
 
     public void Save() {
       var packageSaveStr = JsonConvert.SerializeObject(packageSaveDict);
+      Debug.Log(packageSaveStr);
       var saveDataStr = CryptoUtils.Encript(packageSaveStr);
       File.WriteAllText(GetSavePath(), saveDataStr);
     }
 
     public void Load() {
+      if (loaded) {
+        return;
+      }
       var path = GetSavePath();
       if (!File.Exists(path)) {
         packageSaveDict = new Dictionary<string, QuestionSaveData>();
         return;
       }
       var saveDataStr = CryptoUtils.Decript(File.ReadAllText(path));
+      Debug.Log("load\n" + saveDataStr);
       packageSaveDict = JsonConvert.DeserializeObject<Dictionary<string, QuestionSaveData>>(saveDataStr);
+      loaded = true;
     }
 
     public bool IsComplete(Question question) {
@@ -55,6 +68,10 @@ namespace PuzzleSister {
     }
 
     private string GetSavePath() {
+      string savesDir = Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR);
+      if (!Directory.Exists(savesDir)) {
+        Directory.CreateDirectory(savesDir);
+      }
       return Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, package.id + Const.SAVE_EXT);
     }
 

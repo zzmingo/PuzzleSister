@@ -47,3 +47,6 @@ TagManager:
   - name: Charater
     uniqueID: 2497352789
     locked: 0
+  - name: Dialog
+    uniqueID: 3594837905
+    locked: 0

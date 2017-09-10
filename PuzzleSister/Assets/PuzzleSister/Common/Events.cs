@@ -11,11 +11,14 @@ namespace PuzzleSister {
     MenuManualClick,
     PackageItemClick,
     PackageListBackBtnClick,
+    QuestionPanelBackBtnClick,
     DialogueConfirmed,
     SelectOptionA,
     SelectOptionB,
     SelectOptionC,
-    SelectOptionD
+    SelectOptionD,
+    QuestionPanelToPackageList,
+    // 只能往后加
   }
 
   public class GlobalEvent : UnityEvent<EventData> {
@@ -24,6 +27,12 @@ namespace PuzzleSister {
 
     private GlobalEvent() {}
 
+    public void Invoke(EventType type) {
+      var data = new EventData();
+      data.type = type;
+      Invoke(data);
+    }
+ 
   }
 
   public class EventData {

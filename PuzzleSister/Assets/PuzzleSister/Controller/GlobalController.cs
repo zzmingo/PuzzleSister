@@ -12,6 +12,7 @@ namespace PuzzleSister {
     public GameObject oPackageListView;
     public PackageListView cPackageListView;
     public GameObject oQuestionPanel;
+    public GameObject oQuestionCharacter;
   
     void Start() {
 
@@ -34,6 +35,10 @@ namespace PuzzleSister {
         case EventType.PackageItemClick:
           StartCoroutine(TransitionPackageListViewToQuestionPanel((data as PackageClickEventData).package));
           break;
+        case EventType.QuestionPanelBackBtnClick:
+        case EventType.QuestionPanelToPackageList:
+          StartCoroutine(TransitionQuestionPanelToPackageListView());
+          break;
       }
     }
 
@@ -50,7 +55,14 @@ namespace PuzzleSister {
     IEnumerator TransitionPackageListViewToQuestionPanel(Package package) {
       yield return HidePackageList();
       oQuestionPanel.SetActive(true);
+      oQuestionCharacter.ScaleFrom(new Vector3(0, 1f, 1f), 0.3f, 0);
       GetComponent<QuestionController>().StartPackage(package);
+    }
+
+    IEnumerator TransitionQuestionPanelToPackageListView() {
+      oQuestionPanel.SetActive(false);
+      GetComponent<QuestionController>().StopAndReset();
+      yield return ShowPackageList();
     }
 
     IEnumerator ShowPackageList() {

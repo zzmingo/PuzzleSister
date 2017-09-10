@@ -39,4 +39,22 @@ namespace PuzzleSister {
     }
   }
 
+  public static class ResultExtensions {
+
+    public static string Name(this Question.Result result) {
+      switch(result) {
+        case Question.Result.A:
+          return "A";
+        case Question.Result.B:
+          return "B";
+        case Question.Result.C:
+          return "C";
+        case Question.Result.D:
+          return "D";
+        default:
+          return "Unknow";
+      }
+    } 
+  }
+
 }
