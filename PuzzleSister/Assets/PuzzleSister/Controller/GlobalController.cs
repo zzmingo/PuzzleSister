@@ -10,6 +10,7 @@ namespace PuzzleSister {
 
     public GameObject oMenuView;
     public GameObject oPackageListView;
+    public PackageListView cPackageListView;
     public GameObject oQuestionPanel;
   
     void Start() {
@@ -25,31 +26,49 @@ namespace PuzzleSister {
     void OnGlobalEvent(EventData data) {
       switch(data.type) {
         case EventType.MenuStartClick:
-          TransitionMenuToPackageListView();
+          StartCoroutine(TransitionMenuToPackageListView());
           break;
         case EventType.PackageListBackBtnClick:
-          TransitionPackageListViewToMenu();
+          StartCoroutine(TransitionPackageListViewToMenu());
           break;
         case EventType.PackageItemClick:
-          TransitionPackageListViewToQuestionPanel((data as PackageClickEventData).package);
+          StartCoroutine(TransitionPackageListViewToQuestionPanel((data as PackageClickEventData).package));
           break;
       }
     }
 
-    void TransitionMenuToPackageListView() {
+    IEnumerator TransitionMenuToPackageListView() {
       oMenuView.SetActive(false);
-      oPackageListView.SetActive(true);
+      yield return ShowPackageList();
     }
 
-    void TransitionPackageListViewToMenu() {
+    IEnumerator TransitionPackageListViewToMenu() {
+      yield return HidePackageList();
       oMenuView.SetActive(true);
-      oPackageListView.SetActive(false);
     }
 
-    void TransitionPackageListViewToQuestionPanel(Package package) {
-      oPackageListView.SetActive(false);
+    IEnumerator TransitionPackageListViewToQuestionPanel(Package package) {
+      yield return HidePackageList();
       oQuestionPanel.SetActive(true);
       GetComponent<QuestionController>().StartPackage(package);
+    }
+
+    IEnumerator ShowPackageList() {
+      var oPanel = oPackageListView.transform.Find("Panel").gameObject;
+      oPackageListView.SetActive(true);
+      oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
+      oPanel.ScaleFrom(new Vector3(0, 1f, 1f), 0.4f, 0);
+      yield return new WaitForSeconds(0.4f);
+      cPackageListView.InitList();
+    }
+
+    IEnumerator HidePackageList() {
+      var oPanel = oPackageListView.transform.Find("Panel").gameObject;
+      oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
+      oPanel.gameObject.ScaleTo(new Vector3(1f, 0, 1f), 0.4f, 0);
+      yield return new WaitForSeconds(0.4f);
+      oPackageListView.SetActive(false);
+      cPackageListView.DestroyList();
     }
 
 

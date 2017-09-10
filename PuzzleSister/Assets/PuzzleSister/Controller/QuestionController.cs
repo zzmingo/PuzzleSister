@@ -12,6 +12,7 @@ namespace PuzzleSister {
     private RoundService roundService;
 
     public TextEffect cPackageTitle;
+    public TextEffect cEnergyBG;
     public TextEffect cEnergy;
     public TextEffect cProgress;
     public QuestionView questionView;
@@ -42,6 +43,7 @@ namespace PuzzleSister {
     public void StartPackage(Package package) {
       questionView.gameObject.SetActive(false);
       cPackageTitle.SetText("「" + package.name + "」");
+      oDialogue.SetActive(false);
 
       roundService = new RoundService();
       roundService.Start(package);
@@ -64,17 +66,17 @@ namespace PuzzleSister {
       yield return WaitDialogueConfirm();
       
       while(roundService.HasNextQuestion()) {
-        questionView.ShowQuestion(roundService.NextQuestion());
         questionView.gameObject.SetActive(true);
+        questionView.ShowQuestion(roundService.NextQuestion());
         SetProgress(roundService.Current, roundService.Total);
-        yield return ShowDialogue(true, false, "请作答...");
+        yield return ShowDialogue(false, false, "请作答...");
 
         while(!roundService.IsCurrentCompleted) {
           yield return WaitForAnswer();
           roundService.SubmitAnswer(answer);
           
           if (!roundService.IsCorrect) {
-            ShowDialogue(true, false, "好像不正确哦，请继续作答...");
+            yield return ShowDialogue(false, false, "好像不正确哦，请继续作答...");
           }
 
           // check answer and show other response
@@ -83,7 +85,7 @@ namespace PuzzleSister {
 
         // show explaination
         var resultText = "『" + (roundService.IsCorrect ? "回答正确" : "回答错误") + "』\n";
-        yield return ShowDialogue(true, true, resultText + "『解释』" + roundService.CurrentQuestion.explain);
+        yield return ShowDialogue(false, true, resultText + "『解释』" + roundService.CurrentQuestion.explain);
         yield return WaitDialogueConfirm();
       }
     }
@@ -119,6 +121,11 @@ namespace PuzzleSister {
     }
 
     IEnumerator ShowDialogue(bool animate, bool pointer, string text) {
+      oDialogue.SetActive(true);
+      if (animate) {
+        oDialogue.ScaleFrom(new Vector3(0, 1f, 1f), 0.2f, 0);
+        yield return new WaitForSeconds(0.2f);
+      }
       cDialogue.SetText(text);
       oDialogue.transform.Find("Pointer").gameObject.SetActive(pointer);
       if (pointer) {

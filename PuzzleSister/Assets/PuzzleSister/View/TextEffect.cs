@@ -26,11 +26,15 @@ namespace PuzzleSister {
 
     public void SetText(string text) {
       target = text;
+      if (textCoroutine != null) {
+        StopCoroutine(textCoroutine);
+      }
+      if (target == "") {
+        GetComponent<Text>().text = text;
+        return;
+      }
       switch(type) {
         case Type.Sequence:
-          if (textCoroutine != null) {
-            StopCoroutine(textCoroutine);
-          }
           textCoroutine = StartCoroutine(SequenceShowText(text));
           break;
         default: 
@@ -39,7 +43,7 @@ namespace PuzzleSister {
       }
     }
 
-    void ForceShowAll() {
+    public void ForceShowAll() {
       if (textCoroutine != null) {
         StopCoroutine(textCoroutine);
       }

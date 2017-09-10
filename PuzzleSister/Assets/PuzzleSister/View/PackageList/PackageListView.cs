@@ -11,11 +11,20 @@ namespace PuzzleSister {
 
 		public GameObject packageItemPrefab;
 
-		void Start () {
+		public void InitList () {
+			foreach(Transform tItem in transform) {
+				Destroy(tItem.gameObject);
+			}
 			if (Repository.shared.IsPackagesLoaded) {
 				InitPackageList();
 			} else {
 				Repository.shared.OnPackagesLoaded.AddListener(InitPackageList);
+			}
+		}
+
+		public void DestroyList() {
+			foreach(Transform tItem in transform) {
+				Destroy(tItem.gameObject);
 			}
 		}
 
@@ -35,6 +44,8 @@ namespace PuzzleSister {
 						GlobalEvent.shared.Invoke(data);
 					});
 				}
+				item.SetActive(false);
+				StartCoroutine(AnimateShowItem(item, i * 0.05f));
 			}
 		}
 
@@ -46,6 +57,11 @@ namespace PuzzleSister {
 				data.package = package;
 				GlobalEvent.shared.Invoke(data);
 			});
+		}
+
+		IEnumerator AnimateShowItem(GameObject item, float delay) {
+			yield return new WaitForSeconds(delay);
+			item.SetActive(true);
 		}
 
 	}

@@ -15,6 +15,7 @@ namespace PuzzleSister {
     public void ShowQuestion(Question question) {
       ShowTitle(question.title);
       ShowOptions(question);
+      gameObject.ScaleFrom(new Vector3(0, 0, 0), 0.3f, 0);
     }
 
     public void SetInteractable(bool interactable) {
