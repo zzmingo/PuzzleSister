@@ -14,6 +14,20 @@ namespace PuzzleSister {
     private Dictionary<string, ProgressItem> progressDict;
     private bool loaded = false;
 
+    public Dictionary<string, ProgressItem> GetPackageProgressDict() {
+      Load();
+
+      Dictionary<string, ProgressItem> dict = new Dictionary<string, ProgressItem>();
+      Package[] packages = Repository.shared.GetAllPackages();
+      foreach(var pkg in packages) {
+        var item = new ProgressItem();
+        item.total = pkg.CountQuestions();
+        item.progress = progressDict.ContainsKey(pkg.id) ? progressDict[pkg.id].progress : 0;
+        dict.Add(pkg.id, item);
+      }
+      return dict;
+    }
+
     public void Load() {
       if (loaded) return;
       progressDict = Storage.shared.DeserializeLoad(GetSavePath(), new Dictionary<string, ProgressItem>());

@@ -9,9 +9,14 @@ namespace PuzzleSister {
 
 	public class PackageListView : MonoBehaviour {
 
+		public GameObject oLoading;
 		public GameObject packageItemPrefab;
+		public Sprite normalThumb;
+
+		private Dictionary<string, PackageProgressService.ProgressItem> progressDict;
 
 		public void InitList () {
+			progressDict = PackageProgressService.shared.GetPackageProgressDict();
 			foreach(Transform tItem in transform) {
 				Destroy(tItem.gameObject);
 			}
@@ -29,15 +34,19 @@ namespace PuzzleSister {
 		}
 
 		void InitPackageList() {
+			oLoading.SetActive(true);
 			var packages = Repository.shared.GetAllPackages();
+			oLoading.SetActive(false);
 			for(int i=0; i<12; i++) {
 				var item = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
 				item.transform.SetParent(transform);
 				item.transform.localScale = new Vector3(1, 1, 1);
+				// item.SetActive(false);
 				if (i < packages.Length) {
 					AdaptItem(item, packages[i]);
 				} else {
 					item.transform.Find("Name").GetComponent<Text>().text = "获取DLC";
+					item.transform.Find("Progress").gameObject.SetActive(false);
 					item.GetComponent<Button>().onClick.AddListener(() => {
 						var data = new PackageClickEventData();
 						data.type = EventType.PackageItemClick;
@@ -50,7 +59,14 @@ namespace PuzzleSister {
 		}
 
 		void AdaptItem(GameObject item, Package package) {
+			var progress = progressDict[package.id];
+			item.transform.Find("Progress/Text").GetComponent<Text>().text = progress.progress + "/" + progress.total;
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
+			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {
+				item.transform.Find("Image").GetComponent<Image>().sprite = normalThumb;
+			} else {
+				item.transform.Find("Image").GetComponent<Image>().sprite = SpriteExtensions.Base64ToSprite(package.thumb);
+			}
 			item.GetComponent<Button>().onClick.AddListener(() => {
 				var data = new PackageClickEventData();
 				data.type = EventType.PackageItemClick;

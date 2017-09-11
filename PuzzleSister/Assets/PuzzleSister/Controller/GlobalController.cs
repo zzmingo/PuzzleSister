@@ -69,7 +69,7 @@ namespace PuzzleSister {
       oPackageListView.SetActive(true);
       oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
       oPanel.ScaleFrom(new Vector3(0, 1f, 1f), 0.4f, 0);
-      yield return new WaitForSeconds(0.4f);
+      yield return new WaitForSeconds(0.5f);
       cPackageListView.InitList();
     }
 
