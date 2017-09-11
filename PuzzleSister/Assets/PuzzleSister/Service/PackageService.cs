@@ -6,7 +6,6 @@ using System.IO;
 
 namespace PuzzleSister {
 
-
   /// <summary>
   /// 回合答题服务
   /// </summary>
@@ -21,6 +20,8 @@ namespace PuzzleSister {
       last = new PackageService(package);
       return last;
     }
+
+    public int CompletedCount { get { return packageSaveDict.Count; } }
 
     private Package package;
     private Dictionary<string, QuestionSaveData> packageSaveDict;

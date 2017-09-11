@@ -10,6 +10,7 @@ namespace PuzzleSister {
     public const string SAVE_EXT = ".sav";
 
     public const string SAVE_DIR_PACAKGES = "Packages";
+    public const string SAVE_PATH_PACKAGE_PROGRESS = "PackageProgress";
     public const string SAVE_PATH_ILLUSTRATION = "Illustraction";
 
     public const string COLOR_CORRECT_HEX_STRING = "#5269FFFF";

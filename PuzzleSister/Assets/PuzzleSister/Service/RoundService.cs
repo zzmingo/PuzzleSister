@@ -8,6 +8,8 @@ namespace PuzzleSister {
   /// 回合答题服务
   /// </summary>
   public class RoundService {
+
+    public int PackageQuestionCount { get { return packageQuestionCount; } }
     public int Energy { get { return energy; } }
     public int Total { get { return totalCount; } }
     public int Current { get { return currentNum; } }
@@ -19,6 +21,7 @@ namespace PuzzleSister {
     public bool IsEnergyEmpty() { return Energy == 0; }
     
     public readonly Package package;
+    private int packageQuestionCount;
     private List<Question> questionList;
     private int energy = 5;
     private int combo = 0;
@@ -35,6 +38,7 @@ namespace PuzzleSister {
 
     public void Start() {
       questionList = package.Load();
+      packageQuestionCount = questionList.Count;
       List<Question> filteredList = new List<Question>();
       var pkgService = PackageService.For(package);
       pkgService.Load();

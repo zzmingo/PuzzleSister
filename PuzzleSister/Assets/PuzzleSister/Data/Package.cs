@@ -30,6 +30,10 @@ namespace PuzzleSister {
     public Type type;
     public Source source;
 
+    public int CountQuestions() {
+      return Load().Count;
+    }
+
     public List<Question> Load() {
       object data;
       switch(source) {
@@ -40,10 +44,13 @@ namespace PuzzleSister {
           data = new ResourcesReader().Read(this);
           break;
       }
+      List<Question> list;
       switch(type) {
         default:
-          return new CSVParser().Parse(this, data);
+          list = new CSVParser().Parse(this, data);
+          break;
       }
+      return list;
     }
 
     public void FromDict(Dictionary<string, object> dict, string path, Type type = Type.CSV, Source source = Source.Resources) {
