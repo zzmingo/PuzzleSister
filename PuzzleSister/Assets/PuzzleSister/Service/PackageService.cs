@@ -6,6 +6,7 @@ using System.IO;
 
 namespace PuzzleSister {
 
+
   /// <summary>
   /// 回合答题服务
   /// </summary>
@@ -30,23 +31,14 @@ namespace PuzzleSister {
     }
 
     public void Save() {
-      var packageSaveStr = JsonConvert.SerializeObject(packageSaveDict);
-      Debug.Log(packageSaveStr);
-      var saveDataStr = CryptoUtils.Encript(packageSaveStr);
-      File.WriteAllText(GetSavePath(), saveDataStr);
+      Storage.shared.SerializeSave(GetSavePath(), packageSaveDict);
     }
 
     public void Load() {
       if (loaded) {
         return;
       }
-      var path = GetSavePath();
-      if (!File.Exists(path)) {
-        packageSaveDict = new Dictionary<string, QuestionSaveData>();
-        return;
-      }
-      var saveDataStr = CryptoUtils.Decript(File.ReadAllText(path));
-      packageSaveDict = JsonConvert.DeserializeObject<Dictionary<string, QuestionSaveData>>(saveDataStr);
+      packageSaveDict = Storage.shared.DeserializeLoad(GetSavePath(), new Dictionary<string, QuestionSaveData>());
       loaded = true;
     }
 
@@ -61,17 +53,12 @@ namespace PuzzleSister {
       packageSaveDict[question.id].completed = true;
     }
 
-
     public class QuestionSaveData {
       public bool completed;
     }
 
     private string GetSavePath() {
-      string savesDir = Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR);
-      if (!Directory.Exists(savesDir)) {
-        Directory.CreateDirectory(savesDir);
-      }
-      return Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, Const.SAVE_DIR_PACAKGES, package.id + Const.SAVE_EXT);
+      return Utils.Path(package.id + Const.SAVE_EXT);
     }
 
   }

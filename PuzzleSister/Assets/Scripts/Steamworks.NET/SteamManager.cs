@@ -7,7 +7,9 @@
 
 using UnityEngine;
 using System.Collections;
+#if UNITY_STANDALONE
 using Steamworks;
+#endif
 
 //
 // The SteamManager provides a base implementation of Steamworks.NET on which you can build upon.
@@ -35,6 +37,14 @@ public class SteamManager : MonoBehaviour {
 			return Instance.m_bInitialized;
 		}
 	}
+
+#if (UNITY_IOS || UNITY_ANDROID)
+	private void Awake() {
+		m_bInitialized = true;
+	}
+#endif
+
+#if UNITY_STANDALONE
 
 	private SteamAPIWarningMessageHook_t m_SteamAPIWarningMessageHook;
 	private static void SteamAPIDebugTextHook(int nSeverity, System.Text.StringBuilder pchDebugText) {
@@ -148,4 +158,6 @@ public class SteamManager : MonoBehaviour {
 		// Run Steam client callbacks
 		SteamAPI.RunCallbacks();
 	}
+
+#endif
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Steamworks;
 using System.IO;
 
 namespace PuzzleSister {
@@ -43,6 +42,7 @@ namespace PuzzleSister {
         AddPackage(pkg);
       }
 
+#if UNITY_STANDALONE
       // DLC
       // TODO check file broken
       string appInstallDir = Utils.GetAppInstallDir();
@@ -62,6 +62,7 @@ namespace PuzzleSister {
           }
         }
       }
+#endif
 
       isPackagesLoaded = true;
       OnPackagesLoaded.Invoke();
