@@ -46,7 +46,6 @@ namespace PuzzleSister {
         return;
       }
       var saveDataStr = CryptoUtils.Decript(File.ReadAllText(path));
-      Debug.Log("load\n" + saveDataStr);
       packageSaveDict = JsonConvert.DeserializeObject<Dictionary<string, QuestionSaveData>>(saveDataStr);
       loaded = true;
     }
@@ -72,7 +71,7 @@ namespace PuzzleSister {
       if (!Directory.Exists(savesDir)) {
         Directory.CreateDirectory(savesDir);
       }
-      return Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, package.id + Const.SAVE_EXT);
+      return Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, Const.SAVE_DIR_PACAKGES, package.id + Const.SAVE_EXT);
     }
 
   }

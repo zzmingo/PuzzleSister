@@ -7,6 +7,7 @@ using System.IO;
 namespace PuzzleSister {
 
   public class IllustrationItem {
+    public string id;
     public string name;
     public Sprite image;
   }
@@ -18,15 +19,19 @@ namespace PuzzleSister {
 
     public static readonly IllustrationService shared = new IllustrationService();
 
-    private List<IllustrationItem> itemList;
+    private List<string> retivedItems;
 
     public void Load() {
-      itemList = new List<IllustrationItem>();
+      retivedItems = new List<string>();
       
     }
 
-    public void RetriveItem() {
+    public void Save() {
+      
+    }
 
+    public void RetriveItem(IllustrationItem item) {
+      
     }
 
   }
