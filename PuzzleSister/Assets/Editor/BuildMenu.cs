@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.IO;
 
-public class ScriptBatch {
+public class BuildMenu {
 
     [MenuItem("Puzzle Sisters/Build All Platforms For Steam")]
     public static void BuildGame() {
