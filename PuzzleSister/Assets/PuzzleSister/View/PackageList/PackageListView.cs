@@ -13,10 +13,8 @@ namespace PuzzleSister {
 		[NotNull] public GameObject packageItemPrefab;
 		[NotNull] public Sprite normalThumb;
 
-		private Dictionary<string, PackageProgressService.ProgressItem> progressDict;
-
 		public void InitList () {
-			progressDict = PackageProgressService.shared.GetPackageProgressDict();
+			PackageProgressService.shared.Load();
 			foreach(Transform tItem in transform) {
 				Destroy(tItem.gameObject);
 			}
@@ -59,7 +57,7 @@ namespace PuzzleSister {
 		}
 
 		void AdaptItem(GameObject item, Package package) {
-			var progress = progressDict[package.id];
+			var progress = PackageProgressService.shared.GetProgress(package.id);
 			item.transform.Find("Progress/Text").GetComponent<Text>().text = progress.progress + "/" + progress.total;
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
 			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {

@@ -14,6 +14,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject oQuestionCharacter;
   
     void Start() {
+			PackageProgressService.shared.Load();
 
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);
@@ -62,6 +63,10 @@ namespace PuzzleSister {
       oQuestionPanel.SetActive(false);
       GetComponent<QuestionController>().StopAndReset();
       yield return ShowPackageList();
+    }
+
+    IEnumerator ShowMenu() {
+      yield return null;
     }
 
     IEnumerator ShowPackageList() {
