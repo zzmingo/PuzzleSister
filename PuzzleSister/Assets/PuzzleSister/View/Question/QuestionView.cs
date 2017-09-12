@@ -9,8 +9,8 @@ namespace PuzzleSister {
 
 	public class QuestionView : MonoBehaviour {
 
-    public TextEffect cTitle;
-    public GameObject oOptions;
+    [NotNull] public TextEffect cTitle;
+    [NotNull] public GameObject oOptions;
 
     public void ShowQuestion(Question question) {
       ShowTitle(question.title);

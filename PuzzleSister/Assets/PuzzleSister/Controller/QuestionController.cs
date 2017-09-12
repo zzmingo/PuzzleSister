@@ -10,13 +10,13 @@ namespace PuzzleSister {
 
     private RoundService roundService;
 
-    public TextEffect cPackageTitle;
-    public TextEffect cEnergyBG;
-    public TextEffect cEnergy;
-    public TextEffect cProgress;
-    public QuestionView questionView;
-    public GameObject oDialogue;
-    public TextEffect cDialogue;
+    [NotNull] public TextEffect cPackageTitle;
+    [NotNull] public TextEffect cEnergyBG;
+    [NotNull] public TextEffect cEnergy;
+    [NotNull] public TextEffect cProgress;
+    [NotNull] public QuestionView questionView;
+    [NotNull] public GameObject oDialogue;
+    [NotNull] public TextEffect cDialogue;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;

@@ -9,9 +9,9 @@ namespace PuzzleSister {
 
 	public class PackageListView : MonoBehaviour {
 
-		public GameObject oLoading;
-		public GameObject packageItemPrefab;
-		public Sprite normalThumb;
+		[NotNull] public GameObject oLoading;
+		[NotNull] public GameObject packageItemPrefab;
+		[NotNull] public Sprite normalThumb;
 
 		private Dictionary<string, PackageProgressService.ProgressItem> progressDict;
 

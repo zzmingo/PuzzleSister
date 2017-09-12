@@ -7,11 +7,11 @@ using System.IO;
 namespace PuzzleSister {
 	public class GlobalController : MonoBehaviour {
 
-    public GameObject oMenuView;
-    public GameObject oPackageListView;
-    public PackageListView cPackageListView;
-    public GameObject oQuestionPanel;
-    public GameObject oQuestionCharacter;
+    [NotNull] public GameObject oMenuView;
+    [NotNull] public GameObject oPackageListView;
+    [NotNull] public PackageListView cPackageListView;
+    [NotNull] public GameObject oQuestionPanel;
+    [NotNull] public GameObject oQuestionCharacter;
   
     void Start() {
 

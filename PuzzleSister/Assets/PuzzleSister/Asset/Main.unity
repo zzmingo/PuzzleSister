@@ -1773,7 +1773,7 @@ GameObject:
   - component: {fileID: 973523041}
   - component: {fileID: 973523040}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3398,7 +3398,7 @@ MonoBehaviour:
   oPackageListView: {fileID: 352624660}
   cPackageListView: {fileID: 1429927459}
   oQuestionPanel: {fileID: 1636576043}
-  oQuestionCharacter: {fileID: 0}
+  oQuestionCharacter: {fileID: 973523038}
 --- !u!114 &1548840411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3422,7 +3422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cPackageTitle: {fileID: 703040065}
-  cEnergyBG: {fileID: 0}
+  cEnergyBG: {fileID: 1810145867}
   cEnergy: {fileID: 767908567}
   cProgress: {fileID: 408183699}
   questionView: {fileID: 1525595677}
