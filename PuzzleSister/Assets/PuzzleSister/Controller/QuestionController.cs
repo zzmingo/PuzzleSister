@@ -73,7 +73,6 @@ namespace PuzzleSister {
 
         while(!roundService.IsCurrentCompleted) {
           yield return WaitForAnswer();
-          Debug.Log(answer);
           roundService.SubmitAnswer(answer);
           
           if (!roundService.IsCorrect) {

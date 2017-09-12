@@ -6,6 +6,7 @@ const fakePackage = require('./fakePackage')
 const writePackage = require('./writePackage')
 
 fse.emptyDirSync(path.resolve(__dirname, '../generated/builtin'))
+fse.emptyDirSync(path.resolve(__dirname, '../generated/dlc'))
 
 const pkg = fakePackage("FAKE001", "自动生成的")
 writePackage(pkg, path.resolve(__dirname, '../generated/builtin'))

@@ -27,7 +27,6 @@ namespace PuzzleSister {
         foreach(var pkgItem in DataConst.TESTING_PACKAGES) {
           Package pkg = new Package();
           var pkgCSVStr = CryptoUtils.Decript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
-          Debug.Log(pkgCSVStr);
           var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
           pkg.FromDict(pkgDict, pkgItem.questionPath);
           AddPackage(pkg);
