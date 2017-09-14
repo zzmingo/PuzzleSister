@@ -25,6 +25,7 @@ namespace PuzzleSister {
         } else {
           item = new ProgressItem();
           item.progress = 0;
+          Debug.Log("Add " + pkg.id);
           progressDict.Add(pkg.id, item);
         }
         item.total = pkg.CountQuestions();
@@ -37,6 +38,7 @@ namespace PuzzleSister {
     }
 
     public ProgressItem GetProgress(string id) {
+      Debug.Log(id);
       return progressDict[id];
     }
 

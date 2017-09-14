@@ -11,6 +11,7 @@ namespace PuzzleSister {
 
     [NotNull] public TextEffect cTitle;
     [NotNull] public GameObject oOptions;
+    [NotNull] public GameObject oMask;
 
     public void ShowQuestion(Question question) {
       ShowTitle(question.title);
@@ -19,9 +20,7 @@ namespace PuzzleSister {
     }
 
     public void SetInteractable(bool interactable) {
-      foreach(Transform tOpt in oOptions.transform) {
-        tOpt.GetComponent<Button>().enabled = interactable;
-      }
+      oMask.SetActive(!interactable);
     }
 
     public void HighlightOptions(Question.Result result) {
@@ -30,8 +29,6 @@ namespace PuzzleSister {
         // 5269FFFF
         if (result.Name().Equals(tOpt.name)) {
           StartCoroutine(FlashText(tOpt.GetComponent<Text>(), Const.COLOR_CORRECT));
-        } else {
-          tOpt.GetComponent<Text>().color = Color.white;
         }
       }
     }

@@ -19,6 +19,9 @@ namespace PuzzleSister {
     private List<Package> packageList = new List<Package>();
 
     public void LoadPackages() {
+      if (isPackagesLoaded) {
+        return;
+      }
       bool internalTesting = false;
 #if InternalTesting
       internalTesting = true;

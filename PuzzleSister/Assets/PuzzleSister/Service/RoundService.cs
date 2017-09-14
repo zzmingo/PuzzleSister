@@ -67,13 +67,13 @@ namespace PuzzleSister {
 
     public void SubmitAnswer(Question.Result answer) {
       correct = answer == currentQuestion.result;
+      answerTimes ++;
       if (correct) {
-        if (energy < 5) energy++;
+        if (energy < 5 && answerTimes == 1) energy++;
       } else {
         if (energy > 0) energy --;
       }
-      answerTimes ++;
-      if (answerTimes == 1 && correct) {
+      if (answerTimes == 1 && correct && energy >= 5) {
         combo ++;
       }
       if (!correct) {

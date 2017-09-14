@@ -14,6 +14,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject oQuestionCharacter;
   
     void Start() {
+      Repository.shared.LoadPackages();
 			PackageProgressService.shared.Load();
 
       oMenuView.SetActive(true);

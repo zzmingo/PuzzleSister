@@ -17,6 +17,7 @@ namespace PuzzleSister {
     [NotNull] public QuestionView questionView;
     [NotNull] public GameObject oDialogue;
     [NotNull] public TextEffect cDialogue;
+    [NotNull] public CharacterController characterController;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
@@ -65,23 +66,35 @@ namespace PuzzleSister {
       yield return ShowDialogue(true, true, "『答题回合』马上要开始了，点击『对话框』任意位置开始答题");
       yield return WaitDialogueConfirm();
       
-      while(roundService.HasNextQuestion()) {
+      while(roundService.HasNextQuestion() && !roundService.IsEnergyEmpty()) {
         questionView.gameObject.SetActive(true);
         questionView.ShowQuestion(roundService.NextQuestion());
         SetProgress(roundService.Current, roundService.Total);
         yield return ShowDialogue(false, false, "请作答...");
 
         while(!roundService.IsCurrentCompleted) {
+          Debug.Log(roundService.Current + "," + roundService.CurrentQuestion.result);
           yield return WaitForAnswer();
           roundService.SubmitAnswer(answer);
-          
-          if (!roundService.IsCorrect) {
-            questionView.DisableOption(answer);
-            yield return ShowDialogue(false, false, "好像不正确哦，请继续作答...");
-          }
 
           // check answer and show other response
           SetEnergy(roundService.Energy);
+
+          if (roundService.IsEnergyEmpty()) {
+            yield return characterController.ShowStateFor(roundService);
+            break;
+          }
+          
+          if (!roundService.IsCorrect) {
+            questionView.DisableOption(answer);
+            yield return characterController.ShowStateFor(roundService);
+            yield return ShowDialogue(false, true, "好像不正确哦");
+            yield return WaitDialogueConfirm();
+            StartCoroutine(characterController.ResumeStateFor(roundService));
+            yield return ShowDialogue(false, false, "请继续作答...");
+          } else {
+            yield return characterController.ShowStateFor(roundService);
+          }
         }
 
         questionView.HighlightOptions(roundService.CurrentQuestion.result);
@@ -93,6 +106,10 @@ namespace PuzzleSister {
           resultTpl, Const.COLOR_CORRECT_HEX_STRING, result, roundService.CurrentQuestion.explain);
         yield return ShowDialogue(false, true, dialogue);
         yield return WaitDialogueConfirm();
+
+        if (roundService.IsCorrect) {
+          yield return characterController.ResumeStateFor(roundService);
+        }
       }
 
       // save completed
@@ -136,7 +153,7 @@ namespace PuzzleSister {
       while(answer == Question.Result.Unknow) {
         yield return 1;
       }
-      questionView.SetInteractable(true);
+      questionView.SetInteractable(false);
     }
 
     void SetEnergy(int energy) {
