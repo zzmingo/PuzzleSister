@@ -12,6 +12,10 @@ namespace PuzzleSister {
     [NotNull] public PackageListView cPackageListView;
     [NotNull] public GameObject oQuestionPanel;
     [NotNull] public GameObject oQuestionCharacter;
+    [NotNull] public GameObject oSettingsView;
+    [NotNull] public GameObject[] views;
+
+    private bool[] viewActives;
   
     void Start() {
       Repository.shared.LoadPackages();
@@ -20,6 +24,7 @@ namespace PuzzleSister {
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);
       oQuestionPanel.SetActive(false);
+      oSettingsView.SetActive(false);
 
       GlobalEvent.shared.AddListener(OnGlobalEvent);
       Repository.shared.LoadPackages();
@@ -39,6 +44,20 @@ namespace PuzzleSister {
         case EventType.QuestionPanelBackBtnClick:
         case EventType.QuestionPanelToPackageList:
           StartCoroutine(TransitionQuestionPanelToPackageListView());
+          break;
+        case EventType.OpenSettings:
+          viewActives = new bool[views.Length];
+          for(int i=0; i<views.Length; i++) {
+            viewActives[i] = views[i].activeSelf;
+            views[i].SetActive(false);
+          }
+          oSettingsView.SetActive(true);
+          break;
+        case EventType.CloseSettings:
+          for(int i=0; i<views.Length; i++) {
+            views[i].SetActive(viewActives[i]);
+          }
+          oSettingsView.SetActive(false);
           break;
       }
     }

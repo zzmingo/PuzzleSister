@@ -50,3 +50,6 @@ TagManager:
   - name: Dialog
     uniqueID: 3594837905
     locked: 0
+  - name: Alert
+    uniqueID: 1294070989
+    locked: 0

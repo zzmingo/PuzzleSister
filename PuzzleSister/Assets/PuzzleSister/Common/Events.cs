@@ -18,6 +18,8 @@ namespace PuzzleSister {
     SelectOptionC,
     SelectOptionD,
     QuestionPanelToPackageList,
+    OpenSettings,
+    CloseSettings,
     // 只能往后加
   }
 
