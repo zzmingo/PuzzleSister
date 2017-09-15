@@ -20,6 +20,8 @@ namespace PuzzleSister {
     QuestionPanelToPackageList,
     OpenSettings,
     CloseSettings,
+    OpenManual,
+    CloseManual,
     // 只能往后加
   }
 

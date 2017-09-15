@@ -51,13 +51,13 @@ namespace PuzzleSister {
             viewActives[i] = views[i].activeSelf;
             views[i].SetActive(false);
           }
-          oSettingsView.SetActive(true);
+          StartCoroutine(ShowSettings());
           break;
         case EventType.CloseSettings:
           for(int i=0; i<views.Length; i++) {
             views[i].SetActive(viewActives[i]);
           }
-          oSettingsView.SetActive(false);
+          StartCoroutine(HideSettings());
           break;
       }
     }
@@ -105,6 +105,22 @@ namespace PuzzleSister {
       yield return new WaitForSeconds(0.4f);
       oPackageListView.SetActive(false);
       cPackageListView.DestroyList();
+    }
+
+    IEnumerator ShowSettings() {
+      var oPanel = oSettingsView.transform.Find("Panel").gameObject;
+      oSettingsView.SetActive(true);
+      oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
+      oPanel.ScaleFrom(new Vector3(0, 1f, 1f), 0.4f, 0);
+      yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator HideSettings() {
+      var oPanel = oSettingsView.transform.Find("Panel").gameObject;
+      oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
+      oPanel.gameObject.ScaleTo(new Vector3(1f, 0, 1f), 0.4f, 0);
+      yield return new WaitForSeconds(0.4f);
+      oSettingsView.SetActive(false);
     }
 
 
