@@ -35,6 +35,7 @@ namespace PuzzleSister {
     }
 
     public void ResetState() {
+      currentState = State.Normal;
       foreach(Transform child in transform) {
         child.gameObject.SetActive(child.gameObject == StateToGameObject(State.Normal));
       }

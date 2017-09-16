@@ -15,7 +15,11 @@ namespace PuzzleSister {
     [NotNull] public QuestionView questionView;
     [NotNull] public GameObject oDialogue;
     [NotNull] public TextEffect cDialogue;
+    [NotNull] public GameObject oDialogueMask;
     [NotNull] public CharacterController characterController;
+    [NotNull] public AudioClip dialogueClickClip;
+    [NotNull] public AudioClip correctClip;
+    [NotNull] public AudioClip wrongClip;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
@@ -43,6 +47,9 @@ namespace PuzzleSister {
       questionView.gameObject.SetActive(false);
       // cPackageTitle.SetText("「" + package.name + "」");
       oDialogue.SetActive(false);
+      oDialogueMask.SetActive(false);
+
+      characterController.ResetState();
 
       roundService = new RoundService(package);
       roundService.Start();
@@ -84,6 +91,7 @@ namespace PuzzleSister {
           }
           
           if (!roundService.IsCorrect) {
+            Utils.PlayClip(wrongClip);
             questionView.DisableOption(answer);
             yield return characterController.ShowStateFor(roundService);
             yield return ShowDialogue(false, true, "好像不正确哦");
@@ -91,6 +99,7 @@ namespace PuzzleSister {
             StartCoroutine(characterController.ResumeStateFor(roundService));
             yield return ShowDialogue(false, false, "请继续作答...");
           } else {
+            Utils.PlayClip(correctClip);
             yield return characterController.ShowStateFor(roundService);
           }
         }
@@ -139,9 +148,12 @@ namespace PuzzleSister {
     IEnumerator WaitDialogueConfirm() {
       yield return new WaitForSeconds(0.3f);
       dialgueConfirmed = false;
+      oDialogueMask.SetActive(true);
       while(!dialgueConfirmed) {
         yield return 1;
       }
+      oDialogueMask.SetActive(false);
+      Utils.PlayClip(dialogueClickClip);
     }
 
     IEnumerator WaitForAnswer() {

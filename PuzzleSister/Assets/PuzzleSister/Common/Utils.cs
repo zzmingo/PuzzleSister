@@ -1,6 +1,7 @@
 #if UNITY_STANDALONE
 using Steamworks;
 #endif
+using UnityEngine;
 
 namespace PuzzleSister {
 
@@ -16,6 +17,13 @@ namespace PuzzleSister {
 
     public static string Path(params string[] paths) {
       return string.Join(System.IO.Path.DirectorySeparatorChar + "", paths);
+    }
+
+    public static void PlayClip(AudioClip clip) {
+      GameObject
+        .FindGameObjectWithTag("SoundEffect")
+        .GetComponent<AudioSource>()
+        .PlayOneShot(clip);
     }
 
   }

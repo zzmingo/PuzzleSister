@@ -58,7 +58,7 @@ namespace PuzzleSister {
 
 		void AdaptItem(GameObject item, Package package) {
 			var progress = PackageProgressService.shared.GetProgress(package.id);
-			item.transform.Find("Progress/Text").GetComponent<Text>().text = progress.progress + "/" + progress.total;
+			item.transform.Find("Progress").GetComponent<Text>().text = Mathf.FloorToInt(progress.progress / progress.total * 100) + "%";
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
 			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {
 				item.transform.Find("Image").GetComponent<Image>().sprite = normalThumb;

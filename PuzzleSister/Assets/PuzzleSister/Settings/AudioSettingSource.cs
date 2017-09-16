@@ -6,7 +6,7 @@ namespace PuzzleSister {
 
   public class AudioSettingSource : MonoBehaviour {
 
-    public Settings.Key key;
+    [NotNull] public Settings.Key key;
     public AudioClip audioClip;
     public float notifyTime = 1f;
 
@@ -17,6 +17,9 @@ namespace PuzzleSister {
       slider.value = Settings.GetFloat(key.Strings(), 1f);
       slider.onValueChanged.AddListener((value) => {
         Settings.SetFloat(key.Strings(), value);
+        if (audioClip == null) {
+          return;
+        }
         if (notifyCoroutine != null) {
           StopCoroutine(notifyCoroutine);
         }
