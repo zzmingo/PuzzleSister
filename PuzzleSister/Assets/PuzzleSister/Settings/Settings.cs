@@ -10,7 +10,7 @@ namespace PuzzleSister {
   public class Settings {
 
     public enum Key {
-      Music, Sound, Voice, VoiceStyle, Resolution
+      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen
     }
     
     public const string MUSIC = "settings.music";
@@ -18,10 +18,20 @@ namespace PuzzleSister {
     public const string VOICE = "settings.voice";
     public const string VOICE_STYLE = "settings.voice.style";
     public const string RESOLUTION = "settings.resolution";
+    public const string FULLSCREEN = "settings.fullscreen";
 
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
     public static readonly SettingChangeEvent OnChange = new SettingChangeEvent();
+
+    public static bool IsFullscreen() {
+      return GetInt(FULLSCREEN, 0) == 1;
+    }
+
+    public static Vector2Int ParseResolutino(string resolution) {
+      string[] split = resolution.Split('x');
+      return new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
+    }
 
     public static int GetInt(string key, int defaults = 0) {
       if (!PlayerPrefs.HasKey(key)) {

@@ -16,6 +16,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject[] views;
 
     private bool[] viewActives;
+    private bool blockingEvents = false;
   
     void Start() {
       Repository.shared.LoadPackages();
@@ -31,6 +32,7 @@ namespace PuzzleSister {
     }
   
     void OnGlobalEvent(EventData data) {
+      if (blockingEvents) return;
       switch(data.type) {
         case EventType.MenuStartClick:
           StartCoroutine(TransitionMenuToPackageListView());
@@ -63,13 +65,17 @@ namespace PuzzleSister {
     }
 
     IEnumerator TransitionMenuToPackageListView() {
-      oMenuView.SetActive(false);
+      blockingEvents = true;
+      yield return HideMenu();
       yield return ShowPackageList();
+      blockingEvents = false;
     }
 
     IEnumerator TransitionPackageListViewToMenu() {
+      blockingEvents = true;
       yield return HidePackageList();
-      oMenuView.SetActive(true);
+      yield return ShowMenu();
+      blockingEvents = false;
     }
 
     IEnumerator TransitionPackageListViewToQuestionPanel(Package package) {
@@ -86,7 +92,13 @@ namespace PuzzleSister {
     }
 
     IEnumerator ShowMenu() {
-      yield return null;
+      yield return new WaitForSeconds(0.5f);
+      oMenuView.SetActive(true);
+    }
+
+    IEnumerator HideMenu() {
+      yield return new WaitForSeconds(1f);
+      oMenuView.SetActive(false);
     }
 
     IEnumerator ShowPackageList() {

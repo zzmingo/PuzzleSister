@@ -16,7 +16,6 @@ namespace PuzzleSister {
     public void ShowQuestion(Question question) {
       ShowTitle(question.title);
       ShowOptions(question);
-      gameObject.ScaleFrom(new Vector3(0, 0, 0), 0.3f, 0);
     }
 
     public void SetInteractable(bool interactable) {
@@ -28,7 +27,11 @@ namespace PuzzleSister {
         tOpt.GetComponent<Button>().enabled = false;
         // 5269FFFF
         if (result.Name().Equals(tOpt.name)) {
-          StartCoroutine(FlashText(tOpt.GetComponent<Text>(), Const.COLOR_CORRECT));
+          var oFrame = tOpt.Find("Frame").gameObject;
+          oFrame.SetActive(true);
+          oFrame.ScaleFrom(new Vector3(1.3f, 1.3f, 1.3f), 0.3f, 0, EaseType.easeInQuart);
+
+          // StartCoroutine(FlashText(tOpt.GetComponent<Text>(), Const.COLOR_CORRECT));
         }
       }
     }
@@ -37,19 +40,19 @@ namespace PuzzleSister {
       oOptions.transform.Find(result.Name()).GetComponent<Button>().interactable = false;
     }
 
-    IEnumerator FlashText(Text text, Color color, int times = 8) {
-      if (times == 0) {
-        text.color = color;
-      } else {
-        if (text.color.Equals(color)) {
-          text.color = Color.white;
-        } else {
-          text.color = color;
-        }
-        yield return new WaitForSeconds(0.1f);
-        yield return FlashText(text, color, times-1);
-      }
-    }
+    // IEnumerator FlashText(Text text, Color color, int times = 8) {
+      // if (times == 0) {
+      //   text.color = color;
+      // } else {
+      //   if (text.color.Equals(color)) {
+      //     text.color = Color.white;
+      //   } else {
+      //     text.color = color;
+      //   }
+      //   yield return new WaitForSeconds(0.1f);
+      //   yield return FlashText(text, color, times-1);
+      // }
+    // }
     
     void ShowTitle(string title) {
       cTitle.SetText(title);
@@ -59,8 +62,9 @@ namespace PuzzleSister {
       foreach(Transform tOpt in oOptions.transform) {
         tOpt.GetComponent<Button>().enabled = true;
         tOpt.GetComponent<Button>().interactable = true;
-        tOpt.GetComponent<Text>().color = Color.white;
-        tOpt.GetComponent<TextEffect>().SetText(tOpt.name + ". " + question.GetOptionByName(tOpt.name));
+        tOpt.Find("Frame").gameObject.SetActive(false);
+        var optionText = string.Format("{0}、{1}", tOpt.name, question.GetOptionByName(tOpt.name));
+        tOpt.Find("Text").GetComponent<Text>().text = optionText;
       }
     }
 

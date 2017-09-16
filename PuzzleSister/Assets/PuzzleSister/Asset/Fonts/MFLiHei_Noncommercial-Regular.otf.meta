@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 15fe0f72e0806417e94f144346497cd4
+timeCreated: 1505549884
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: MF LiHei (Noncommercial)
+  fontNames:
+  - MF LiHei (Noncommercial)
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

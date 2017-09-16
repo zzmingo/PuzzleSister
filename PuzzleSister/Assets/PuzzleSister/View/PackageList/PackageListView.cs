@@ -35,7 +35,7 @@ namespace PuzzleSister {
 			oLoading.SetActive(true);
 			var packages = Repository.shared.GetAllPackages();
 			oLoading.SetActive(false);
-			for(int i=0; i<12; i++) {
+			for(int i=0; i<6; i++) {
 				var item = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
 				item.transform.SetParent(transform);
 				item.transform.localScale = new Vector3(1, 1, 1);

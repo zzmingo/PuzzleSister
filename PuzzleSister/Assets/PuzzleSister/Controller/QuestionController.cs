@@ -11,9 +11,7 @@ namespace PuzzleSister {
     private RoundService roundService;
 
     [NotNull] public TextEffect cPackageTitle;
-    [NotNull] public TextEffect cEnergyBG;
     [NotNull] public TextEffect cEnergy;
-    [NotNull] public TextEffect cProgress;
     [NotNull] public QuestionView questionView;
     [NotNull] public GameObject oDialogue;
     [NotNull] public TextEffect cDialogue;
@@ -43,7 +41,7 @@ namespace PuzzleSister {
     public void StartPackage(Package package) {
 
       questionView.gameObject.SetActive(false);
-      cPackageTitle.SetText("「" + package.name + "」");
+      // cPackageTitle.SetText("「" + package.name + "」");
       oDialogue.SetActive(false);
 
       roundService = new RoundService(package);
@@ -165,7 +163,8 @@ namespace PuzzleSister {
     }
 
     void SetProgress(int current, int total) {
-      cProgress.SetText(current + "/" + total);
+      var title = string.Format("{0}：{1}/{2}", roundService.package.name, current, total);
+      cPackageTitle.SetText(title);
     }
 
     IEnumerator ShowDialogue(bool animate, bool pointer, string text) {

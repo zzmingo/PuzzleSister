@@ -34,6 +34,7 @@ namespace PuzzleSister {
       }
       switch(type) {
         case Type.Sequence:
+          GetComponent<Text>().text = "";
           textCoroutine = StartCoroutine(SequenceShowText(text));
           break;
         default: 
