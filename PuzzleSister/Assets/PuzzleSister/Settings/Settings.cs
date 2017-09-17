@@ -24,6 +24,10 @@ namespace PuzzleSister {
 
     public static readonly SettingChangeEvent OnChange = new SettingChangeEvent();
 
+    public static Resolution[] GetAvailableResolutions() {
+      return Screen.resolutions;
+    }
+
     public static bool IsFullscreen() {
       return GetInt(FULLSCREEN, 0) == 1;
     }
