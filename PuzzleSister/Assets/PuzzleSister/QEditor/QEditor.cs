@@ -12,6 +12,8 @@ namespace PuzzleSister.QEditor {
     [NotNull] public GameObject oForm;
 
     void Awake() {
+      transform.Find("Package").gameObject.SetActive(true);
+      transform.Find("Question").gameObject.SetActive(false);
       QEditorService.shared.LoadPackages();
     }
 
@@ -42,7 +44,21 @@ namespace PuzzleSister.QEditor {
         case QEditorAction.UpdatePackage:
 
           break;
+        case QEditorAction.ManagePakcage:
+          QEditorService.shared.LoadPackageQuestion(QEditorService.shared.GetPackageById(id));
+          transform.Find("Package").gameObject.SetActive(false);
+          transform.Find("Question").gameObject.SetActive(true);
+          break;
       }
+    }
+
+    public void BackToPackagePanel() {
+      transform.Find("Package").gameObject.SetActive(true);
+      transform.Find("Question").gameObject.SetActive(false);
+    }
+
+    public void SavePackages() {
+      QEditorService.shared.SavePackages();
     }
 
   }

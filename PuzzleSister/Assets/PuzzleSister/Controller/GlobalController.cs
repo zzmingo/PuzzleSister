@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 
@@ -102,6 +103,10 @@ namespace PuzzleSister {
           }
           break;
       }
+    }
+
+    public void LoadQEditor() {
+      SceneManager.LoadScene("QEditor");
     }
 
     IEnumerator TransitionMenuToSettings() {

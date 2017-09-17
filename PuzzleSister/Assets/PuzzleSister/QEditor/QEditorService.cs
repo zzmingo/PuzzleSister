@@ -53,6 +53,10 @@ namespace PuzzleSister.QEditor {
       return packageList;
     }
 
+    public void LoadPackageQuestion(PackageItem package) {
+      
+    }
+
     private string GetPackagesSavePath() {
       return Utils.Path(Const.QEDITOR_SAVE_DIR, Const.QEDITOR_PACKAGES_FILE);
     }
