@@ -30,29 +30,30 @@ namespace PuzzleSister {
           var oFrame = tOpt.Find("Frame").gameObject;
           oFrame.SetActive(true);
           oFrame.ScaleFrom(new Vector3(1.3f, 1.3f, 1.3f), 0.3f, 0, EaseType.easeInQuart);
-
-          // StartCoroutine(FlashText(tOpt.GetComponent<Text>(), Const.COLOR_CORRECT));
+          StartCoroutine(FlashText(tOpt.Find("Text").GetComponent<Text>(), Const.COLOR_CORRECT));
         }
       }
     }
 
     public void DisableOption(Question.Result result) {
-      oOptions.transform.Find(result.Name()).GetComponent<Button>().interactable = false;
+      var oOpt = oOptions.transform.Find(result.Name());
+      oOpt.GetComponent<Button>().interactable = false;
+      oOpt.Find("Text").GetComponent<Text>().color = Color.gray;
     }
 
-    // IEnumerator FlashText(Text text, Color color, int times = 8) {
-      // if (times == 0) {
-      //   text.color = color;
-      // } else {
-      //   if (text.color.Equals(color)) {
-      //     text.color = Color.white;
-      //   } else {
-      //     text.color = color;
-      //   }
-      //   yield return new WaitForSeconds(0.1f);
-      //   yield return FlashText(text, color, times-1);
-      // }
-    // }
+    IEnumerator FlashText(Text text, Color color, int times = 8) {
+      if (times == 0) {
+        text.color = color;
+      } else {
+        if (text.color.Equals(color)) {
+          text.color = Color.white;
+        } else {
+          text.color = color;
+        }
+        yield return new WaitForSeconds(0.1f);
+        yield return FlashText(text, color, times-1);
+      }
+    }
     
     void ShowTitle(string title) {
       cTitle.SetText(title);
@@ -65,6 +66,7 @@ namespace PuzzleSister {
         tOpt.Find("Frame").gameObject.SetActive(false);
         var optionText = string.Format("{0}、{1}", tOpt.name, question.GetOptionByName(tOpt.name));
         tOpt.Find("Text").GetComponent<Text>().text = optionText;
+        tOpt.Find("Text").GetComponent<Text>().color = Color.white;
       }
     }
 

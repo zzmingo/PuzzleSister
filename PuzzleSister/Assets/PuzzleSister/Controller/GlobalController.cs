@@ -40,7 +40,12 @@ namespace PuzzleSister {
           StartCoroutine(TransitionPackageListViewToMenu());
           break;
         case EventType.PackageItemClick:
-          StartCoroutine(TransitionPackageListViewToQuestionPanel((data as PackageClickEventData).package));
+          var package = (data as PackageClickEventData).package;
+          if (package == null) {
+            Utils.ShowDLCStore();
+          } else {
+            StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
+          }
           break;
         case EventType.QuestionPanelBackBtnClick:
         case EventType.QuestionPanelToPackageList:
@@ -132,7 +137,6 @@ namespace PuzzleSister {
       yield return new WaitForSeconds(0.4f);
       oSettingsView.SetActive(false);
     }
-
 
   }
 

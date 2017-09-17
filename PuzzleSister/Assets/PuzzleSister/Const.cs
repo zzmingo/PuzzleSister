@@ -13,8 +13,8 @@ namespace PuzzleSister {
     public const string SAVE_PATH_PACKAGE_PROGRESS = "PackageProgress";
     public const string SAVE_PATH_ILLUSTRATION = "Illustraction";
 
-    public const string COLOR_CORRECT_HEX_STRING = "#00FF00FF";
-    public static readonly Color COLOR_CORRECT = new Color(0, 1, 0, 1);
+    public const string COLOR_CORRECT_HEX_STRING = "#FFE500FF";
+    public static readonly Color COLOR_CORRECT = new Color(0xFF/255.0f, 0xE5/255.0f, 0x00/255.0f, 1);
 
   }
 

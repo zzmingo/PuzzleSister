@@ -15,6 +15,12 @@ namespace PuzzleSister {
     }
 #endif
 
+    public static void ShowDLCStore() {
+#if UNITY_STANDALONE
+      SteamFriends.ActivateGameOverlayToStore(new AppId_t(Const.STEAM_APP_ID), EOverlayToStoreFlag.k_EOverlayToStoreFlag_None);
+#endif
+    }
+
     public static string Path(params string[] paths) {
       return string.Join(System.IO.Path.DirectorySeparatorChar + "", paths);
     }
