@@ -16,6 +16,12 @@ namespace PuzzleSister {
     [NotNull] public GameObject oSettingsView;
 
     private bool blockingEvents = false;
+    private bool settingsOpening = false;
+    private ViewType openingView = ViewType.None;
+
+    public enum ViewType {
+      None, Menu, PackageList, QuestionPanel,
+    }
   
     void Awake() {
       Repository.shared.LoadPackages();
@@ -27,6 +33,34 @@ namespace PuzzleSister {
       oSettingsView.SetActive(false);
       GlobalEvent.shared.AddListener(OnGlobalEvent);
       Repository.shared.LoadPackages();
+
+      openingView = ViewType.Menu;
+    }
+
+    void Update() {
+#if UNITY_STANDALONE
+      if (!blockingEvents && Input.GetKeyUp(KeyCode.Escape)) {
+        if (settingsOpening) {
+          switch(openingView) {
+            case ViewType.Menu:
+              StartCoroutine(TransitionSettingsToMenu());
+              break;
+            case ViewType.QuestionPanel:
+              StartCoroutine(TransitionSettingsToQuestionPanel());
+              break;
+          }
+        } else {
+          switch(openingView) {
+            case ViewType.Menu:
+              StartCoroutine(TransitionMenuToSettings());
+              break;
+            case ViewType.QuestionPanel:
+              StartCoroutine(TransitionQuestionPanelToSettings());
+              break;
+          }
+        }
+      }
+#endif
     }
   
     void OnGlobalEvent(EventData data) {
@@ -54,26 +88,44 @@ namespace PuzzleSister {
         case EventType.OpenSettings:
           StartCoroutine(TransitionMenuToSettings());
           break;
+        case EventType.CloseSettingsToMenu:
+          StartCoroutine(TransitionQuestionPanelToMenu());
+          break;
         case EventType.CloseSettings:
-          StartCoroutine(TransitionSettingsToMenu());
+          switch(openingView) {
+            case ViewType.Menu:
+              StartCoroutine(TransitionSettingsToMenu());
+              break;
+            case ViewType.QuestionPanel:
+              StartCoroutine(TransitionSettingsToQuestionPanel());
+              break;
+          }
           break;
       }
     }
 
     IEnumerator TransitionMenuToSettings() {
+      blockingEvents = true;
       yield return HideMenu(0);
       yield return ShowSettings();
+      settingsOpening = true;
+      blockingEvents = false;
     }
 
     IEnumerator TransitionSettingsToMenu() {
+      blockingEvents = true;
+      settingsOpening = false;
       yield return HideSettings();
       yield return ShowMenu(0);
+      openingView = ViewType.Menu;
+      blockingEvents = false;
     }
 
     IEnumerator TransitionMenuToPackageListView() {
       blockingEvents = true;
       yield return HideMenu();
       yield return ShowPackageList();
+      openingView = ViewType.PackageList;
       blockingEvents = false;
     }
 
@@ -81,21 +133,56 @@ namespace PuzzleSister {
       blockingEvents = true;
       yield return HidePackageList();
       yield return ShowMenu();
+      openingView = ViewType.Menu;
       blockingEvents = false;
     }
 
     IEnumerator TransitionPackageListViewToQuestionPanel(Package package) {
+      blockingEvents = true;
       yield return HidePackageList();
       oQuestionPanel.SetActive(true);
       oQuestionCharacter.ScaleFrom(new Vector3(0, 1f, 1f), 0.3f, 0);
       GetComponent<QuestionController>().StartPackage(package);
       bGMController.RandomBGM();
+      openingView = ViewType.QuestionPanel;
+      blockingEvents = false;
     }
 
     IEnumerator TransitionQuestionPanelToPackageListView() {
+      blockingEvents = true;
       oQuestionPanel.SetActive(false);
       GetComponent<QuestionController>().StopAndReset();
       yield return ShowPackageList();
+      openingView = ViewType.PackageList;
+      blockingEvents = false;
+    }
+
+    IEnumerator TransitionQuestionPanelToSettings() {
+      blockingEvents = true;
+      oQuestionPanel.SetActive(false);
+      yield return ShowSettings();
+      settingsOpening = true;
+      blockingEvents = false;
+    }
+
+    IEnumerator TransitionSettingsToQuestionPanel() {
+      blockingEvents = true;
+      settingsOpening = false;
+      yield return HideSettings();
+      oQuestionPanel.SetActive(true);
+      openingView = ViewType.QuestionPanel;
+      blockingEvents = false;
+    }
+
+    IEnumerator TransitionQuestionPanelToMenu() {
+      blockingEvents = true;
+      settingsOpening = false;
+      oQuestionPanel.SetActive(false);
+      GetComponent<QuestionController>().StopAndReset();
+      yield return HideSettings();
+      yield return ShowMenu();
+      openingView = ViewType.Menu;
+      blockingEvents = false;
     }
 
     IEnumerator ShowMenu(float delay = 0.5f) {
@@ -124,6 +211,7 @@ namespace PuzzleSister {
 
     IEnumerator ShowSettings() {
       var oPanel = oSettingsView.transform.Find("Panel").gameObject;
+      oPanel.transform.Find("Buttons/BtnToMenu").gameObject.SetActive(openingView == ViewType.QuestionPanel);
       oSettingsView.SetActive(true);
       oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
       oPanel.ScaleFrom(new Vector3(0, 1f, 1f), 0.4f, 0);
