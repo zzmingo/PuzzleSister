@@ -16,26 +16,25 @@ namespace PuzzleSister {
     public Type type = Type.None;
     public float time = 1f;
 
-    private Coroutine textCoroutine;
+    private float showingTime = 0;
+    private bool showing = false;
     private string target;
 
     public bool IsShowing() {
-      return textCoroutine != null;
+      return showing;
     }
 
     public void SetText(string text) {
       target = text;
-      if (textCoroutine != null) {
-        StopCoroutine(textCoroutine);
-      }
       if (target == "") {
         GetComponent<Text>().text = text;
         return;
       }
       switch(type) {
         case Type.Sequence:
+          showing = true;
+          showingTime = 0;
           GetComponent<Text>().text = "";
-          textCoroutine = StartCoroutine(SequenceShowText(text));
           break;
         default: 
           GetComponent<Text>().text = text;
@@ -44,25 +43,23 @@ namespace PuzzleSister {
     }
 
     public void ForceShowAll() {
-      if (textCoroutine != null) {
-        StopCoroutine(textCoroutine);
-      }
       GetComponent<Text>().text = target;
+      target = null;
+      showing = false;
+      showingTime = 0;
     }
 
-    IEnumerator SequenceShowText(string text) {
-      var cText = GetComponent<Text>();
-      var chars = text.ToCharArray();
-      var totalLen = text.Length;
-      var current = "";
-      var index = 0;
-      while(current.Length < totalLen) {
-        yield return new WaitForSeconds(time/totalLen);
-        current += chars[index];
-        cText.text = current;
-        index ++;
+    void Update() {
+      if (showing) {
+        showingTime += Time.deltaTime;
+        if (showingTime >= time) {
+          ForceShowAll();
+        } else {
+          var showCount = Mathf.FloorToInt(target.Length * showingTime / time);
+          var showingText = target.Substring(0, showCount);
+          GetComponent<Text>().text = showingText;
+        }
       }
-      textCoroutine = null;
     }
 
   }

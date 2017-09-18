@@ -46,6 +46,9 @@ namespace PuzzleSister {
             case ViewType.Menu:
               StartCoroutine(TransitionSettingsToMenu());
               break;
+            case ViewType.PackageList:
+              StartCoroutine(TransitionSettingsToPackageListView());
+              break;
             case ViewType.QuestionPanel:
               StartCoroutine(TransitionSettingsToQuestionPanel());
               break;
@@ -54,6 +57,9 @@ namespace PuzzleSister {
           switch(openingView) {
             case ViewType.Menu:
               StartCoroutine(TransitionMenuToSettings());
+              break;
+            case ViewType.PackageList:
+              StartCoroutine(TransitionPackageListViewToSettings());
               break;
             case ViewType.QuestionPanel:
               StartCoroutine(TransitionQuestionPanelToSettings());
@@ -90,12 +96,27 @@ namespace PuzzleSister {
           StartCoroutine(TransitionMenuToSettings());
           break;
         case EventType.CloseSettingsToMenu:
+          switch(openingView) {
+            case ViewType.Menu:
+              StartCoroutine(TransitionSettingsToMenu());
+              break;
+            case ViewType.PackageList:
+              StartCoroutine(HidePackageList());
+              StartCoroutine(TransitionSettingsToMenu());
+              break;
+            case ViewType.QuestionPanel:
+              StartCoroutine(TransitionQuestionPanelToMenu());
+              break;
+          }
           StartCoroutine(TransitionQuestionPanelToMenu());
           break;
         case EventType.CloseSettings:
           switch(openingView) {
             case ViewType.Menu:
               StartCoroutine(TransitionSettingsToMenu());
+              break;
+            case ViewType.PackageList:
+              StartCoroutine(TransitionSettingsToPackageListView());
               break;
             case ViewType.QuestionPanel:
               StartCoroutine(TransitionSettingsToQuestionPanel());
@@ -140,6 +161,16 @@ namespace PuzzleSister {
       yield return ShowMenu();
       openingView = ViewType.Menu;
       blockingEvents = false;
+    }
+
+    IEnumerator TransitionSettingsToPackageListView() {
+      yield return HideSettings();
+      oPackageListView.SetActive(true);
+    }
+
+    IEnumerator TransitionPackageListViewToSettings() {
+      oPackageListView.SetActive(false);
+      yield return ShowSettings();
     }
 
     IEnumerator TransitionPackageListViewToQuestionPanel(Package package) {
@@ -216,7 +247,6 @@ namespace PuzzleSister {
 
     IEnumerator ShowSettings() {
       var oPanel = oSettingsView.transform.Find("Panel").gameObject;
-      oPanel.transform.Find("Buttons/BtnToMenu").gameObject.SetActive(openingView == ViewType.QuestionPanel);
       oSettingsView.SetActive(true);
       oPanel.transform.localScale = new Vector3(1f, 1f, 1f);
       oPanel.ScaleFrom(new Vector3(0, 1f, 1f), 0.4f, 0);

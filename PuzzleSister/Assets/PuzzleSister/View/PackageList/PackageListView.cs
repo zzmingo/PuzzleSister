@@ -13,6 +13,13 @@ namespace PuzzleSister {
 		[NotNull] public GameObject packageItemPrefab;
 		[NotNull] public Sprite normalThumb;
 
+		private bool destroyed = false;
+
+		void OnDestroy() {
+			DestroyList();
+			destroyed = true;
+		}
+
 		public void InitList () {
 			PackageProgressService.shared.Load();
 			foreach(Transform tItem in transform) {
@@ -52,7 +59,7 @@ namespace PuzzleSister {
 					});
 				}
 				item.SetActive(false);
-				StartCoroutine(AnimateShowItem(item, i * 0.05f));
+				CoroutineUtils.Start(AnimateShowItem(item, i * 0.05f));
 			}
 		}
 
@@ -72,10 +79,13 @@ namespace PuzzleSister {
 				GlobalEvent.shared.Invoke(data);
 			});
 		}
+		
 
 		IEnumerator AnimateShowItem(GameObject item, float delay) {
 			yield return new WaitForSeconds(delay);
-			item.SetActive(true);
+			if (!destroyed && item != null) {
+				item.SetActive(true);
+			}
 		}
 
 	}

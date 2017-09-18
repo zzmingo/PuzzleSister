@@ -30,7 +30,8 @@ namespace PuzzleSister {
           var oFrame = tOpt.Find("Frame").gameObject;
           oFrame.SetActive(true);
           oFrame.ScaleFrom(new Vector3(1.3f, 1.3f, 1.3f), 0.3f, 0, EaseType.easeInQuart);
-          StartCoroutine(FlashText(tOpt.Find("Text").GetComponent<Text>(), Const.COLOR_CORRECT));
+          tOpt.Find("Text").GetComponent<Text>().color = Const.COLOR_CORRECT;
+          // StartCoroutine(FlashText(tOpt.Find("Text").GetComponent<Text>(), Const.COLOR_CORRECT));
         }
       }
     }
