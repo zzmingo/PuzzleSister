@@ -9,7 +9,11 @@ namespace PuzzleSister.QEditor {
 
   public class QEditor : MonoBehaviour {
 
-    [NotNull] public GameObject oForm;
+    [NotNull] public GameObject oPackageForm;
+    [NotNull] public Button btnSavePackage;
+
+    [NotNull] public GameObject oQuestionForm;
+    [NotNull] public Button btnSaveQuestions;
 
     void Awake() {
       transform.Find("Package").gameObject.SetActive(true);
@@ -17,9 +21,14 @@ namespace PuzzleSister.QEditor {
       QEditorService.shared.LoadPackages();
     }
 
+    void Update() {
+      btnSavePackage.interactable = QEditorService.shared.packageDirty;
+      btnSaveQuestions.interactable = QEditorService.shared.questionDirty;
+    }
+
     public void OnClickAddPackage() {
-      string text = oForm.transform.Find("Content/InputField-Name").GetComponent<InputField>().text.Trim();
-      Sprite sprite = oForm.transform.Find("Content/ImageArea/Image").GetComponent<Image>().sprite;
+      string text = oPackageForm.transform.Find("Content/InputField-Name").GetComponent<InputField>().text.Trim();
+      Sprite sprite = oPackageForm.transform.Find("Content/ImageArea/Image").GetComponent<Image>().sprite;
       if (string.IsNullOrEmpty(text)) {
         return;
       }
@@ -30,9 +39,9 @@ namespace PuzzleSister.QEditor {
       package.name = text;
       package.image = sprite.ToBase64();
       QEditorService.shared.AddPackage(package);
-      oForm.SetActive(false);
-      oForm.transform.Find("Content/InputField-Name").GetComponent<InputField>().text = "";
-      oForm.transform.Find("Content/ImageArea/Image").GetComponent<Image>().sprite = null;
+      oPackageForm.SetActive(false);
+      oPackageForm.transform.Find("Content/InputField-Name").GetComponent<InputField>().text = "";
+      oPackageForm.transform.Find("Content/ImageArea/Image").GetComponent<Image>().sprite = null;
     }
 
     public void OnPackageItemAction(string id, QEditorAction action) {
@@ -45,7 +54,7 @@ namespace PuzzleSister.QEditor {
 
           break;
         case QEditorAction.ManagePakcage:
-          QEditorService.shared.LoadPackageQuestion(QEditorService.shared.GetPackageById(id));
+          QEditorService.shared.ManagerPackage(QEditorService.shared.GetPackageById(id));
           transform.Find("Package").gameObject.SetActive(false);
           transform.Find("Question").gameObject.SetActive(true);
           break;
@@ -59,6 +68,14 @@ namespace PuzzleSister.QEditor {
 
     public void SavePackages() {
       QEditorService.shared.SavePackages();
+    }
+
+    public void OnClickAddQuestion() {
+
+    }
+
+    public void SaveQuestions() {
+
     }
 
   }

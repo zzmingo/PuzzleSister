@@ -13,10 +13,15 @@ namespace PuzzleSister.QEditor {
     public static readonly QEditorService shared = new QEditorService();
 
     public UnityEvent OnPackageChange = new UnityEvent();
+    public UnityEvent OnQuestionChange = new UnityEvent();
 
     public bool packageDirty { get; private set; }
+    public bool questionDirty { get; private set; }
 
     private List<PackageItem> packageList;
+    private List<Question> questionList;
+
+    private PackageItem managingPackage;
 
     public void LoadPackages() {
       packageList = Storage.shared.DeserializeLoad(GetPackagesSavePath(), new List<PackageItem>());
@@ -24,6 +29,7 @@ namespace PuzzleSister.QEditor {
 
     public void SavePackages() {
       Storage.shared.SerializeSave(GetPackagesSavePath(), packageList);
+      packageDirty = false;
     }
 
     public void AddPackage(PackageItem package) {
@@ -46,6 +52,7 @@ namespace PuzzleSister.QEditor {
     }
 
     public void UpdatePackage(PackageItem package) {
+      packageDirty = true;
       OnPackageChange.Invoke();
     }
 
@@ -53,12 +60,40 @@ namespace PuzzleSister.QEditor {
       return packageList;
     }
 
-    public void LoadPackageQuestion(PackageItem package) {
-      
+    public void ManagerPackage(PackageItem package) {
+      managingPackage = package;
+      questionList = Storage.shared.DeserializeLoad(GetQuestionsSavePath(), new List<Question>());
+    }
+
+    public void AddQuestion(Question question) {
+      questionList.Add(question);
+      questionDirty = true;
+      OnQuestionChange.Invoke();
+    }
+
+    public void RemoveQuestionById(string id) {
+      Question question = questionList.Find((item) => item.id.Equals(id));
+      questionList.Remove(question);
+      questionDirty = true;
+      OnQuestionChange.Invoke();
+    }
+
+    public void UpdateQuestion(Question question) {
+      questionDirty = true;
+      OnQuestionChange.Invoke();
+    }
+
+    public void SaveQuestions() {
+      Storage.shared.SerializeSave(GetQuestionsSavePath(), questionList);
+      questionDirty = false;
     }
 
     private string GetPackagesSavePath() {
       return Utils.Path(Const.QEDITOR_SAVE_DIR, Const.QEDITOR_PACKAGES_FILE);
+    }
+
+    private string GetQuestionsSavePath() {
+      return Utils.Path(Const.QEDITOR_SAVE_DIR, managingPackage.id);
     }
 
     public class PackageItem {
