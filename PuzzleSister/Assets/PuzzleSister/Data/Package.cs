@@ -15,12 +15,13 @@ namespace PuzzleSister {
     }
 
     public enum Type {
-      CSV
+      CSV, JSON
     }
 
     public enum Source {
       Resources,
-      DLC
+      DLC,
+      QEditor
     }
     
     public string id;

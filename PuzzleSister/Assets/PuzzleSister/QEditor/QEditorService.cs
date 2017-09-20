@@ -18,8 +18,8 @@ namespace PuzzleSister.QEditor {
     public bool packageDirty { get; private set; }
     public bool questionDirty { get; private set; }
 
-    private List<PackageItem> packageList;
-    private List<Question> questionList;
+    private List<PackageItem> packageList = new List<PackageItem>();
+    private List<Question> questionList = new List<Question>();
 
     private PackageItem managingPackage;
 
@@ -63,12 +63,22 @@ namespace PuzzleSister.QEditor {
     public void ManagerPackage(PackageItem package) {
       managingPackage = package;
       questionList = Storage.shared.DeserializeLoad(GetQuestionsSavePath(), new List<Question>());
+      OnQuestionChange.Invoke();
+    }
+
+    public List<Question> GetQuestions() {
+      return questionList;
     }
 
     public void AddQuestion(Question question) {
+      question.id = Guid.NewGuid().ToString();
       questionList.Add(question);
       questionDirty = true;
       OnQuestionChange.Invoke();
+    }
+
+    public Question GetQuestionById(string id) {
+      return questionList.Find((item) => item.id.Equals(id));
     }
 
     public void RemoveQuestionById(string id) {
@@ -86,6 +96,7 @@ namespace PuzzleSister.QEditor {
     public void SaveQuestions() {
       Storage.shared.SerializeSave(GetQuestionsSavePath(), questionList);
       questionDirty = false;
+      OnQuestionChange.Invoke();
     }
 
     private string GetPackagesSavePath() {

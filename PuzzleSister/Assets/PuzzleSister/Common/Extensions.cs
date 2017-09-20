@@ -38,6 +38,22 @@ namespace PuzzleSister {
       return System.Convert.ToBase64String(sprite.texture.EncodeToPNG());
     }
 
+    public static Sprite ToSprite(this string base64) {
+      return Base64ToSprite(base64);
+    }
+
+  }
+
+  public static class ComponentQueryExtensions {
+
+    public static T Query<T>(this GameObject gameObject, string path) {
+      return gameObject.transform.Find(path).GetComponent<T>();
+    }
+
+    public static T Query<T>(this Transform transform, string path) {
+      return transform.Find(path).GetComponent<T>();
+    }
+
   }
 
 }

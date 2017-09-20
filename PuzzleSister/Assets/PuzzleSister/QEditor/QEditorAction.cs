@@ -4,7 +4,9 @@ namespace PuzzleSister.QEditor {
 
     UpdatePackage,
     DeletePackage,
-    ManagePakcage
+    ManagePakcage,
+    UpdateQuestion,
+    DeleteQuestion
 
   }
 

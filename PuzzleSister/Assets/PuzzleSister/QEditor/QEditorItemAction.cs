@@ -9,7 +9,7 @@ using System;
 
 namespace PuzzleSister.QEditor {
 
-  public class PackageItemAction : MonoBehaviour, IPointerClickHandler {
+  public class QEditorItemAction : MonoBehaviour, IPointerClickHandler {
 
     public QEditorAction aciton;
 
