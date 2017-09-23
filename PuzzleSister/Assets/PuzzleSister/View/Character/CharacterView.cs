@@ -18,6 +18,7 @@ namespace PuzzleSister {
       Four,
       UnfullMiddle,
       Normal,
+      Combo1,
       Combo2,
       Combo3,
       Combo4,
@@ -26,6 +27,8 @@ namespace PuzzleSister {
       Combo7,
       Combo8,
       Combo9,
+      Combo10,
+      UnfullNormal,
     }
 
     private State currentState = State.Normal;
@@ -62,8 +65,8 @@ namespace PuzzleSister {
       gameObj.SetActive(true);
       var img = gameObj.GetComponent<Image>();
       img.canvasRenderer.SetAlpha(0.01f);
-      img.CrossFadeAlpha(1f, 0.5f, false);
-      yield return new WaitForSeconds(0.3f);
+      img.CrossFadeAlpha(1f, 0.3f, false);
+      yield return new WaitForSeconds(0.1f);
     }
 
     IEnumerator InternalHideState(State state) {
@@ -71,8 +74,8 @@ namespace PuzzleSister {
       gameObj.SetActive(true);
       var img = gameObj.GetComponent<Image>();
       img.canvasRenderer.SetAlpha(1f);
-      img.CrossFadeAlpha(0, 0.5f, false);
-      yield return new WaitForSeconds(0.3f);
+      img.CrossFadeAlpha(0, 0.3f, false);
+      yield return new WaitForSeconds(0.1f);
     }
 
     GameObject StateToGameObject(State state) {

@@ -21,10 +21,11 @@ namespace PuzzleSister {
       bool correct = roundService.IsCorrect;
 
       if (correct) {
-        if (energy <= 5 && combo <= 1) {
+        if (energy <= 4 && combo <= 1) {
           state = CharacterView.State.UnfullMiddle;
         } else {
           switch(combo) {
+            case 1: state = CharacterView.State.Combo1; break;
             case 2: state = CharacterView.State.Combo2; break;
             case 3: state = CharacterView.State.Combo3; break;
             case 4: state = CharacterView.State.Combo4; break;
@@ -33,6 +34,7 @@ namespace PuzzleSister {
             case 7: state = CharacterView.State.Combo7; break;
             case 8: state = CharacterView.State.Combo8; break;
             case 9: state = CharacterView.State.Combo9; break;
+            case 10: state = CharacterView.State.Combo10; break;
           }
         }
       } else {
@@ -51,7 +53,7 @@ namespace PuzzleSister {
       if (roundService.Energy >= 5) {
         yield return characterView.ResumeState(CharacterView.State.Normal);
       } else {
-        yield return characterView.ResumeState(CharacterView.State.Four);
+        yield return characterView.ResumeState(CharacterView.State.UnfullNormal);
       }
     }
 
