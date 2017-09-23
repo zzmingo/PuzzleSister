@@ -17,9 +17,9 @@ namespace PuzzleSister {
 
     public static readonly List<PackageItem> TESTING_PACKAGES = new List<PackageItem> {
       new PackageItem(
-        Utils.Path(PACKAGES_DIR, "FAKE001"),
-        Utils.Path(PACKAGES_DIR, "FAKE001", PACKAGE_FILE_NAME),
-        Utils.Path(PACKAGES_DIR, "FAKE001", QUESTION_FILE_NAME),
+        Utils.Path(PACKAGES_DIR, "lengzhishi001"),
+        Utils.Path(PACKAGES_DIR, "lengzhishi001", PACKAGE_FILE_NAME),
+        Utils.Path(PACKAGES_DIR, "lengzhishi001", QUESTION_FILE_NAME),
         FILE_EXT
       )
     };

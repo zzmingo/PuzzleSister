@@ -46,14 +46,20 @@ namespace PuzzleSister {
           case 4: state = CharacterView.State.Four; break;
         }
       }
+      characterView.SetEnergy(roundService.Energy);
       yield return characterView.ShowState(state);
     }
 
     public IEnumerator ResumeStateFor(RoundService roundService) {
+      characterView.SetEnergy(roundService.Energy);
       if (roundService.Energy >= 5) {
         yield return characterView.ResumeState(CharacterView.State.Normal);
       } else {
-        yield return characterView.ResumeState(CharacterView.State.UnfullNormal);
+        if (roundService.Energy == 1) {
+          yield return characterView.ResumeState(CharacterView.State.OneNormal);
+        } else {
+          yield return characterView.ResumeState(CharacterView.State.UnfullNormal);
+        }
       }
     }
 

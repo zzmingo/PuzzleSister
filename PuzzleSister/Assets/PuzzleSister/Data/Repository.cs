@@ -47,23 +47,23 @@ namespace PuzzleSister {
 #if UNITY_STANDALONE
       // DLC
       // TODO check file broken
-      string appInstallDir = Utils.GetAppInstallDir();
+      // string appInstallDir = Utils.GetAppInstallDir();
 
-      if (Directory.Exists(appInstallDir)) {
-        Debug.Log("Load DLC at " + appInstallDir);
-        foreach(var path in Directory.GetDirectories(appInstallDir)) {
-          if (File.Exists(Path.Combine(path, "Package.csv"))) {
-            Debug.Log("Loading DLC");
-            Package pkg = new Package();
-            string pkgCSVStr = CryptoUtils.Decript(File.ReadAllText(Path.Combine(path, "Package.csv")));
-            var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-            pkg.FromDict(pkgDict, Path.Combine(path, "Question.csv"), Package.Type.CSV, Package.Source.DLC);
-            Debug.Log("  ID: " + pkg.id);
-            AddPackage(pkg);
-            Debug.Log("Loaded");
-          }
-        }
-      }
+      // if (Directory.Exists(appInstallDir)) {
+      //   Debug.Log("Load DLC at " + appInstallDir);
+      //   foreach(var path in Directory.GetDirectories(appInstallDir)) {
+      //     if (File.Exists(Path.Combine(path, "Package.csv"))) {
+      //       Debug.Log("Loading DLC");
+      //       Package pkg = new Package();
+      //       string pkgCSVStr = CryptoUtils.Decript(File.ReadAllText(Path.Combine(path, "Package.csv")));
+      //       var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
+      //       pkg.FromDict(pkgDict, Path.Combine(path, "Question.csv"), Package.Type.CSV, Package.Source.DLC);
+      //       Debug.Log("  ID: " + pkg.id);
+      //       AddPackage(pkg);
+      //       Debug.Log("Loaded");
+      //     }
+      //   }
+      // }
 #endif
 
       isPackagesLoaded = true;

@@ -32,7 +32,7 @@ module.exports = function(xlsxFile) {
     blankrows: false
   })
   questionArray.shift()
-  questionArray = questionArray.filter(item => !!item.id).map((item) => {
+  questionArray = questionArray.filter(isValidQuestion).map((item) => {
     delete item[""]
     return item
   })
@@ -43,6 +43,10 @@ module.exports = function(xlsxFile) {
     Package: dlcCSV,
     Question: questionCSV
   }
+}
+
+function isValidQuestion(item) {
+  return item.id && item.title && item.A && item.B && item.C && item.D && item.result && item.explain
 }
 
 function array2csv(array) {

@@ -15,6 +15,8 @@ namespace PuzzleSister {
     [NotNull] public GameObject oQuestionPanel;
     [NotNull] public GameObject oQuestionCharacter;
     [NotNull] public GameObject oSettingsView;
+    [NotNull] public GameObject oManualView;
+    [NotNull] public GameObject oIllustrationView;
 
     private bool blockingEvents = false;
     private bool settingsOpening = false;
@@ -23,15 +25,22 @@ namespace PuzzleSister {
     public enum ViewType {
       None, Menu, PackageList, QuestionPanel,
     }
+
+    public void ExitGame() {
+      Application.Quit();
+    }
   
     void Awake() {
       Repository.shared.LoadPackages();
 			PackageProgressService.shared.Load();
+      IllustrationService.shared.Load();
 
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);
       oQuestionPanel.SetActive(false);
       oSettingsView.SetActive(false);
+      oManualView.SetActive(false);
+      oIllustrationView.SetActive(false);
       GlobalEvent.shared.AddListener(OnGlobalEvent);
       Repository.shared.LoadPackages();
 
@@ -41,6 +50,14 @@ namespace PuzzleSister {
     void Update() {
 #if UNITY_STANDALONE
       if (!blockingEvents && Input.GetKeyUp(KeyCode.Escape)) {
+        if (oManualView.activeSelf) {
+          GlobalEvent.shared.Invoke(EventType.CloseManual);
+          return;
+        }
+        if (oIllustrationView.activeSelf) {
+          GlobalEvent.shared.Invoke(EventType.CloseIllustration);
+          return;
+        }
         if (settingsOpening) {
           switch(openingView) {
             case ViewType.Menu:
@@ -122,6 +139,18 @@ namespace PuzzleSister {
               StartCoroutine(TransitionSettingsToQuestionPanel());
               break;
           }
+          break;
+        case EventType.OpenManual:
+          oManualView.SetActive(true);
+          break;
+        case EventType.CloseManual:
+          oManualView.SetActive(false);
+          break;
+        case EventType.OpenIllustration:
+          oIllustrationView.SetActive(true);
+          break;
+        case EventType.CloseIllustration:
+          oIllustrationView.SetActive(false);
           break;
       }
     }

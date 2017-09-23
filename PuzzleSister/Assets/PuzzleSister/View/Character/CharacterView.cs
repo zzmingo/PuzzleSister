@@ -29,12 +29,23 @@ namespace PuzzleSister {
       Combo9,
       Combo10,
       UnfullNormal,
+      OneNormal,
     }
 
+    public Sprite[] unfullImages;
+
     private State currentState = State.Normal;
+    private int energy = 5;
 
     void Start() {
       ResetState();
+    }
+
+    public void SetEnergy(int energy) {
+      this.energy = energy;
+      var gameObj = StateToGameObject(State.UnfullNormal);
+      var img = gameObj.GetComponent<Image>();
+      img.sprite = unfullImages[energy];
     }
 
     public void ResetState() {
@@ -46,17 +57,26 @@ namespace PuzzleSister {
 
     public IEnumerator ShowState(State state) {
       if (currentState != state) {
-        yield return InternalHideState(currentState);
+        StateToGameObject(currentState).SetActive(false);
+        // yield return InternalHideState(currentState);
         currentState = state;
-        yield return InternalShowState(state);
+        StateToGameObject(state).SetActive(true);
+        yield return null;
+        // yield return InternalShowState(state);
       }
     }
 
     public IEnumerator ResumeState(State state) {
       if (currentState != state) {
-        yield return InternalHideState(currentState);
-        currentState = state;
-        yield return InternalShowState(state);
+        if (true || currentState == State.One && state == State.OneNormal) {
+          StateToGameObject(currentState).SetActive(false);
+          currentState = state;
+          StateToGameObject(state).SetActive(true);
+        } else {
+          yield return InternalHideState(currentState);
+          currentState = state;
+          yield return InternalShowState(state);
+        }
       }
     }
 
@@ -72,6 +92,7 @@ namespace PuzzleSister {
     IEnumerator InternalHideState(State state) {
       var gameObj = StateToGameObject(state);
       gameObj.SetActive(true);
+      yield return null;
       var img = gameObj.GetComponent<Image>();
       img.canvasRenderer.SetAlpha(1f);
       img.CrossFadeAlpha(0, 0.3f, false);

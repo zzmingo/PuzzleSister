@@ -22,7 +22,11 @@ namespace PuzzleSister {
     CloseSettings,
     OpenManual,
     CloseManual,
-    CloseSettingsToMenu
+    CloseSettingsToMenu,
+    PlayStartAudio,
+    PlayLiteHitAudio,
+    OpenIllustration,
+    CloseIllustration,
     // 只能往后加
   }
 

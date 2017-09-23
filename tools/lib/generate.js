@@ -12,15 +12,17 @@ const pkg = fakePackage("FAKE001", "自动生成的")
 writePackage(pkg, path.resolve(__dirname, '../generated/builtin'))
 
 const builtins = glob.sync(path.resolve(__dirname, '../../xlsx/builtin/*.xlsx'))
-builtins.forEach(xlsxFile => {
-  if (xlsxFile.startsWith('~$')) return
+builtins.filter(isXLSXFile).forEach(xlsxFile => {
   const pkg = xlsx2package(xlsxFile)
   writePackage(pkg, path.resolve(__dirname, '../generated/builtin'))
 })
 
 const dlcs = glob.sync(path.resolve(__dirname, '../../xlsx/dlc/*.xlsx'))
-dlcs.forEach(xlsxFile => {
-  if (path.basename(xlsxFile).startsWith('~$')) return
+dlcs.filter(isXLSXFile).forEach(xlsxFile => {
   const pkg = xlsx2package(xlsxFile)
   writePackage(pkg, path.resolve(__dirname, '../generated/dlc'))
 })
+
+function isXLSXFile(xlsxFile) {
+  return !path.basename(xlsxFile).startsWith('~$')
+}

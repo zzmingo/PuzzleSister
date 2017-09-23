@@ -17,9 +17,8 @@ namespace PuzzleSister {
     [NotNull] public TextEffect cDialogue;
     [NotNull] public GameObject oDialogueMask;
     [NotNull] public CharacterController characterController;
-    [NotNull] public AudioClip dialogueClickClip;
-    [NotNull] public AudioClip correctClip;
-    [NotNull] public AudioClip wrongClip;
+    // [NotNull] public AudioClip correctClip;
+    // [NotNull] public AudioClip wrongClip;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
@@ -36,6 +35,9 @@ namespace PuzzleSister {
               case EventType.SelectOptionB: answer = Question.Result.B; break;
               case EventType.SelectOptionC: answer = Question.Result.C; break;
               case EventType.SelectOptionD: answer = Question.Result.D; break;
+            }
+            if (answer != Question.Result.Unknow) {
+              GlobalEvent.shared.Invoke(EventType.PlayLiteHitAudio);
             }
           }
         }
@@ -68,6 +70,7 @@ namespace PuzzleSister {
     }
 
     public IEnumerator StartQuestion() {
+      GlobalEvent.shared.Invoke(EventType.PlayStartAudio);
       yield return ShowDialogue(true, true, "『答题回合』马上要开始了，点击『对话框』任意位置开始答题");
       yield return WaitDialogueConfirm();
       
@@ -91,7 +94,7 @@ namespace PuzzleSister {
           }
           
           if (!roundService.IsCorrect) {
-            Utils.PlayClip(wrongClip);
+            // Utils.PlayClip(wrongClip);
             questionView.DisableOption(answer);
             yield return characterController.ShowStateFor(roundService);
             yield return ShowDialogue(false, true, "好像不正确哦");
@@ -99,7 +102,7 @@ namespace PuzzleSister {
             StartCoroutine(characterController.ResumeStateFor(roundService));
             yield return ShowDialogue(false, false, "请继续作答...");
           } else {
-            Utils.PlayClip(correctClip);
+            // Utils.PlayClip(correctClip);
             yield return characterController.ShowStateFor(roundService);
           }
         }
@@ -153,7 +156,6 @@ namespace PuzzleSister {
         yield return 1;
       }
       oDialogueMask.SetActive(false);
-      Utils.PlayClip(dialogueClickClip);
     }
 
     IEnumerator WaitForAnswer() {
