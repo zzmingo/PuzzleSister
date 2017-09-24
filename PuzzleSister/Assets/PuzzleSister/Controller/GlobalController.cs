@@ -40,7 +40,6 @@ namespace PuzzleSister {
       oManualView.SetActive(false);
       oIllustrationView.SetActive(false);
       GlobalEvent.shared.AddListener(OnGlobalEvent);
-      Repository.shared.LoadPackages();
 
       openingView = ViewType.Menu;
     }

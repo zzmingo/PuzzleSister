@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,18 +14,22 @@ namespace PuzzleSister {
 			if (loaded) {
 				return;
 			}
-			loaded = true;
+			Debug.Log("load packages");
       Repository.shared.LoadPackages();
+			Debug.Log("load PackageProgressService");
 			PackageProgressService.shared.Load();
+			Debug.Log("load IllustrationService");
       IllustrationService.shared.Load();
+			Debug.Log("load VoiceSuite");
       VoiceSuite.LoadBySetting();
+			Debug.Log("load ok");
+			loaded = true;
 		}
 
-		IEnumerator Start () {
+		void Start () {
 			var resolution = Settings.ParseResolutino(Settings.GetString(Settings.RESOLUTION, "800x600"));
 			Screen.SetResolution(resolution.x, resolution.y, Settings.IsFullscreen(), 60);
 			Loading.Load();
-			yield return new WaitForSeconds(1f);
 			SceneManager.LoadScene("Main");
 		}
 
