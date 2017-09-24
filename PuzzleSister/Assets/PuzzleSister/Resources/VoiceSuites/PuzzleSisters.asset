@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37518518fadf74611837e96d31c44b53, type: 3}
+  m_Name: PuzzleSisters
+  m_EditorClassIdentifier: 
+  XYClips:
+  - {fileID: 8300000, guid: 60c7a4be8250447438ab19513d85679e, type: 3}
+  - {fileID: 8300000, guid: 5ed2594c85cea45f5bd2c65a763ca6fa, type: 3}
+  X0Clips:
+  - {fileID: 8300000, guid: 888612018d6a846dc93d3050e9326929, type: 3}
+  - {fileID: 8300000, guid: 34fb5f23e567a47f8829b90d1c0b6bd1, type: 3}
+  - {fileID: 8300000, guid: 87e94f24e3e2a41fb9ba3feadf8f9884, type: 3}
+  - {fileID: 8300000, guid: bfecbfab91b0244c99002ea8e478f4ea, type: 3}
+  X1Clips:
+  - {fileID: 8300000, guid: 25ab0213e5e6b459d9c89a6882c938ba, type: 3}
+  - {fileID: 8300000, guid: 74a481f5b39454a49a3a367ce5d795aa, type: 3}
+  X2Clips:
+  - {fileID: 8300000, guid: 25ab0213e5e6b459d9c89a6882c938ba, type: 3}
+  - {fileID: 8300000, guid: 74a481f5b39454a49a3a367ce5d795aa, type: 3}
+  X3Clips:
+  - {fileID: 8300000, guid: 4a5d28a71acbc4eaaafd04cfb29bc5d1, type: 3}
+  - {fileID: 8300000, guid: 30a11bf485cf24992b146cc8c7d7e73a, type: 3}
+  X4Clips:
+  - {fileID: 8300000, guid: fe890f3164b6947ceb2055281dc41a16, type: 3}
+  - {fileID: 8300000, guid: f7f8932a536654d0fa94d6b18f5bebd4, type: 3}
+  - {fileID: 8300000, guid: c4cf3fbe2014b4adeb2ef1daa0661d45, type: 3}
+  - {fileID: 8300000, guid: 6325e268ea2b9441284968ee5c064b0a, type: 3}
+  X5Clips:
+  - {fileID: 8300000, guid: 46b06b93da88d4f42b5d50770569cca9, type: 3}
+  - {fileID: 8300000, guid: 86e7d489d13344563bf3b5b263184c0c, type: 3}
+  - {fileID: 8300000, guid: ab9e8907e9a2c4cccbc58394bcca2df5, type: 3}
+  - {fileID: 8300000, guid: ec80d71aed5684fc2938d1e13fa634f7, type: 3}
+  Y1Clips:
+  - {fileID: 8300000, guid: 6f634cd0c63e4419fa76624e794c7383, type: 3}
+  - {fileID: 8300000, guid: fed54f49630264344aaa4b1ffeca5464, type: 3}
+  Y2Clips:
+  - {fileID: 8300000, guid: 63c68a46a697c4cd9a4784916dcd0de6, type: 3}
+  - {fileID: 8300000, guid: 2ee20354ab47f4110baf0a76a2cf5333, type: 3}
+  Y3Clips:
+  - {fileID: 8300000, guid: f64f53cef23af4cf39be32a86fddf62a, type: 3}
+  - {fileID: 8300000, guid: 7f5fea2bfcf424e8097d4c66d3dc5924, type: 3}
+  Y4Clips:
+  - {fileID: 8300000, guid: 7201f76fb186a498188480f2a026e60e, type: 3}
+  - {fileID: 8300000, guid: 70392f83263d943a5b1a075866352322, type: 3}
+  - {fileID: 8300000, guid: 035b3c7c005ca477bbade5fcf109ba9f, type: 3}
+  - {fileID: 8300000, guid: f23643eaee0724f01a3819e2bd2571d3, type: 3}
+  Y5Clips:
+  - {fileID: 8300000, guid: 8238fd0b70a664f4aa61772d46e0db81, type: 3}
+  - {fileID: 8300000, guid: f076cf6e1de8249de9c83015eda8b676, type: 3}
+  - {fileID: 8300000, guid: bfbc29638f3ed47be95c4e795d6e78e2, type: 3}
+  - {fileID: 8300000, guid: a854d8a8790d1427e8f614c47eca5f72, type: 3}
+  Y6Clips:
+  - {fileID: 8300000, guid: f907d88fa7ea04a50be9b40b920482ee, type: 3}
+  - {fileID: 8300000, guid: 1706daf354b2540a6b9e97cc7718385b, type: 3}
+  - {fileID: 8300000, guid: b20894e8724fc4eb599f5facbd9964ea, type: 3}
+  - {fileID: 8300000, guid: 13b2aaa581db142bba2847c7e159eb44, type: 3}
+  Y7Clips:
+  - {fileID: 8300000, guid: e7faa9ce65c754d02b71167cdd79cdcd, type: 3}
+  - {fileID: 8300000, guid: e8bbab19c555f4f15b0e06075c46bbbb, type: 3}
+  Y8Clips:
+  - {fileID: 8300000, guid: 272e71f86101d4c5ca003daff36c3a8c, type: 3}
+  - {fileID: 8300000, guid: ec070f97a166349788dd4026718cf4ad, type: 3}
+  Y9Clips:
+  - {fileID: 8300000, guid: 791f1682303954d3d855209d4c218f67, type: 3}
+  - {fileID: 8300000, guid: db558c5f82d174180af2c79c6c4de189, type: 3}
+  - {fileID: 8300000, guid: c832468b7b99a4dc29672abfd0c449b9, type: 3}
+  - {fileID: 8300000, guid: c832468b7b99a4dc29672abfd0c449b9, type: 3}
+  Y10Clips:
+  - {fileID: 8300000, guid: 9cc8893990b7e4bf0a4a6a8ba6393a93, type: 3}
+  - {fileID: 8300000, guid: d1bf4e15b0cf94724992ce07bd6d5071, type: 3}
+  - {fileID: 8300000, guid: 94ec9956830044b02be75c4586693b2e, type: 3}
+  - {fileID: 8300000, guid: 798638bc2dc064949a0a8f042166b7e2, type: 3}

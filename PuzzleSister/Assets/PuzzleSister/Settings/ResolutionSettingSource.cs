@@ -9,7 +9,7 @@ namespace PuzzleSister {
     void Awake() {
       var dropdown = GetComponent<Dropdown>();
       var resolutions = Settings.GetAvailableResolutions();
-      List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+      var options = new List<Dropdown.OptionData>();
       foreach(var resol in resolutions) {
         string text = string.Format("{0}x{1}", resol.width, resol.height);
         options.Add(new Dropdown.OptionData(text));

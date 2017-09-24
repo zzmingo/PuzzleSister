@@ -31,9 +31,7 @@ namespace PuzzleSister {
     }
   
     void Awake() {
-      Repository.shared.LoadPackages();
-			PackageProgressService.shared.Load();
-      IllustrationService.shared.Load();
+      Loading.Load();
 
       oMenuView.SetActive(true);
       oPackageListView.SetActive(false);

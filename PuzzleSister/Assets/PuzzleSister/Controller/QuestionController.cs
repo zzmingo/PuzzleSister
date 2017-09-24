@@ -11,18 +11,18 @@ namespace PuzzleSister {
     private RoundService roundService;
 
     [NotNull] public TextEffect cPackageTitle;
-    [NotNull] public TextEffect cEnergy;
     [NotNull] public QuestionView questionView;
     [NotNull] public GameObject oDialogue;
     [NotNull] public TextEffect cDialogue;
     [NotNull] public GameObject oDialogueMask;
     [NotNull] public CharacterController characterController;
-    // [NotNull] public AudioClip correctClip;
-    // [NotNull] public AudioClip wrongClip;
+    [NotNull] public AudioClip correctClip;
+    [NotNull] public AudioClip wrongClip;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
     private Question.Result answer = Question.Result.Unknow;
+    private VoiceSuite voiceSuite;
 
     void Start() {
       GlobalEvent.shared.AddListener((data) => {
@@ -45,6 +45,7 @@ namespace PuzzleSister {
     }
     
     public void StartPackage(Package package) {
+      voiceSuite = VoiceSuite.LoadBySetting();
 
       questionView.gameObject.SetActive(false);
       // cPackageTitle.SetText("「" + package.name + "」");
@@ -56,7 +57,6 @@ namespace PuzzleSister {
       roundService = new RoundService(package);
       roundService.Start();
 
-      SetEnergy(roundService.Energy);
       SetProgress(roundService.Current, roundService.Total);
       ShowDialogue(false, false, "");
 
@@ -85,25 +85,57 @@ namespace PuzzleSister {
           yield return WaitForAnswer();
           roundService.SubmitAnswer(answer);
 
-          // check answer and show other response
-          SetEnergy(roundService.Energy);
+          if (!roundService.IsCorrect) {
+            Utils.PlayClip(wrongClip, 0.4f);
+          } else {
+            Utils.PlayClip(correctClip, 0.4f);
+          }
 
           if (roundService.IsEnergyEmpty()) {
+            questionView.DisableOption(answer);
             yield return characterController.ShowStateFor(roundService);
+            VoicePlayer.shared.Play(voiceSuite.X0Clips.RandomOne());
             break;
           }
           
           if (!roundService.IsCorrect) {
-            // Utils.PlayClip(wrongClip);
             questionView.DisableOption(answer);
             yield return characterController.ShowStateFor(roundService);
+            switch(roundService.Energy) {
+              case 1: VoicePlayer.shared.Play(voiceSuite.X1Clips.RandomOne()); break;
+              case 2: VoicePlayer.shared.Play(voiceSuite.X2Clips.RandomOne()); break;
+              case 3: VoicePlayer.shared.Play(voiceSuite.X3Clips.RandomOne()); break;
+              case 4: VoicePlayer.shared.Play(voiceSuite.X4Clips.RandomOne()); break;
+            }
             yield return ShowDialogue(false, true, "好像不正确哦");
             yield return WaitDialogueConfirm();
             StartCoroutine(characterController.ResumeStateFor(roundService));
             yield return ShowDialogue(false, false, "请继续作答...");
           } else {
-            // Utils.PlayClip(correctClip);
             yield return characterController.ShowStateFor(roundService);
+            if (roundService.Energy < 5) {
+              VoicePlayer.shared.Play(voiceSuite.XYClips.RandomOne());
+            } else {
+              if (roundService.Current == 1) {
+                VoicePlayer.shared.Play(voiceSuite.Y1Clips.RandomOne());
+              } else {
+                if (roundService.Combo <= 1) {
+                  VoicePlayer.shared.Play(voiceSuite.X5Clips.RandomOne());
+                } else {
+                  switch(roundService.Combo) {
+                    case 2: VoicePlayer.shared.Play(voiceSuite.Y2Clips.RandomOne()); break;
+                    case 3: VoicePlayer.shared.Play(voiceSuite.Y3Clips.RandomOne()); break;
+                    case 4: VoicePlayer.shared.Play(voiceSuite.Y4Clips.RandomOne()); break;
+                    case 5: VoicePlayer.shared.Play(voiceSuite.Y5Clips.RandomOne()); break;
+                    case 6: VoicePlayer.shared.Play(voiceSuite.Y6Clips.RandomOne()); break;
+                    case 7: VoicePlayer.shared.Play(voiceSuite.Y7Clips.RandomOne()); break;
+                    case 8: VoicePlayer.shared.Play(voiceSuite.Y8Clips.RandomOne()); break;
+                    case 9: VoicePlayer.shared.Play(voiceSuite.Y9Clips.RandomOne()); break;
+                    case 10: VoicePlayer.shared.Play(voiceSuite.Y10Clips.RandomOne()); break;
+                  }
+                }
+              }
+            }
           }
         }
 
@@ -166,14 +198,6 @@ namespace PuzzleSister {
         yield return 1;
       }
       questionView.SetInteractable(false);
-    }
-
-    void SetEnergy(int energy) {
-      char[] energyChars = "□□□□□".ToCharArray();
-      for(int i=0; i<energy; i++) {
-        energyChars[i] = '■';
-      }
-      cEnergy.SetText(new string(energyChars));
     }
 
     void SetProgress(int current, int total) {

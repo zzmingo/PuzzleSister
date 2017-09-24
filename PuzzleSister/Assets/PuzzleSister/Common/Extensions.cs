@@ -56,4 +56,18 @@ namespace PuzzleSister {
 
   }
 
+  public static class ArrayExtensions {
+
+    public static T RandomOne<T>(this T[] array) {
+      if (array.Length <= 0) {
+        throw new UnityException("The array is empty");
+      }
+      if (array.Length == 1) {
+        return array[0];
+      }
+      return array[UnityEngine.Random.Range(0, array.Length)];
+    }
+
+  }
+
 }

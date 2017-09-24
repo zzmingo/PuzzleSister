@@ -37,6 +37,10 @@ namespace PuzzleSister {
       return new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
     }
 
+    public static string GetVoiceStyle(string defaults) {
+      return Settings.GetString(VOICE_STYLE, defaults);
+    }
+
     public static int GetInt(string key, int defaults = 0) {
       if (!PlayerPrefs.HasKey(key)) {
         return defaults;

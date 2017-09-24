@@ -32,6 +32,14 @@ namespace PuzzleSister {
         .PlayOneShot(clip);
     }
 
+    public static void PlayClip(AudioClip clip, float volume) {
+      var audioSource = GameObject
+        .FindGameObjectWithTag("SoundEffect")
+        .GetComponent<AudioSource>();
+      
+      audioSource.PlayOneShot(clip, audioSource.volume * volume);
+    }
+
   }
 
 }
