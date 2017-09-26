@@ -15,13 +15,13 @@ namespace PuzzleSister {
     }
 
     public enum Type {
-      CSV, JSON
+      None, CSV, JSON
     }
 
     public enum Source {
+      Memory,
       Resources,
-      DLC,
-      QEditor
+      DLC
     }
     
     public string id;
@@ -30,20 +30,27 @@ namespace PuzzleSister {
     public string path;
     public Type type;
     public Source source;
+    public List<Question> questionList;
+    public bool temporary = false;
 
     public int CountQuestions() {
       return Load().Count;
     }
 
     public List<Question> Load() {
-      object data;
+      object data = null;
       switch(source) {
         case Source.DLC:
           data = new DLCReader().Read(this);
           break;
-        default:
+        case Source.Resources:
           data = new ResourcesReader().Read(this);
           break;
+        default:
+          break;
+      }
+      if (data == null) {
+        return questionList;
       }
       List<Question> list;
       switch(type) {

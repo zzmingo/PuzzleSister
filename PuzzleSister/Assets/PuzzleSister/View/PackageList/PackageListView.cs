@@ -64,8 +64,6 @@ namespace PuzzleSister {
 		}
 
 		void AdaptItem(GameObject item, Package package) {
-			var progress = PackageProgressService.shared.GetProgress(package.id);
-			item.transform.Find("Progress").GetComponent<Text>().text = Mathf.FloorToInt(progress.progress / progress.total * 100) + "%";
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
 			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {
 				item.transform.Find("Image").GetComponent<Image>().sprite = normalThumb;
@@ -78,6 +76,13 @@ namespace PuzzleSister {
 				data.package = package;
 				GlobalEvent.shared.Invoke(data);
 			});
+			
+			if (package.temporary) {
+				item.transform.Find("Progress").GetComponent<Text>().text = "来自编辑器";
+			} else {
+				var progress = PackageProgressService.shared.GetProgress(package.id);
+				item.transform.Find("Progress").GetComponent<Text>().text = progress.Percentage();
+			}
 		}
 		
 

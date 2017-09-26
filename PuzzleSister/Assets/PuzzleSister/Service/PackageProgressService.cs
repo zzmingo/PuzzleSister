@@ -25,7 +25,6 @@ namespace PuzzleSister {
         } else {
           item = new ProgressItem();
           item.progress = 0;
-          Debug.Log("Add " + pkg.id);
           progressDict.Add(pkg.id, item);
         }
         item.total = pkg.CountQuestions();
@@ -38,7 +37,6 @@ namespace PuzzleSister {
     }
 
     public ProgressItem GetProgress(string id) {
-      Debug.Log(id);
       return progressDict[id];
     }
 
@@ -61,6 +59,10 @@ namespace PuzzleSister {
     public class ProgressItem {
       public int progress;
       public int total;
+
+      public string Percentage(string flag = "%") {
+        return Mathf.FloorToInt((progress + 0.0f) / total * 100) + flag;
+      }
     }
 
   }

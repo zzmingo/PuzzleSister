@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +37,7 @@ namespace PuzzleSister.QEditor {
       bool editing = !string.IsNullOrEmpty(packageId.Trim());
       editingPackage = editing ? QEditorService.shared.GetPackageById(packageId) : null;
       oPackageForm.Query<InputField>("Content/InputField-Name").text = editing ? editingPackage.name : "";
-      oPackageForm.Query<Image>("Content/ImageArea/Image").sprite = editing ? editingPackage.image.ToSprite() : null;
+      oPackageForm.Query<Image>("Content/ImageArea/Image").sprite = editing ? editingPackage.thumb.ToSprite() : null;
     }
 
     public void OnClickAddPackage() {
@@ -50,7 +51,7 @@ namespace PuzzleSister.QEditor {
       }
       var package = editingPackage != null ? editingPackage : new QEditorService.PackageItem();
       package.name = text;
-      package.image = sprite.ToBase64();
+      package.thumb = sprite.ToBase64();
       if (editingPackage != null) {
         QEditorService.shared.UpdatePackage(editingPackage);
         editingPackage = null;
@@ -74,7 +75,7 @@ namespace PuzzleSister.QEditor {
         case QEditorAction.ManagePakcage:
           transform.Find("Package").gameObject.SetActive(false);
           transform.Find("Question").gameObject.SetActive(true);
-          QEditorService.shared.ManagerPackage(QEditorService.shared.GetPackageById(id));
+          QEditorService.shared.ManagePackage(QEditorService.shared.GetPackageById(id));
           break;
         case QEditorAction.DeleteQuestion:
           QEditorService.shared.RemoveQuestionById(id);
@@ -163,6 +164,34 @@ namespace PuzzleSister.QEditor {
 
     public void SaveQuestions() {
       QEditorService.shared.SaveQuestions();
+    }
+
+    public void TryPackage() {
+      var packageItem = QEditorService.shared.GetManagingPackage();
+      var questionList = QEditorService.shared.GetQuestions();
+      if (questionList.Count <= 0) {
+        QEditorAlertUI.shared.Show("请先添加题目");
+        return;
+      }
+      var pkg = new Package();
+      pkg.id = packageItem.id;
+      pkg.name = packageItem.name;
+      pkg.thumb = packageItem.thumb;
+      pkg.source = Package.Source.Memory;
+      pkg.type = Package.Type.None;
+      pkg.temporary = true;
+      pkg.questionList = QEditorService.shared.GetQuestions();
+      Repository.shared.AddPackage(pkg);
+      SceneManager.LoadScene("Main");
+    }
+
+    public void ExportPackage() {
+      var packageItem = QEditorService.shared.GetManagingPackage();
+      var questionList = QEditorService.shared.GetQuestions();
+      if (questionList.Count <= 0) {
+        QEditorAlertUI.shared.Show("请先添加题目");
+        return;
+      }
     }
 
   }

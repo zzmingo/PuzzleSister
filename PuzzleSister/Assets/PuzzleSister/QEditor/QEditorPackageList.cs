@@ -38,7 +38,8 @@ namespace PuzzleSister.QEditor {
     void AdaptItem(Transform item, QEditorService.PackageItem package) {
       item.name = package.id;
       item.Find("Name").GetComponent<Text>().text = package.name;
-      item.Find("ImageCol/Image").GetComponent<Image>().sprite = SpriteExtensions.Base64ToSprite(package.image);
+      var thumbSprite = package.thumb == null ? null : SpriteExtensions.Base64ToSprite(package.thumb);
+      item.Find("ImageCol/Image").GetComponent<Image>().sprite = thumbSprite;
     }
 
   }

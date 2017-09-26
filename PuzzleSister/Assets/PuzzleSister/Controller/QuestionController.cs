@@ -167,10 +167,12 @@ namespace PuzzleSister {
       pkgService.Save();
 
       // save progress
-      var progressService = PackageProgressService.shared;
-      progressService.Load();
-      progressService.SetProgress(roundService.package.id, pkgService.CompletedCount, roundService.PackageQuestionCount);
-      progressService.Save();
+      if (!roundService.package.temporary) {
+        var progressService = PackageProgressService.shared;
+        progressService.Load();
+        progressService.SetProgress(roundService.package.id, pkgService.CompletedCount, roundService.PackageQuestionCount);
+        progressService.Save();
+      }
 
       // show ending dialogue
       string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击『对话框』任意位置返回";

@@ -7,6 +7,9 @@ namespace PuzzleSister {
   public static class TextureExtensions {
 
     public static Texture2D Base64ToTexture(string base64) {
+      if (string.IsNullOrEmpty(base64)) {
+        return null;
+      }
       Texture2D texture = new Texture2D(1, 1);
       texture.FromBase64(base64);
       return texture;
@@ -30,6 +33,9 @@ namespace PuzzleSister {
     }
 
     public static Sprite Base64ToSprite(string base64) {
+      if (string.IsNullOrEmpty(base64)) {
+        return null;
+      }
       var texture = TextureExtensions.Base64ToTexture(base64);
       return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f) , 100f);
     }
@@ -39,6 +45,9 @@ namespace PuzzleSister {
     }
 
     public static Sprite ToSprite(this string base64) {
+      if (string.IsNullOrEmpty(base64)) {
+        return null;
+      }
       return Base64ToSprite(base64);
     }
 
