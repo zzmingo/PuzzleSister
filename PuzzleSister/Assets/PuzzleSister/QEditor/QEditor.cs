@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using SFB;
 
 namespace PuzzleSister.QEditor {
 
@@ -192,6 +193,35 @@ namespace PuzzleSister.QEditor {
         QEditorAlertUI.shared.Show("请先添加题目");
         return;
       }
+
+      var pkgCSVStr = String.Format(
+        "id,name,thumb\n\"{0}\",\"{1}\",\"{2}\"", packageItem.id, packageItem.name, packageItem.thumb);
+      
+      var questionStrList = new List<string>();
+      questionStrList.Add("id,title,A,B,C,D,result,explain");
+      questionList.ForEach((question) => {
+        questionStrList.Add(string.Format(
+          "{0},\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\"",
+          question.id,
+          question.title,
+          question.optionA,
+          question.optionB,
+          question.optionC,
+          question.optionD,
+          question.result,
+          question.explain
+        ));
+      });
+      var questionCSVStr = string.Join("\n", questionStrList.ToArray());
+
+      var extensions = new [] {
+        new ExtensionFilter("Image Files", "png", "jpg", "jpeg" )
+      };
+      var path = StandaloneFileBrowser.SaveFilePanel("导出题库", "", "Export-" + packageItem.name, "pzsister");
+      if (string.IsNullOrEmpty(path)) {
+        return;
+      }
+      File.WriteAllText(path, pkgCSVStr + "\n---\n" + questionCSVStr);
     }
 
   }
