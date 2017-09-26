@@ -33,6 +33,7 @@ namespace PuzzleSister {
     }
 
     public Sprite[] unfullImages;
+    public Sprite[] unfullMiddlles;
 
     private State currentState = State.Normal;
     private int energy = 5;
@@ -46,6 +47,10 @@ namespace PuzzleSister {
       var gameObj = StateToGameObject(State.UnfullNormal);
       var img = gameObj.GetComponent<Image>();
       img.sprite = unfullImages[energy];
+
+      gameObj = StateToGameObject(State.UnfullMiddle);
+      img = gameObj.GetComponent<Image>();
+      img.sprite = unfullMiddlles[energy];
     }
 
     public void ResetState() {

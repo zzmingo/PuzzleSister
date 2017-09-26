@@ -55,6 +55,7 @@ namespace PuzzleSister {
       if (roundService.Energy >= 5) {
         yield return characterView.ResumeState(CharacterView.State.Normal);
       } else {
+        Debug.Log(roundService.Energy);
         if (roundService.Energy == 1) {
           yield return characterView.ResumeState(CharacterView.State.OneNormal);
         } else {
