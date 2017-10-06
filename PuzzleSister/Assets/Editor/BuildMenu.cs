@@ -25,7 +25,7 @@ public class BuildMenu {
       BuildPipeline.BuildPlayer(
         levels, 
         Path.Combine(contentPath, "mac/PuzzleSisters.app"), 
-        BuildTarget.StandaloneOSXIntel64, 
+        BuildTarget.StandaloneOSX, 
         BuildOptions.Development | BuildOptions.AllowDebugging);
     }
 }
