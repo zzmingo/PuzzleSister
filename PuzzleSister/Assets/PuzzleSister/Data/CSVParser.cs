@@ -18,8 +18,7 @@ namespace PuzzleSister {
         question.id = row["id"].ToString();
         question.title = row["title"].ToString();
         question.explain = row["explain"].ToString();
-        // question.result = (Question.Result) Enum.Parse(typeof(Question.Result), row["result"].ToString(), true);
-        question.result = Question.Result.C;
+        question.result = (Question.Result) Enum.Parse(typeof(Question.Result), row["result"].ToString(), true);
         question.optionA = row["A"].ToString();
         question.optionB = row["B"].ToString();
         question.optionC = row["C"].ToString();
