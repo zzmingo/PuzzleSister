@@ -102,15 +102,12 @@ namespace PuzzleSister {
           if (package == null) {
             Utils.ShowDLCStore();
           } else {
-            StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
-          }
-          break;
-        case EventType.PackageChanllengeClick:
-          package = (data as PackageClickEventData).package;
-          if (package == null) {
-            Utils.ShowDLCStore();
-          } else {
-            StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
+            var progress = PackageProgressService.shared.GetProgress(package.id);
+            if (progress.Completed) {
+              
+            } else {
+              StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
+            }
           }
           break;
         case EventType.QuestionPanelBackBtnClick:

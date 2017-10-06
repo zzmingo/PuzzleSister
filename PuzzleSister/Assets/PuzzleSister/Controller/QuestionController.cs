@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.IO;
 using System;
 
@@ -18,6 +19,7 @@ namespace PuzzleSister {
     [NotNull] public CharacterController characterController;
     [NotNull] public AudioClip correctClip;
     [NotNull] public AudioClip wrongClip;
+    [NotNull] public GameObject prefabFullscreenEnding;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
@@ -173,13 +175,51 @@ namespace PuzzleSister {
         progressService.SetProgress(roundService.package.id, pkgService.CompletedCount, roundService.PackageQuestionCount);
         progressService.Save();
       }
+      
+      if (completedCount < roundService.Total) {
+        // show ending dialogue
+        string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击『对话框』任意位置返回";
+        roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
+        yield return ShowDialogue(true, true, roundResult);
+        yield return WaitDialogueConfirm();
+        GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
+      } else {
+        yield return ShowFullScreenEffect();
+        GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
+      }
+    }
 
-      // show ending dialogue
-      string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击『对话框』任意位置返回";
-      roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
-      yield return ShowDialogue(true, true, roundResult);
-      yield return WaitDialogueConfirm();
-      GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
+    IEnumerator ShowFullScreenEffect() {
+      var oFullscreenEnding = Instantiate(prefabFullscreenEnding, Vector3.zero, Quaternion.identity);
+      oFullscreenEnding.SetActive(true);
+      var oCharacter = oFullscreenEnding.transform.Find("Character").gameObject;
+      var index = UnityEngine.Random.Range(0, oCharacter.transform.childCount);
+      var i = 0;
+      foreach(Transform tChild in oCharacter.transform) {
+        tChild.gameObject.SetActive(i == index);
+        i ++;
+      }
+      var canvas = oFullscreenEnding.GetComponent<Canvas>();
+      canvas.worldCamera = Camera.main;
+      canvas.sortingLayerName = "FullscreenEnding";
+      bool playEnd = false;
+      UnityAction<EventData> onPlayEnd = null;
+      onPlayEnd = (EventData eventData) => {
+        GlobalEvent.shared.RemoveListener(onPlayEnd);
+        playEnd = true;
+      };
+      GlobalEvent.shared.AddListener(onPlayEnd);
+      while(!playEnd) {
+        yield return 1;
+      }
+      bool waitForClick = true;
+      canvas.GetComponent<Button>().onClick.AddListener(() => {
+        waitForClick = false;
+      });
+      while(waitForClick) {
+        yield return 1;
+      }
+      Destroy(oFullscreenEnding);
     }
 
     IEnumerator WaitDialogueConfirm() {

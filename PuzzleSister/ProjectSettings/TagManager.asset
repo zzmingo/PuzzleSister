@@ -56,3 +56,6 @@ TagManager:
   - name: Alert
     uniqueID: 1294070989
     locked: 0
+  - name: FullscreenEnding
+    uniqueID: 3290624557
+    locked: 0

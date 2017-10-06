@@ -28,6 +28,7 @@ namespace PuzzleSister {
     OpenIllustration,
     CloseIllustration,
     PackageChanllengeClick,
+    FullscreenEndingPlayEnd,
     // 只能往后加
   }
 
