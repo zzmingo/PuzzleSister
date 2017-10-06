@@ -17,6 +17,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject oSettingsView;
     [NotNull] public GameObject oManualView;
     [NotNull] public GameObject oIllustrationView;
+    [NotNull] public GameObject oDevelopersView;
 
     private bool blockingEvents = false;
     private bool settingsOpening = false;
@@ -39,6 +40,8 @@ namespace PuzzleSister {
       oSettingsView.SetActive(false);
       oManualView.SetActive(false);
       oIllustrationView.SetActive(false);
+      oDevelopersView.SetActive(false);
+
       GlobalEvent.shared.AddListener(OnGlobalEvent);
 
       openingView = ViewType.Menu;
@@ -86,7 +89,7 @@ namespace PuzzleSister {
   
     void OnGlobalEvent(EventData data) {
       if (blockingEvents) return;
-
+      Package package;
       switch(data.type) {
         case EventType.MenuStartClick:
           StartCoroutine(TransitionMenuToPackageListView());
@@ -95,7 +98,15 @@ namespace PuzzleSister {
           StartCoroutine(TransitionPackageListViewToMenu());
           break;
         case EventType.PackageItemClick:
-          var package = (data as PackageClickEventData).package;
+          package = (data as PackageClickEventData).package;
+          if (package == null) {
+            Utils.ShowDLCStore();
+          } else {
+            StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
+          }
+          break;
+        case EventType.PackageChanllengeClick:
+          package = (data as PackageClickEventData).package;
           if (package == null) {
             Utils.ShowDLCStore();
           } else {

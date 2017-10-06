@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using SFB;
+#if UNITY_STANDALONE
+using Steamworks;
+#endif
 
 namespace PuzzleSister.QEditor {
 
@@ -33,25 +36,49 @@ namespace PuzzleSister.QEditor {
       btnSaveQuestions.interactable = QEditorService.shared.questionDirty;
     }
 
+    public void Exit() {
+      if (QEditorService.shared.packageDirty || QEditorService.shared.questionDirty) {
+        QEditorAlertUI.shared.Show("你有信息未保存");
+        return;
+      }
+      SceneManager.LoadScene("Main");
+    }
+
     public void OpenPackageForm(string packageId = null) {
       oPackageForm.SetActive(true);
       bool editing = !string.IsNullOrEmpty(packageId.Trim());
       editingPackage = editing ? QEditorService.shared.GetPackageById(packageId) : null;
+      string author = "";
+#if UNITY_STANDALONE
+      if (editingPackage == null || string.IsNullOrEmpty(editingPackage.author)) { 
+        author = SteamFriends.GetPersonaName();
+      } else {
+        author = editing ? editingPackage.author : "";
+      }
+#endif
       oPackageForm.Query<InputField>("Content/InputField-Name").text = editing ? editingPackage.name : "";
+      oPackageForm.Query<InputField>("Content/InputField-Author").text = author;
+      oPackageForm.Query<InputField>("Content/InputField-Description").text = editing ? editingPackage.description : "";
       oPackageForm.Query<Image>("Content/ImageArea/Image").sprite = editing ? editingPackage.thumb.ToSprite() : null;
     }
 
     public void OnClickAddPackage() {
       string text = oPackageForm.transform.Find("Content/InputField-Name").GetComponent<InputField>().text.Trim();
+      string author = oPackageForm.transform.Find("Content/InputField-Author").GetComponent<InputField>().text.Trim();
+      string description = oPackageForm.transform.Find("Content/InputField-Description").GetComponent<InputField>().text.Trim();
       Sprite sprite = oPackageForm.transform.Find("Content/ImageArea/Image").GetComponent<Image>().sprite;
-      if (string.IsNullOrEmpty(text)) {
-        return;
-      }
-      if (sprite == null) {
+      if (string.IsNullOrEmpty(text) ||
+        string.IsNullOrEmpty(author) ||
+        string.IsNullOrEmpty(description) ||
+        sprite == null) 
+      {
+        QEditorAlertUI.shared.Show("信息未填完整");
         return;
       }
       var package = editingPackage != null ? editingPackage : new QEditorService.PackageItem();
       package.name = text;
+      package.author = author;
+      package.description = description;
       package.thumb = sprite.ToBase64();
       if (editingPackage != null) {
         QEditorService.shared.UpdatePackage(editingPackage);
@@ -88,6 +115,10 @@ namespace PuzzleSister.QEditor {
     }
 
     public void BackToPackagePanel() {
+      if (QEditorService.shared.questionDirty) {
+        QEditorAlertUI.shared.Show("你有信息未保存");
+        return;
+      }
       transform.Find("Package").gameObject.SetActive(true);
       transform.Find("Question").gameObject.SetActive(false);
     }
@@ -139,6 +170,7 @@ namespace PuzzleSister.QEditor {
           string.IsNullOrEmpty(explain) ||
           string.IsNullOrEmpty(result)
       ) {
+        QEditorAlertUI.shared.Show("信息未填完整");
         return;
       }
 
@@ -195,7 +227,9 @@ namespace PuzzleSister.QEditor {
       }
 
       var pkgCSVStr = String.Format(
-        "id,name,thumb\n\"{0}\",\"{1}\",\"{2}\"", packageItem.id, packageItem.name, packageItem.thumb);
+        "id,name,author,description,thumb\n\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"", 
+        packageItem.id, packageItem.name, packageItem.author, packageItem.description, packageItem.thumb
+      );
       
       var questionStrList = new List<string>();
       questionStrList.Add("id,title,A,B,C,D,result,explain");

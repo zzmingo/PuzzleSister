@@ -13,7 +13,13 @@ namespace PuzzleSister {
 		[NotNull] public GameObject packageItemPrefab;
 		[NotNull] public Sprite normalThumb;
 
+		[NotNull] public PackageDialogView dialogueView;
+
 		private bool destroyed = false;
+
+		void Awake() {
+			dialogueView.gameObject.SetActive(false);
+		}
 
 		void OnDestroy() {
 			DestroyList();
@@ -68,13 +74,11 @@ namespace PuzzleSister {
 			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {
 				item.transform.Find("Image").GetComponent<Image>().sprite = normalThumb;
 			} else {
-				item.transform.Find("Image").GetComponent<Image>().sprite = SpriteExtensions.Base64ToSprite(package.thumb);
+				item.transform.Find("Image").GetComponent<Image>().sprite = package.ThumbSprite;
 			}
 			item.GetComponent<Button>().onClick.AddListener(() => {
-				var data = new PackageClickEventData();
-				data.type = EventType.PackageItemClick;
-				data.package = package;
-				GlobalEvent.shared.Invoke(data);
+				dialogueView.SetPackage(package);
+				dialogueView.gameObject.SetActive(true);
 			});
 			
 			if (package.temporary) {

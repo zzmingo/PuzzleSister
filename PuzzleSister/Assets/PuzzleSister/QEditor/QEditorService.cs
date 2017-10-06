@@ -65,6 +65,7 @@ namespace PuzzleSister.QEditor {
     }
 
     public void ManagePackage(PackageItem package) {
+      questionDirty = false;
       managingPackage = package;
       questionList = Storage.shared.DeserializeLoad(GetQuestionsSavePath(), new List<Question>());
       OnQuestionChange.Invoke();
@@ -114,6 +115,8 @@ namespace PuzzleSister.QEditor {
     public class PackageItem {
       public string id;
       public string name;
+      public string author;
+      public string description;
       public string thumb;
     }
     

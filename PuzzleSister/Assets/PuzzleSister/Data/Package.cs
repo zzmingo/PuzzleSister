@@ -26,12 +26,25 @@ namespace PuzzleSister {
     
     public string id;
     public string name;
+    public string author;
+    public string description;
     public string thumb;
     public string path;
     public Type type;
     public Source source;
     public List<Question> questionList;
     public bool temporary = false;
+
+    public Sprite ThumbSprite {
+      get {
+        if (thumbSprite == null) {
+          thumbSprite = SpriteExtensions.Base64ToSprite(thumb);
+        }
+        return thumbSprite;
+      }
+    }
+    private Sprite thumbSprite;
+
 
     public int CountQuestions() {
       return Load().Count;

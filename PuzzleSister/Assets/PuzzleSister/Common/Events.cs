@@ -27,6 +27,7 @@ namespace PuzzleSister {
     PlayLiteHitAudio,
     OpenIllustration,
     CloseIllustration,
+    PackageChanllengeClick,
     // 只能往后加
   }
 

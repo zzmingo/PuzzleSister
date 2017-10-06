@@ -60,6 +60,8 @@ namespace PuzzleSister {
       public int progress;
       public int total;
 
+      public bool Completed { get { return progress == total; } }
+
       public string Percentage(string flag = "%") {
         return Mathf.FloorToInt((progress + 0.0f) / total * 100) + flag;
       }
