@@ -25,8 +25,8 @@ namespace PuzzleSister {
   public static class SpriteExtensions {
 
     public static Sprite FromFile(string path) {
-      path = Uri.UnescapeDataString(path).Substring(7);
-      byte[] bytes = File.ReadAllBytes(path);
+      var www = new WWW(path);
+      byte[] bytes = www.bytes;
       Texture2D texture = new Texture2D(1, 1);
       texture.LoadImage(bytes);
       return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f) , 100f);

@@ -88,6 +88,14 @@ namespace PuzzleSister {
       this.OnPackageChanged.Invoke();
     }
 
+    public void ReplacePackage(Package package) {
+      var origin = GetPackageById(package.id);
+      if (origin != null) {
+        RemovePackage(origin);
+      }
+      AddPackage(package);
+    }
+
   }
 
 }

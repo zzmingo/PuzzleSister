@@ -214,7 +214,7 @@ namespace PuzzleSister.QEditor {
       pkg.type = Package.Type.None;
       pkg.temporary = true;
       pkg.questionList = QEditorService.shared.GetQuestions();
-      Repository.shared.AddPackage(pkg);
+      Repository.shared.ReplacePackage(pkg);
       SceneManager.LoadScene("Main");
     }
 
