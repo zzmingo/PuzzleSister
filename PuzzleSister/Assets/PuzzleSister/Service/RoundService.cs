@@ -19,6 +19,7 @@ namespace PuzzleSister {
     public bool IsCurrentCompleted { get { return correct || answerTimes == 3; } }
     public List<AnswerItem> CompletedList { get { return completedList; } }
     public bool IsEnergyEmpty() { return Energy == 0; }
+    public bool IsChanllenge() { return chanllenge; }
     
     public readonly Package package;
     private int packageQuestionCount;
@@ -31,9 +32,11 @@ namespace PuzzleSister {
     private int answerTimes = 0;
     private bool correct = false;
     private List<AnswerItem> completedList;
+    private bool chanllenge = false;
 
-    public RoundService(Package package) {
+    public RoundService(Package package, bool chanllenge = false) {
       this.package = package;
+      this.chanllenge = chanllenge;
     }
 
     public void Start() {
@@ -42,14 +45,22 @@ namespace PuzzleSister {
       List<Question> filteredList = new List<Question>();
       var pkgService = PackageService.For(package);
       pkgService.Load();
-      foreach(var question in questionList) {
-        if (!pkgService.IsComplete(question)) {
-          filteredList.Add(question);
+
+      if (chanllenge) {
+        filteredList.AddRange(questionList);
+        totalCount = filteredList.Count;
+      } else {
+        foreach(var question in questionList) {
+          if (!pkgService.IsComplete(question)) {
+            filteredList.Add(question);
+          }
         }
+        totalCount = 10;
+        totalCount = filteredList.Count >= totalCount ? totalCount : filteredList.Count;
       }
+
       questionList = filteredList;
       completedList = new List<AnswerItem>();
-      totalCount = questionList.Count >= totalCount ? totalCount : questionList.Count;
     }
 
     public bool HasNextQuestion() {

@@ -20,6 +20,7 @@ namespace PuzzleSister {
     [NotNull] public AudioClip correctClip;
     [NotNull] public AudioClip wrongClip;
     [NotNull] public GameObject prefabFullscreenEnding;
+    [NotNull] public GameObject oRewardIllustration;
 
     private Coroutine coroutineForStart;
     private bool dialgueConfirmed = false;
@@ -46,7 +47,7 @@ namespace PuzzleSister {
       });
     }
     
-    public void StartPackage(Package package) {
+    public void StartPackage(Package package, bool chanllenge = false) {
       voiceSuite = VoiceSuite.LoadBySetting();
 
       questionView.gameObject.SetActive(false);
@@ -56,7 +57,7 @@ namespace PuzzleSister {
 
       characterController.ResetState();
 
-      roundService = new RoundService(package);
+      roundService = new RoundService(package, chanllenge);
       roundService.Start();
 
       SetProgress(roundService.Current, roundService.Total);
@@ -73,7 +74,7 @@ namespace PuzzleSister {
 
     public IEnumerator StartQuestion() {
       GlobalEvent.shared.Invoke(EventType.PlayStartAudio);
-      yield return ShowDialogue(true, true, "『答题回合』马上要开始了，点击『对话框』任意位置开始答题");
+      yield return ShowDialogue(true, true, string.Format("『{0}』马上要开始了，点击任意位置开始答题", roundService.IsChanllenge() ? "挑战模式" : "答题回合"));
       yield return WaitDialogueConfirm();
       
       while(roundService.HasNextQuestion() && !roundService.IsEnergyEmpty()) {
@@ -168,6 +169,8 @@ namespace PuzzleSister {
       }
       pkgService.Save();
 
+      int originCompleted = PackageProgressService.shared.CompletedCount;
+
       // save progress
       if (!roundService.package.temporary) {
         var progressService = PackageProgressService.shared;
@@ -178,14 +181,31 @@ namespace PuzzleSister {
       
       if (completedCount < roundService.Total) {
         // show ending dialogue
-        string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击『对话框』任意位置返回";
+        string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击任意位置返回";
         roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
         yield return ShowDialogue(true, true, roundResult);
         yield return WaitDialogueConfirm();
-        GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
       } else {
         yield return ShowFullScreenEffect();
-        GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
+      }
+
+      int currentCompleted = PackageProgressService.shared.CompletedCount;
+
+      if (currentCompleted / Const.ILLUSTRATION_REWARD_BASE_FACTOR > originCompleted / Const.ILLUSTRATION_REWARD_BASE_FACTOR) {
+        yield return RewardIllustration();
+      }
+
+      GlobalEvent.shared.Invoke(EventType.QuestionPanelToPackageList);
+    }
+
+    IEnumerator RewardIllustration() {
+      var item = IllustrationService.shared.RewardNext();
+      if (item != null) {
+        oRewardIllustration.SetActive(true);
+        oRewardIllustration.GetComponent<Button>().enabled = false;
+        oRewardIllustration.transform.Find("Text").gameObject.ScaleFrom(Vector3.zero, 0.5f, 0f);
+        yield return new WaitForSeconds(1f);
+        oRewardIllustration.GetComponent<Button>().enabled = true;
       }
     }
 

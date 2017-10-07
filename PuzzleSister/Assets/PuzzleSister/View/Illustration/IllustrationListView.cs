@@ -26,6 +26,7 @@ namespace PuzzleSister {
 		}
 
 		void AdaptItem(GameObject item, IllustrationItem itemData) {
+			itemData.rewarded = IllustrationService.shared.IsRewarded(itemData);
 			item.Query<Image>("Image").sprite = itemData.rewarded ? itemData.image : thumbPlaceholder;
 			item.Query<Text>("Name").text = itemData.name;
 			item.GetComponent<Button>().onClick.AddListener(() => {

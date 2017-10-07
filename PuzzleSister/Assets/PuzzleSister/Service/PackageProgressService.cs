@@ -11,8 +11,13 @@ namespace PuzzleSister {
 
     public static readonly PackageProgressService shared = new PackageProgressService();
 
+    public int CompletedCount {
+      get { return completedCount; }
+    }
+
     private Dictionary<string, ProgressItem> progressDict;
     private bool loaded = false;
+    private int completedCount = 0;
 
     public void Load() {
       if (loaded) return;
@@ -28,6 +33,7 @@ namespace PuzzleSister {
           progressDict.Add(pkg.id, item);
         }
         item.total = pkg.CountQuestions();
+        completedCount += item.progress;
       }
       loaded = true;
     }
@@ -49,6 +55,15 @@ namespace PuzzleSister {
       } else {
         progressDict[id].progress = progress;
         progressDict[id].total = total;
+      }
+
+      UpdateCompletedCount();
+    }
+
+    private void UpdateCompletedCount() {
+      completedCount = 0;
+      foreach(var progress in progressDict) {
+        completedCount += progress.Value.progress;
       }
     }
 

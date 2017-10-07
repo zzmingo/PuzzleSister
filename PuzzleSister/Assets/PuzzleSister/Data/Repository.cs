@@ -23,7 +23,7 @@ namespace PuzzleSister {
         return;
       }
       bool internalTesting = false;
-#if InternalTesting
+#if INTERNAL_TESTING
       internalTesting = true;
 #endif
       if (internalTesting || Application.isEditor) {

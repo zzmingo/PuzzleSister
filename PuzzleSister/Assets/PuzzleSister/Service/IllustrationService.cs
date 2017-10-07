@@ -31,11 +31,26 @@ namespace PuzzleSister {
       Storage.shared.SerializeSave(GetSavePath(), rewardedItemList);
     }
 
+    public bool IsRewarded(IllustrationItem item) {
+      return rewardedItemList.Contains(item.id);
+    }
+
+    public IllustrationItem RewardNext() {
+      foreach(var item in IllustrationSettings.shared.items) {
+        if (!rewardedItemList.Contains(item.id)) {
+          RewardItem(item);
+          return item;
+        }
+      }
+      return null;
+    }
+
     public void RewardItem(IllustrationItem item) {
       if (rewardedItemList.Contains(item.id)) {
         return;
       }
       rewardedItemList.Add(item.id);
+      Save();
     }
 
     private string GetSavePath() {

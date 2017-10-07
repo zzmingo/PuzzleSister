@@ -102,12 +102,7 @@ namespace PuzzleSister {
           if (package == null) {
             Utils.ShowDLCStore();
           } else {
-            var progress = PackageProgressService.shared.GetProgress(package.id);
-            if (progress.Completed) {
-              
-            } else {
-              StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
-            }
+            StartCoroutine(TransitionPackageListViewToQuestionPanel(package));
           }
           break;
         case EventType.QuestionPanelBackBtnClick:
@@ -212,7 +207,8 @@ namespace PuzzleSister {
       yield return HidePackageList();
       oQuestionPanel.SetActive(true);
       oQuestionCharacter.ScaleFrom(new Vector3(0, 1f, 1f), 0.3f, 0);
-      GetComponent<QuestionController>().StartPackage(package);
+      bool chanllenge = PackageProgressService.shared.GetProgress(package.id).Completed;
+      GetComponent<QuestionController>().StartPackage(package, chanllenge);
       bGMController.RandomBGM();
       openingView = ViewType.QuestionPanel;
       blockingEvents = false;
