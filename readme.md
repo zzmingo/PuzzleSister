@@ -34,7 +34,7 @@ Voice         // 语音相关
 
 ## Main场景
 
-![Main Scene](./images/hierarchy.png)
+![Main Scene](./images/hierarchy.png | width=300)
 
 * **CanvasXXX** 是不同的UI模块的Canvas层
 * **Controller** 对象放置所有的Controller
@@ -53,7 +53,6 @@ TODO ...
 题库定义：
 
 * [Package](https://github.com/zzmingo/PuzzleSister/blob/develop/PuzzleSister/Assets/PuzzleSister/Data/Package.cs) : 题库
-
 * [Question](https://github.com/zzmingo/PuzzleSister/blob/develop/PuzzleSister/Assets/PuzzleSister/Data/Question.cs) ：题目
 
 ## 发布
