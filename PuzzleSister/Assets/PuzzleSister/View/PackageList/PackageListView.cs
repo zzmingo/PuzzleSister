@@ -21,6 +21,16 @@ namespace PuzzleSister {
 			dialogueView.gameObject.SetActive(false);
 		}
 
+		void OnEnable() {
+			Debug.Log("Enable");
+			InitList();
+		}
+
+		void OnDisable() {
+			Debug.Log("Disable");
+			DestroyList();
+		}
+
 		void OnDestroy() {
 			DestroyList();
 			destroyed = true;
