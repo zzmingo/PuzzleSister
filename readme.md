@@ -70,5 +70,3 @@ Puzzle Sisters -> Build All Platforms For Steam
 Build完毕后可以使用**Steam/run_app_build.sh**来上传项目
 
 上传完毕后将使用**SteamWorks**进行发布一下
-
-## The End
