@@ -1,4 +1,4 @@
-<size=50><color=#4FF0FFFF>制作组名单</color></size>
+<size=70><color=#4FF0FFFF>制作组名单</color></size>
 
 策划：冷笑黑妖
 程序：Mingo
