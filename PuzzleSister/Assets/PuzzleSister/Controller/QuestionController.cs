@@ -23,6 +23,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject oRewardIllustration;
 
     private Coroutine coroutineForStart;
+    private bool waitingAnswer = false;
     private bool dialgueConfirmed = false;
     private Question.Result answer = Question.Result.Unknow;
     private VoiceSuite voiceSuite;
@@ -256,9 +257,11 @@ namespace PuzzleSister {
       yield return new WaitForSeconds(0.3f);
       answer = Question.Result.Unknow;
       questionView.SetInteractable(true);
+      waitingAnswer = true;
       while(answer == Question.Result.Unknow) {
         yield return 1;
       }
+      waitingAnswer = false;
       questionView.SetInteractable(false);
     }
 
@@ -281,6 +284,22 @@ namespace PuzzleSister {
           yield return 1;
         }
       }
+    }
+
+    void Update() {
+#if UNITY_STANDALONE
+      if (waitingAnswer) {
+        if (Input.GetKeyUp(KeyCode.Alpha1)) {
+          answer = Question.Result.A;
+        } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+          answer = Question.Result.B;
+        } else if (Input.GetKeyUp(KeyCode.Alpha3)) {
+          answer = Question.Result.C;
+        } else if (Input.GetKeyUp(KeyCode.Alpha4)) {
+          answer = Question.Result.D;
+        }
+      }
+#endif
     }
 
   }
