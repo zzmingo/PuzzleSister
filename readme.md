@@ -46,12 +46,30 @@ Voice         // 语音相关
 
 TODO ...
 
-## 题库、DLC与创意工坊
+## QEditor、题库、DLC与创意工坊
 
-TODO ...
+**QEditor**是提供给玩家或者内部人员编辑题目以达到制作DLC和创意工坊包的目的
 
-## QEditor
+题库定义：
 
-TODO ...
+* [Package](https://github.com/zzmingo/PuzzleSister/blob/develop/PuzzleSister/Assets/PuzzleSister/Data/Package.cs) : 题库
+
+* [Question](https://github.com/zzmingo/PuzzleSister/blob/develop/PuzzleSister/Assets/PuzzleSister/Data/Question.cs) ：题目
+
+## 发布
+
+> 注：此步是发布到开发环境，所以无需担心
+
+首先你需要运行 **install_steamcmd.sh**，会安装**SteamCmd**到项目的 **SteamCmd**目录下。
+
+运行 **PuzzleSister** Unity项目后，可以通过自定的扩展菜单进行Build项目
+
+```
+Puzzle Sisters -> Build All Platforms For Steam
+```
+
+Build完毕后可以使用**Steam/run_app_build.sh**来上传项目
+
+上传完毕后将使用**SteamWorks**进行发布一下
 
 ## The End
