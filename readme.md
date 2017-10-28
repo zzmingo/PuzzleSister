@@ -34,7 +34,7 @@ Voice         // 语音相关
 
 ## Main场景
 
-![Main Scene](./images/hierarchy.png | width=300)
+<img src="./images/hierarchy.png" width=300 />
 
 * **CanvasXXX** 是不同的UI模块的Canvas层
 * **Controller** 对象放置所有的Controller
