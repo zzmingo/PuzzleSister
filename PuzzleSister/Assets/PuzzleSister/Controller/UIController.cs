@@ -43,6 +43,13 @@ namespace PuzzleSister {
 					uiStack.Clear();
 					uiMenu.SetActive(true);
 					break;
+				case EventType.QuestionPanelToPackageList:
+					bGMController.RandomBGM();
+					questionController.StopAndReset();
+					showingUIPopup = null;
+					uiPopupStack.Clear();
+					PopUI();
+					break;
 			}
 		}
 

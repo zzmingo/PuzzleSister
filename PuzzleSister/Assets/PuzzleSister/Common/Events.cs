@@ -39,6 +39,7 @@ namespace PuzzleSister {
     private GlobalEvent() {}
 
     public void Invoke(EventType type) {
+      Debug.Log("Fire Event: " + type);
       var data = new EventData();
       data.type = type;
       Invoke(data);

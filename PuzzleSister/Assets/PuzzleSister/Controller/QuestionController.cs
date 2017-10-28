@@ -185,7 +185,7 @@ namespace PuzzleSister {
         progressService.Save();
       }
       
-      if (completedCount < roundService.Total) {
+      if (completedCount < roundService.Total || completedCount < 10) {
         // show ending dialogue
         string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击任意位置返回";
         roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
