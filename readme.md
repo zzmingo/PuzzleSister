@@ -2,6 +2,18 @@
 
 http://store.steampowered.com/app/710190/Puzzle_SistersFoer/
 
+## TODO List
+
+- [x] 主界面UI更新
+- [ ] 制作组名单UI更新
+- [ ] 图鉴UI和显示逻辑更新
+- [ ] 点开始后不直接进题库，进一个选择新界面
+- [ ] 题库编辑器完善
+- [ ] 题库界面更新
+- [ ] 答题界面更新
+- [ ] 创意工坊
+- [ ] DLC
+
 ## 目录
 
 ```
