@@ -250,6 +250,18 @@ namespace PuzzleSister.QEditor {
       File.WriteAllText(path, pkgCSVStr + "\n---\n" + questionCSVStr);
     }
 
+    public void UploadUGC() {
+      var packageItem = QEditorService.shared.GetManagingPackage();
+      var questionList = QEditorService.shared.GetQuestions();
+      if (questionList.Count < 30 || questionList.Count > 100) {
+        QEditorAlertUI.shared.Show("上传工坊前，题目数量必须在30~100题内");
+        return;
+      }
+      UGCUploader uploader = new UGCUploader();
+      uploader.UploadUGC();
+
+    }
+
   }
 
 }
