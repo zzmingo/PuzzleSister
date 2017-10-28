@@ -15,10 +15,7 @@ namespace PuzzleSister.QEditor {
   public class QEditor : MonoBehaviour {
 
     [NotNull] public GameObject oPackageForm;
-    [NotNull] public Button btnSavePackage;
-
     [NotNull] public GameObject oQuestionForm;
-    [NotNull] public Button btnSaveQuestions;
 
     private QEditorService.PackageItem editingPackage;
     private Question editingQuestion;
@@ -29,11 +26,6 @@ namespace PuzzleSister.QEditor {
       oPackageForm.SetActive(false);
       oQuestionForm.SetActive(false);
       QEditorService.shared.LoadPackages();
-    }
-
-    void Update() {
-      btnSavePackage.interactable = QEditorService.shared.packageDirty;
-      btnSaveQuestions.interactable = QEditorService.shared.questionDirty;
     }
 
     public void Exit() {
