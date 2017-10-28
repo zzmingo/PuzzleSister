@@ -10817,7 +10817,7 @@ GameObject:
   - component: {fileID: 1552002153}
   - component: {fileID: 1552002152}
   m_Layer: 0
-  m_Name: IllustractionSettings
+  m_Name: IllustrationSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
