@@ -37,6 +37,7 @@ namespace PuzzleSister.QEditor {
       packageList.Add(package);
       packageDirty = true;
       OnPackageChange.Invoke();
+      SavePackages();
     }
 
     public PackageItem GetPackageById(string id) {
@@ -49,11 +50,13 @@ namespace PuzzleSister.QEditor {
       packageList.Remove(package);
       packageDirty = true;
       OnPackageChange.Invoke();
+      SavePackages();
     }
 
     public void UpdatePackage(PackageItem package) {
       packageDirty = true;
       OnPackageChange.Invoke();
+      SavePackages();
     }
 
     public List<PackageItem> GetAllPackages() {
@@ -80,6 +83,7 @@ namespace PuzzleSister.QEditor {
       questionList.Add(question);
       questionDirty = true;
       OnQuestionChange.Invoke();
+      SaveQuestions();
     }
 
     public Question GetQuestionById(string id) {
@@ -91,11 +95,13 @@ namespace PuzzleSister.QEditor {
       questionList.Remove(question);
       questionDirty = true;
       OnQuestionChange.Invoke();
+      SaveQuestions();
     }
 
     public void UpdateQuestion(Question question) {
       questionDirty = true;
       OnQuestionChange.Invoke();
+      SaveQuestions();
     }
 
     public void SaveQuestions() {
