@@ -88,7 +88,7 @@ namespace PuzzleSister {
 			}
 			item.GetComponent<Button>().onClick.AddListener(() => {
 				dialogueView.SetPackage(package);
-				dialogueView.gameObject.SetActive(true);
+				UIController.singleton.PushPopup(dialogueView.gameObject);
 			});
 			
 			if (package.temporary) {

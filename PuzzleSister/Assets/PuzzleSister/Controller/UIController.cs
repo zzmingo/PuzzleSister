@@ -5,14 +5,22 @@ using UnityEngine;
 namespace PuzzleSister {
 	public class UIController : MonoBehaviour {
 
+		public static UIController singleton;
+
+		[NotNull] public GameObject uiMenu;
+		[NotNull] public GameObject uiSettings;
 		[NotNull] public GameObject showingUIObject;
 		[NotNull] public GameObject questionUIObject;
 		[NotNull] public BGMController bGMController;
 		[NotNull] public QuestionController questionController;
 
+		private GameObject showingUIPopup;
+
 		private Stack<GameObject> uiStack = new Stack<GameObject>();
+		private Stack<GameObject> uiPopupStack = new Stack<GameObject>();
 
 		void Awake() {
+			singleton = this;
 			GlobalEvent.shared.AddListener(handleGlobalEvent);
 		}
 
@@ -28,6 +36,12 @@ namespace PuzzleSister {
 						questionController.StartPackage(package, chanllenge);
 						bGMController.RandomBGM();
           }
+					break;
+				case EventType.CloseSettingsToMenu:
+					questionController.StopAndReset();
+					showingUIObject.SetActive(false);
+					uiStack.Clear();
+					uiMenu.SetActive(true);
 					break;
 			}
 		}
@@ -46,7 +60,20 @@ namespace PuzzleSister {
 			showingUIObject = uiGameObject;
 		}
 
+		public void PushPopup(GameObject uiPopupObject) {
+			if (showingUIPopup != null) {
+				showingUIPopup.SetActive(false);
+				uiPopupStack.Push(showingUIPopup);
+			}
+			showingUIPopup = uiPopupObject;
+			showingUIPopup.SetActive(true);
+		}
+
 		public void PopUI() {
+			if (showingUIPopup != null) {
+				PopPopup();
+				return;
+			}
 			if (uiStack.Count <= 0) {
 				return;
 			}
@@ -55,10 +82,35 @@ namespace PuzzleSister {
 			showingUIObject.SetActive(true);
 		}
 
+		public void PopPopup() {
+			if (showingUIPopup != null) {
+				showingUIPopup.SetActive(false);
+				if (uiPopupStack.Count > 0) {
+					showingUIPopup = uiPopupStack.Pop();
+					showingUIPopup.SetActive(true);
+				}
+			}
+		}
+
 		void Update() {
 	#if UNITY_STANDALONE
 				if (Input.GetKeyUp(KeyCode.Escape)) {
-					PopUI();
+
+					// 正在答题跳设置
+					if (questionController.IsStartedPackage()) {
+						PushUI(uiSettings);
+					} 
+					// 否则退去当前UI
+					else {
+						PopUI();
+					}
+				}
+
+				if (Input.GetMouseButtonUp(1)) {
+					// 右键在非答题状态下才启用
+					if (!questionController.IsStartedPackage()) {
+						PopUI();
+					}
 				}
 	#endif
 			}

@@ -67,9 +67,14 @@ namespace PuzzleSister {
       coroutineForStart = StartCoroutine(StartQuestion());
     }
 
+    public bool IsStartedPackage() {
+      return roundService != null;
+    }
+
     public void StopAndReset() {
       if (coroutineForStart != null) {
         StopCoroutine(coroutineForStart);
+        roundService = null;
       }
     }
 
