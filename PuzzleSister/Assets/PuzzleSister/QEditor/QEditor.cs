@@ -25,6 +25,8 @@ namespace PuzzleSister.QEditor {
       transform.Find("Question").gameObject.SetActive(false);
       oPackageForm.SetActive(false);
       oQuestionForm.SetActive(false);
+
+      QEditorLoading.shared.Show();
       QEditorService.shared.LoadPackages();
     }
 
@@ -252,15 +254,7 @@ namespace PuzzleSister.QEditor {
     }
 
     public void UploadUGC() {
-      var packageItem = QEditorService.shared.GetManagingPackage();
-      var questionList = QEditorService.shared.GetQuestions();
-      if (questionList.Count < 30 || questionList.Count > 100) {
-        QEditorAlertUI.shared.Show("上传工坊前，题目数量必须在30~100题内");
-        return;
-      }
-      UGCUploader uploader = new UGCUploader();
-      uploader.UploadUGC();
-
+      UGCUploader.shared.UploadUGC();
     }
 
   }
