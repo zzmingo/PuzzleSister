@@ -27,8 +27,8 @@ namespace PuzzleSister {
 		}
 
 		void Start () {
-			var resolution = Settings.ParseResolutino(Settings.GetString(Settings.RESOLUTION, "800x600"));
-			Screen.SetResolution(resolution.x, resolution.y, Settings.IsFullscreen(), 60);
+			var resolution = Settings.ParseResolution(Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION));
+			Screen.SetResolution(resolution.width, resolution.height, Settings.IsFullscreen(), resolution.refreshRate);
 			Loading.Load();
 			SceneManager.LoadScene("Main");
 		}

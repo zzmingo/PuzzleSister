@@ -13,6 +13,8 @@ namespace PuzzleSister {
       Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen
     }
     
+    public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
+
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
     public const string VOICE = "settings.voice";
@@ -32,9 +34,17 @@ namespace PuzzleSister {
       return GetInt(FULLSCREEN, 0) == 1;
     }
 
-    public static Vector2Int ParseResolutino(string resolution) {
-      string[] split = resolution.Split('x');
-      return new Vector2Int(int.Parse(split[0]), int.Parse(split[1]));
+    public static Resolution ParseResolution(string resolution) {
+      if (!resolution.Contains("hz")) {
+        resolution += " (60hz)";
+      }
+      string[] split = resolution.Split(' ');
+      string[] size = split[0].Split('x');
+      Resolution resol = new Resolution();
+      resol.width = int.Parse(size[0]);
+      resol.height = int.Parse(size[1]);
+      resol.refreshRate = int.Parse(split[1].Replace("(", "").Replace(")", "").Replace("hz", ""));
+      return resol;
     }
 
     public static string GetVoiceStyle(string defaults) {
