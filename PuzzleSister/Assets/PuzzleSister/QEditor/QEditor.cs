@@ -122,7 +122,7 @@ namespace PuzzleSister.QEditor {
     public void OpenQuestionForm(string questionId = null) {
       oQuestionForm.SetActive(true);
 
-      bool adding = string.IsNullOrEmpty(questionId.Trim());
+      bool adding = string.IsNullOrEmpty(questionId);
       var question = adding ? null : QEditorService.shared.GetQuestionById(questionId);
       oQuestionForm.Query<InputField>("Content/InputField-Title").text = adding ? "" : question.title;
       oQuestionForm.Query<InputField>("Content/InputField-A").text = adding ? "" : question.optionA;
@@ -132,8 +132,9 @@ namespace PuzzleSister.QEditor {
       oQuestionForm.Query<InputField>("Content/InputField-Explain").text = adding ? "" : question.explain;
 
       var toggleGroup = oQuestionForm.Query<ToggleGroup>("Content/Result");
-      var toggle = oQuestionForm.Query<Toggle>("Content/Result/" + (adding ? "A" : question.result.Name()));
-      toggleGroup.NotifyToggleOn(toggle);
+      var togglePath = "Content/Result/" + (adding ? "A" : question.result.Name());
+      var toggle = oQuestionForm.Query<Toggle>(togglePath);
+      toggle.isOn = true;
 
       editingQuestion = question;
     }
