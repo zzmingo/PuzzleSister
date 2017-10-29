@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using SFB;
+using UnityEngine.Events;
 
 namespace PuzzleSister.QEditor {
 
   public class QImageSelector : MonoBehaviour {
 
+    public UnityEvent OnSelected;
+
+    public String imagePath { get; private set; }
     public Image image;
 
     public void OpenSelector() {
@@ -20,6 +24,8 @@ namespace PuzzleSister.QEditor {
       if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0])) {
         var sprite = SpriteExtensions.FromFile(paths[0]);
         image.sprite = sprite;
+        imagePath = paths[0];
+        OnSelected.Invoke();
       }
     }
 

@@ -11,11 +11,6 @@ namespace PuzzleSister.QEditor {
 
     public GameObject prefabPackageRow;
 
-    void Awake() {
-      RefreshList();
-      QEditorService.shared.OnPackageChange.AddListener(RefreshList);
-    }
-
     void RefreshList() {
       var packageList = QEditorService.shared.GetAllPackages();
       var len = Math.Max(packageList.Count, transform.childCount);
