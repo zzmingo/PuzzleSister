@@ -5,7 +5,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using PuzzleSister;
-using PuzzleSister.QEditor;
 #if UNITY_STANDALONE
 using Steamworks;
 #endif

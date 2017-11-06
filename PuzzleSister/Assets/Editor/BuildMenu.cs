@@ -11,7 +11,7 @@ public class BuildMenu {
       string[] levels = new string[] {
         "Assets/PuzzleSister/Asset/Loading.unity",
         "Assets/PuzzleSister/Asset/Main.unity",
-        "Assets/PuzzleSister/Asset/QEditor.unity"
+        "Assets/PuzzleSister/Asset/UGCEditor.unity"
       };
       string contentPath = Path.GetFullPath(Path.Combine(Application.dataPath, "../../Steam/content"));
 

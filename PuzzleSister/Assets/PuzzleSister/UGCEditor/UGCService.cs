@@ -21,11 +21,17 @@ namespace PuzzleSister.UGCEditor {
       return packageList;
     }
 
-    public IEnumerator LoadPackages() {
+    public IEnumerator LoadPackages(Action<EResult> resultCb) {
       Debug.Log("load packages");
 
       bool packageLoaded = false;
       CallResult<SteamUGCQueryCompleted_t> callResult = CallResult<SteamUGCQueryCompleted_t>.Create((callback, ioFail) => {
+        if (ioFail) {
+          resultCb(EResult.k_EResultIOFailure);
+          return;
+        }
+
+        
         packageLoaded = true;
         var num = callback.m_unNumResultsReturned;
         packageList.Clear();
@@ -33,12 +39,11 @@ namespace PuzzleSister.UGCEditor {
           PackageItem packageItem = new PackageItem();
           SteamUGCDetails_t details;
           SteamUGC.GetQueryUGCResult(callback.m_handle, i, out details);
+          packageItem.id = "" + details.m_nPublishedFileId.m_PublishedFileId;
           packageItem.publishedFileId = details.m_nPublishedFileId;
           packageItem.name = details.m_rgchTitle;
-          string id;
-          SteamUGC.GetQueryUGCMetadata(callback.m_handle, i, out id, Constants.k_cchDeveloperMetadataMax);
-          packageItem.id = id;
           packageItem.description = details.m_rgchDescription;
+          packageItem.timeUpdated = details.m_rtimeUpdated;
           packageItem.visible = details.m_eVisibility == ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPublic;
           SteamUGC.GetQueryUGCPreviewURL(callback.m_handle, i, out packageItem.imagePath, 1024);
           packageList.Add(packageItem);
@@ -56,7 +61,6 @@ namespace PuzzleSister.UGCEditor {
         SteamUtils.GetAppID(),
         1
       );
-      SteamUGC.SetReturnMetadata(queryHandle, true);
       callResult.Set(SteamUGC.SendQueryUGCRequest(queryHandle));
 
       while(!packageLoaded) {
@@ -70,12 +74,13 @@ namespace PuzzleSister.UGCEditor {
       Debug.LogFormat("create package: {0},{1},{2}", package.name, package.description, package.imagePath);
 
       bool itemCreated = false;
-      PublishedFileId_t publishedFileId = new PublishedFileId_t();
-      CallResult<CreateItemResult_t> callResult = CallResult<CreateItemResult_t>.Create((callback, ioFail) => {
+      var publishedFileId = new PublishedFileId_t();
+      var callResult = CallResult<CreateItemResult_t>.Create((callback, ioFail) => {
         if (callback.m_bUserNeedsToAcceptWorkshopLegalAgreement) {
           SteamFriends.ActivateGameOverlayToWebPage("http://steamcommunity.com/sharedfiles/workshoplegalagreement");
         }
         publishedFileId = callback.m_nPublishedFileId;
+        package.id = "" + publishedFileId.m_PublishedFileId;
         package.publishedFileId = publishedFileId;
         itemCreated = true;
       });
@@ -92,15 +97,15 @@ namespace PuzzleSister.UGCEditor {
       Debug.LogFormat("update package: {0},{1},{2}", package.name, package.description, package.imagePath);
       bool itemUpdated = false;
 
-      // ensure id
-      if (package.id == null) {
-        package.id = System.Guid.NewGuid().ToString();
-      }
-
       // ensure conten folder
       string contentDir = Utils.Path(Utils.GetAppInstallDir(), Const.UGC_CONTENT_DIR, package.id);
       if (!Directory.Exists(contentDir)) {
         Directory.CreateDirectory(contentDir);
+      }
+      var questionPath = Utils.Path(contentDir, Const.QUESTION_FILENAME);
+      if (!File.Exists(questionPath)) {
+        Debug.LogFormat("create question.json {0}", questionPath);
+        Storage.shared.SerializeSave(questionPath, new List<Question>());
       }
 
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
@@ -109,9 +114,7 @@ namespace PuzzleSister.UGCEditor {
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {
         SteamUGC.SetItemPreview(updateHandle, package.imagePath);
       }
-      if (File.Exists(Utils.Path(contentDir, "Question.json"))) {
-        SteamUGC.SetItemContent(updateHandle, contentDir);
-      }
+      SteamUGC.SetItemContent(updateHandle, contentDir);
       SteamUGC.SetItemMetadata(updateHandle, package.id);
       SteamUGC.SetItemVisibility(updateHandle, 
         package.visible ? ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPublic : 

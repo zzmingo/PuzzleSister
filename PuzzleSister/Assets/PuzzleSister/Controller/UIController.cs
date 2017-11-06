@@ -41,6 +41,7 @@ namespace PuzzleSister {
 					questionController.StopAndReset();
 					showingUIObject.SetActive(false);
 					uiStack.Clear();
+					showingUIObject = uiMenu;
 					uiMenu.SetActive(true);
 					break;
 				case EventType.QuestionPanelToPackageList:

@@ -16,6 +16,7 @@ namespace PuzzleSister.UGCEditor {
     public String name;
     public String description;
     public String imagePath;
+    public uint timeUpdated;
     public bool visible;
     public PublishedFileId_t publishedFileId = PublishedFileId_t.Invalid;
 

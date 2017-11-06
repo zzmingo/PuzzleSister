@@ -1,7 +1,7 @@
 namespace PuzzleSister.UGCEditor {
 
   public enum ActionType {
-
+    
     EditPackage,
     DeletePackage,
     ManagePakcage,

@@ -20,8 +20,9 @@ namespace PuzzleSister.UGCEditor {
       shared = this;
     }
 
-    public void Show() {
+    public void Show(string text = "加载中...") {
       transform.GetChild(0).gameObject.SetActive(true);
+      transform.Query<Text>("LoadingUI/Panel/Text").text = text;
     }
 
     public void Hide() {

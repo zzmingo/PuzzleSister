@@ -34,7 +34,6 @@ namespace PuzzleSister.UGCEditor {
     void AdaptItem(Transform item, PackageItem package) {
       item.Find("Name").GetComponent<Text>().text = package.name;
       item.Find("Description").GetComponent<Text>().text = package.description;
-      item.Find("Actions/BtnVisibility/Text").GetComponent<Text>().text = package.visible ? "下架" : "发布";
       item.GetComponent<ItemView>().itemData = package;
       if (coLoadPreview != null) {
         StopCoroutine(coLoadPreview);

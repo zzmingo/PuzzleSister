@@ -14,7 +14,7 @@ namespace PuzzleSister {
     }
 
     public void GotoQEditor() {
-      SceneManager.LoadScene("QEditor");
+      SceneManager.LoadScene("UGCEditor");
     }
   
     void Awake() {
