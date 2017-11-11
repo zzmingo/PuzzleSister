@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace PuzzleSister {
 
@@ -21,7 +22,13 @@ namespace PuzzleSister {
     public enum Source {
       Memory,
       Resources,
-      DLC
+      DLC,
+      UGC
+    }
+
+    public enum State {
+      Prepare,
+      Ready
     }
     
     public string id;
@@ -30,6 +37,7 @@ namespace PuzzleSister {
     public string description;
     public string thumb;
     public string path;
+    public State state;
     public Type type;
     public Source source;
     public List<Question> questionList;
@@ -59,6 +67,9 @@ namespace PuzzleSister {
         case Source.Resources:
           data = new ResourcesReader().Read(this);
           break;
+        case Source.UGC:
+          data = new UGCReader().Read(this);
+          break;
         default:
           break;
       }
@@ -67,6 +78,9 @@ namespace PuzzleSister {
       }
       List<Question> list;
       switch(type) {
+        case Type.JSON:
+          list = JsonConvert.DeserializeObject<List<Question>>((string) data);
+          break;
         default:
           list = new CSVParser().Parse(this, data);
           break;

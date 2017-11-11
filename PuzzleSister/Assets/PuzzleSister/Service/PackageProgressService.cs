@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using Steamworks;
 
 namespace PuzzleSister {
 
@@ -78,6 +79,9 @@ namespace PuzzleSister {
       public bool Completed { get { return progress == total; } }
 
       public string Percentage(string flag = "%") {
+        if (total == 0) {
+          return "0%";
+        }
         return Mathf.FloorToInt((progress + 0.0f) / total * 100) + flag;
       }
     }

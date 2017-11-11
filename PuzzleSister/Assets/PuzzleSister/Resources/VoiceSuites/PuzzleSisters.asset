@@ -12,69 +12,70 @@ MonoBehaviour:
   m_Name: PuzzleSisters
   m_EditorClassIdentifier: 
   XYClips:
-  - {fileID: 8300000, guid: 60c7a4be8250447438ab19513d85679e, type: 3}
-  - {fileID: 8300000, guid: 5ed2594c85cea45f5bd2c65a763ca6fa, type: 3}
+  - {fileID: 8300000, guid: 2fbd4d15e5e9440e4afc32896c16c337, type: 3}
+  - {fileID: 8300000, guid: 0f69a2b5e1e98457d8a000e459dc1d51, type: 3}
+  - {fileID: 8300000, guid: a84b24ec70b1846a0938b548e77f60f9, type: 3}
   X0Clips:
-  - {fileID: 8300000, guid: 888612018d6a846dc93d3050e9326929, type: 3}
-  - {fileID: 8300000, guid: 34fb5f23e567a47f8829b90d1c0b6bd1, type: 3}
-  - {fileID: 8300000, guid: 87e94f24e3e2a41fb9ba3feadf8f9884, type: 3}
-  - {fileID: 8300000, guid: bfecbfab91b0244c99002ea8e478f4ea, type: 3}
+  - {fileID: 8300000, guid: 5c7167bd0f3f047d9b662a1a242f735b, type: 3}
+  - {fileID: 8300000, guid: 38a98b2fb0ed140768d73c6a75ece223, type: 3}
+  - {fileID: 8300000, guid: c1c0e53c7beca4b47a7435e268eb0695, type: 3}
   X1Clips:
-  - {fileID: 8300000, guid: 25ab0213e5e6b459d9c89a6882c938ba, type: 3}
-  - {fileID: 8300000, guid: 74a481f5b39454a49a3a367ce5d795aa, type: 3}
+  - {fileID: 8300000, guid: 02b9bc378ff1f4643b0ae633e03845ab, type: 3}
+  - {fileID: 8300000, guid: 2bcaa57f6d44241ee874e4f953e0a43c, type: 3}
+  - {fileID: 8300000, guid: 3646353ce17c14398afe1afd07c54075, type: 3}
   X2Clips:
-  - {fileID: 8300000, guid: 25ab0213e5e6b459d9c89a6882c938ba, type: 3}
-  - {fileID: 8300000, guid: 74a481f5b39454a49a3a367ce5d795aa, type: 3}
+  - {fileID: 8300000, guid: a41cb647b5f774b449db9c27471e83b4, type: 3}
+  - {fileID: 8300000, guid: ea173c9fbcacd4f75a7bfcb003aad8a6, type: 3}
+  - {fileID: 8300000, guid: 67fee719a84584d05964f0b7c11c7024, type: 3}
   X3Clips:
-  - {fileID: 8300000, guid: 4a5d28a71acbc4eaaafd04cfb29bc5d1, type: 3}
-  - {fileID: 8300000, guid: 30a11bf485cf24992b146cc8c7d7e73a, type: 3}
+  - {fileID: 8300000, guid: a86a874db11a3478d8745b22b2043551, type: 3}
+  - {fileID: 8300000, guid: af5826cd867ad4823b30c01229a7d7fd, type: 3}
+  - {fileID: 8300000, guid: 02614a40da58042d692c64225b0b230b, type: 3}
   X4Clips:
-  - {fileID: 8300000, guid: fe890f3164b6947ceb2055281dc41a16, type: 3}
-  - {fileID: 8300000, guid: f7f8932a536654d0fa94d6b18f5bebd4, type: 3}
-  - {fileID: 8300000, guid: c4cf3fbe2014b4adeb2ef1daa0661d45, type: 3}
-  - {fileID: 8300000, guid: 6325e268ea2b9441284968ee5c064b0a, type: 3}
+  - {fileID: 8300000, guid: 676959dc2556e48b2bfc7764145fde40, type: 3}
+  - {fileID: 8300000, guid: ad1048624c9664871ba59907e9727406, type: 3}
+  - {fileID: 8300000, guid: 9b50d5a4842cc42aab4c07874384b1bd, type: 3}
   X5Clips:
-  - {fileID: 8300000, guid: 46b06b93da88d4f42b5d50770569cca9, type: 3}
-  - {fileID: 8300000, guid: 86e7d489d13344563bf3b5b263184c0c, type: 3}
-  - {fileID: 8300000, guid: ab9e8907e9a2c4cccbc58394bcca2df5, type: 3}
-  - {fileID: 8300000, guid: ec80d71aed5684fc2938d1e13fa634f7, type: 3}
+  - {fileID: 8300000, guid: 7a54a6a6ae2b64822a7cc21c851113da, type: 3}
+  - {fileID: 8300000, guid: ff2afdba7ea1448e48b54000268ebbfe, type: 3}
+  - {fileID: 8300000, guid: 37288f8072a324fe6ac306ddb042a997, type: 3}
   Y1Clips:
-  - {fileID: 8300000, guid: 6f634cd0c63e4419fa76624e794c7383, type: 3}
-  - {fileID: 8300000, guid: fed54f49630264344aaa4b1ffeca5464, type: 3}
+  - {fileID: 8300000, guid: 0d7d4edcf7f8e45e69c0f303f83afd60, type: 3}
+  - {fileID: 8300000, guid: f8be54a2e0d8c41a5a4ab9f53d8f62cf, type: 3}
+  - {fileID: 8300000, guid: caaeea7ae4ae143509fd7a8e0f388a44, type: 3}
   Y2Clips:
-  - {fileID: 8300000, guid: 63c68a46a697c4cd9a4784916dcd0de6, type: 3}
-  - {fileID: 8300000, guid: 2ee20354ab47f4110baf0a76a2cf5333, type: 3}
+  - {fileID: 8300000, guid: c5ce4ff9b02fb49ffbb4c3e61a142350, type: 3}
+  - {fileID: 8300000, guid: 57a0cdd0ebd134b56bcadbc3965ca9cf, type: 3}
+  - {fileID: 8300000, guid: 1d4a23582b83f468ba2f66d80f42b168, type: 3}
   Y3Clips:
-  - {fileID: 8300000, guid: f64f53cef23af4cf39be32a86fddf62a, type: 3}
-  - {fileID: 8300000, guid: 7f5fea2bfcf424e8097d4c66d3dc5924, type: 3}
+  - {fileID: 8300000, guid: 8e54376e6f6204bb0acbece8a2f1df00, type: 3}
+  - {fileID: 8300000, guid: 6bf4f5bcab5814511ac26cddcb92afe1, type: 3}
+  - {fileID: 8300000, guid: 55a369db416b34ce19b128fb6582868c, type: 3}
   Y4Clips:
-  - {fileID: 8300000, guid: 7201f76fb186a498188480f2a026e60e, type: 3}
-  - {fileID: 8300000, guid: 70392f83263d943a5b1a075866352322, type: 3}
-  - {fileID: 8300000, guid: 035b3c7c005ca477bbade5fcf109ba9f, type: 3}
-  - {fileID: 8300000, guid: f23643eaee0724f01a3819e2bd2571d3, type: 3}
+  - {fileID: 8300000, guid: 274352aef4625404ca495ece3730b460, type: 3}
+  - {fileID: 8300000, guid: 1c138eb9efbfd42bdba077ba564d6c29, type: 3}
+  - {fileID: 8300000, guid: 558d47c927f6e4fed9be33decbc6dad5, type: 3}
   Y5Clips:
-  - {fileID: 8300000, guid: 8238fd0b70a664f4aa61772d46e0db81, type: 3}
-  - {fileID: 8300000, guid: f076cf6e1de8249de9c83015eda8b676, type: 3}
-  - {fileID: 8300000, guid: bfbc29638f3ed47be95c4e795d6e78e2, type: 3}
-  - {fileID: 8300000, guid: a854d8a8790d1427e8f614c47eca5f72, type: 3}
+  - {fileID: 8300000, guid: 54aabca5aab6e47ec8fb84e92e899057, type: 3}
+  - {fileID: 8300000, guid: a50041dedd93345c2b1cc7750e1ebe9b, type: 3}
+  - {fileID: 8300000, guid: 25c4b8f34524a47c39af9c6409428c4a, type: 3}
   Y6Clips:
-  - {fileID: 8300000, guid: f907d88fa7ea04a50be9b40b920482ee, type: 3}
-  - {fileID: 8300000, guid: 1706daf354b2540a6b9e97cc7718385b, type: 3}
-  - {fileID: 8300000, guid: b20894e8724fc4eb599f5facbd9964ea, type: 3}
-  - {fileID: 8300000, guid: 13b2aaa581db142bba2847c7e159eb44, type: 3}
+  - {fileID: 8300000, guid: 26db253906b6e44f4a237e19bcfa0a87, type: 3}
+  - {fileID: 8300000, guid: 03561d6dfdaef45c8836fde5f2cf9310, type: 3}
+  - {fileID: 8300000, guid: 3c6fa6a90ca5949d49005ba86b29c71d, type: 3}
   Y7Clips:
-  - {fileID: 8300000, guid: e7faa9ce65c754d02b71167cdd79cdcd, type: 3}
-  - {fileID: 8300000, guid: e8bbab19c555f4f15b0e06075c46bbbb, type: 3}
+  - {fileID: 8300000, guid: c5d181b733b1c469f9ed103e3ddbe87d, type: 3}
+  - {fileID: 8300000, guid: 979e21f0e42274289a4855798ca3fd61, type: 3}
+  - {fileID: 8300000, guid: b6681445b48ed4956ad24c8544f7a6af, type: 3}
   Y8Clips:
-  - {fileID: 8300000, guid: 272e71f86101d4c5ca003daff36c3a8c, type: 3}
-  - {fileID: 8300000, guid: ec070f97a166349788dd4026718cf4ad, type: 3}
+  - {fileID: 8300000, guid: 00aa22c2b24734bc7a4ed91bfe33e95f, type: 3}
+  - {fileID: 8300000, guid: 35de340025ed94d5194cc34992ecac61, type: 3}
+  - {fileID: 8300000, guid: f31650a8599af4ab297c2783eee8972c, type: 3}
   Y9Clips:
-  - {fileID: 8300000, guid: 791f1682303954d3d855209d4c218f67, type: 3}
-  - {fileID: 8300000, guid: db558c5f82d174180af2c79c6c4de189, type: 3}
-  - {fileID: 8300000, guid: c832468b7b99a4dc29672abfd0c449b9, type: 3}
-  - {fileID: 8300000, guid: c832468b7b99a4dc29672abfd0c449b9, type: 3}
+  - {fileID: 8300000, guid: 6ad04e2637e4b4348a93828ff99a0b08, type: 3}
+  - {fileID: 8300000, guid: 8f2866d0cfc4b411fae6f2305c027c94, type: 3}
+  - {fileID: 8300000, guid: 0dfb7ec3bd99048d897ded54e6996743, type: 3}
   Y10Clips:
-  - {fileID: 8300000, guid: 9cc8893990b7e4bf0a4a6a8ba6393a93, type: 3}
-  - {fileID: 8300000, guid: d1bf4e15b0cf94724992ce07bd6d5071, type: 3}
-  - {fileID: 8300000, guid: 94ec9956830044b02be75c4586693b2e, type: 3}
-  - {fileID: 8300000, guid: 798638bc2dc064949a0a8f042166b7e2, type: 3}
+  - {fileID: 8300000, guid: 55ef917e6b5984a36a14482d09915b5f, type: 3}
+  - {fileID: 8300000, guid: 1f0e741819ca24009b77505e1ba49ec5, type: 3}
+  - {fileID: 8300000, guid: a1838b92e3b2e4e04938db8c407e1565, type: 3}

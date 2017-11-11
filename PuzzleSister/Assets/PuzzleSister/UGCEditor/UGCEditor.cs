@@ -156,7 +156,7 @@ namespace PuzzleSister.UGCEditor {
       yield return UGCService.shared.LoadPackages((error) => {
         Debug.Log(error);
       });
-      if (transform.Find("Package").gameObject.active) {
+      if (transform.Find("Package").gameObject.activeInHierarchy) {
         this.Query<PackageList>("Package/Table/Scroll View/Viewport/Content")
           .InitList(UGCService.shared.GetAllPackages());
       }

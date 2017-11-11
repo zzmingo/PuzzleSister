@@ -21,8 +21,18 @@ namespace PuzzleSister.UGCEditor {
       return packageList;
     }
 
+    public IEnumerator LoadSubscribed(Action<EResult> resultCb) {
+      return LoadPackages(resultCb, EUserUGCList.k_EUserUGCList_Subscribed);
+    }
+
     public IEnumerator LoadPackages(Action<EResult> resultCb) {
+      return LoadPackages(resultCb, EUserUGCList.k_EUserUGCList_Published);
+    }
+
+    public IEnumerator LoadPackages(Action<EResult> resultCb, EUserUGCList eUserUGCList) {
       Debug.Log("load packages");
+
+      Debug.Log("" + SteamUGC.GetNumSubscribedItems());
 
       bool packageLoaded = false;
       CallResult<SteamUGCQueryCompleted_t> callResult = CallResult<SteamUGCQueryCompleted_t>.Create((callback, ioFail) => {
@@ -30,7 +40,6 @@ namespace PuzzleSister.UGCEditor {
           resultCb(EResult.k_EResultIOFailure);
           return;
         }
-
         
         packageLoaded = true;
         var num = callback.m_unNumResultsReturned;
@@ -54,7 +63,7 @@ namespace PuzzleSister.UGCEditor {
 
       UGCQueryHandle_t queryHandle = SteamUGC.CreateQueryUserUGCRequest(
         SteamUser.GetSteamID().GetAccountID(), 
-        EUserUGCList.k_EUserUGCList_Published, 
+        eUserUGCList, 
         EUGCMatchingUGCType.k_EUGCMatchingUGCType_Items,
         EUserUGCListSortOrder.k_EUserUGCListSortOrder_CreationOrderDesc,
         AppId_t.Invalid,
@@ -104,13 +113,13 @@ namespace PuzzleSister.UGCEditor {
       }
       var questionPath = Utils.Path(contentDir, Const.QUESTION_FILENAME);
       if (!File.Exists(questionPath)) {
-        Debug.LogFormat("create question.json {0}", questionPath);
         Storage.shared.SerializeSave(questionPath, new List<Question>());
       }
 
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
       SteamUGC.SetItemTitle(updateHandle, package.name);
       SteamUGC.SetItemDescription(updateHandle, package.description);
+      Debug.Log("image path: " + package.imagePath);
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {
         SteamUGC.SetItemPreview(updateHandle, package.imagePath);
       }

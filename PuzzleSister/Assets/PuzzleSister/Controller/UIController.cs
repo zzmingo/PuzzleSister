@@ -10,6 +10,7 @@ namespace PuzzleSister {
 		[NotNull] public GameObject uiMenu;
 		[NotNull] public GameObject uiSettings;
 		[NotNull] public GameObject showingUIObject;
+		[NotNull] public GameObject packageListUIObject;
 		[NotNull] public GameObject questionUIObject;
 		[NotNull] public BGMController bGMController;
 		[NotNull] public QuestionController questionController;
@@ -24,6 +25,29 @@ namespace PuzzleSister {
 			GlobalEvent.shared.AddListener(handleGlobalEvent);
 		}
 
+		IEnumerator Start () {
+			bGMController.PlayMenu();
+			foreach(Transform child in transform) {
+				child.gameObject.SetActive(false);
+			}
+      yield return Loading.Load();
+			showingUIObject.SetActive(true);
+		}
+
+		public void ToBuiltinPackages() {
+			GameState.isShowBuiltins = true;
+			PushPackageListUI();
+		}
+
+		public void ToUGCPackages() {
+			GameState.isShowBuiltins = false;
+			PushPackageListUI();
+		}
+
+		public void PushPackageListUI() {
+			PushUI(packageListUIObject);
+		}
+
 		void handleGlobalEvent(EventData data) {
 			switch(data.type) {
 				case EventType.PackageItemClick:
@@ -31,6 +55,7 @@ namespace PuzzleSister {
           if (package == null) {
             Utils.ShowDLCStore();
           } else {
+						PopPopup();
 						PushUI(questionUIObject);
 						bool chanllenge = PackageProgressService.shared.GetProgress(package.id).Completed;
 						questionController.StartPackage(package, chanllenge);
@@ -43,6 +68,7 @@ namespace PuzzleSister {
 					uiStack.Clear();
 					showingUIObject = uiMenu;
 					uiMenu.SetActive(true);
+					bGMController.PlayMenu();
 					break;
 				case EventType.QuestionPanelToPackageList:
 					bGMController.RandomBGM();
@@ -54,14 +80,8 @@ namespace PuzzleSister {
 			}
 		}
 
-		void Start () {
-			foreach(Transform child in transform) {
-				child.gameObject.SetActive(false);
-			}
-			showingUIObject.SetActive(true);
-		}
-
 		public void PushUI(GameObject uiGameObject) {
+			Debug.Log("## push " + uiGameObject.name);
 			uiGameObject.SetActive(true);
 			showingUIObject.SetActive(false);
 			uiStack.Push(showingUIObject);
@@ -85,14 +105,19 @@ namespace PuzzleSister {
 			if (uiStack.Count <= 0) {
 				return;
 			}
+			Debug.Log("## push " + showingUIObject.name);
 			showingUIObject.SetActive(false);
 			showingUIObject = uiStack.Pop();
 			showingUIObject.SetActive(true);
+			if (showingUIObject == uiMenu) {
+				bGMController.PlayMenu();
+			}
 		}
 
 		public void PopPopup() {
 			if (showingUIPopup != null) {
 				showingUIPopup.SetActive(false);
+				showingUIPopup = null;
 				if (uiPopupStack.Count > 0) {
 					showingUIPopup = uiPopupStack.Pop();
 					showingUIPopup.SetActive(true);
@@ -102,21 +127,14 @@ namespace PuzzleSister {
 
 		void Update() {
 	#if UNITY_STANDALONE
-				if (Input.GetKeyUp(KeyCode.Escape)) {
+				if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1)) {
 
 					// 正在答题跳设置
-					if (questionController.IsStartedPackage()) {
+					if (showingUIObject == questionUIObject) {
 						PushUI(uiSettings);
-					} 
+					}
 					// 否则退去当前UI
 					else {
-						PopUI();
-					}
-				}
-
-				if (Input.GetMouseButtonUp(1)) {
-					// 右键在非答题状态下才启用
-					if (!questionController.IsStartedPackage()) {
 						PopUI();
 					}
 				}

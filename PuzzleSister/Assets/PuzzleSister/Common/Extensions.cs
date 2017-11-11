@@ -47,6 +47,10 @@ public static class SpriteExtensions {
     return Base64ToSprite(base64);
   }
 
+  public static Sprite fromTexture(Texture2D texture) {
+    return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f) , 100f);
+  }
+
 }
 
 public static class ComponentQueryExtensions {
