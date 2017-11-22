@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using PuzzleSister.UGCEditor;
+using Steamworks;
 
 
 namespace PuzzleSister {
@@ -16,26 +18,47 @@ namespace PuzzleSister {
 		[NotNull] public PackageDialogView dialogueView;
 
 		private bool destroyed = false;
+		private Coroutine loadPackageCoroutine;
 
 		void Awake() {
 			dialogueView.gameObject.SetActive(false);
 		}
 
+		void OnEnable() {
+			Debug.Log("Enable");
+			loadPackageCoroutine = StartCoroutine(LoadPackageList());
+		}
+		
+		IEnumerator LoadPackageList() {
+			oLoading.SetActive(true);
+
+			if (GameState.isShowBuiltins) {
+				Repository.shared.LoadBuildtins();
+				Package[] packages = Repository.shared.GetBuiltinPackages();
+				InitPackageList(packages);
+			} else {
+				EResult loadResult = EResult.k_EResultOK;
+				yield return UGCService.shared.LoadSubscribed(result => loadResult = result);
+				loadPackageCoroutine = null;
+				Repository.shared.LoadPackages();
+				foreach(Transform tItem in transform) {
+					Destroy(tItem.gameObject);
+				}
+				Package[] packages = Repository.shared.GetAllPackages();
+				InitPackageList(packages);
+			}
+		}
+
+		void OnDisable() {
+			if (loadPackageCoroutine != null) {
+				StopCoroutine(loadPackageCoroutine);
+			}
+			DestroyList();
+		}
+
 		void OnDestroy() {
 			DestroyList();
 			destroyed = true;
-		}
-
-		public void InitList () {
-			PackageProgressService.shared.Load();
-			foreach(Transform tItem in transform) {
-				Destroy(tItem.gameObject);
-			}
-			if (Repository.shared.IsPackagesLoaded) {
-				InitPackageList();
-			} else {
-				Repository.shared.OnPackagesLoaded.AddListener(InitPackageList);
-			}
 		}
 
 		public void DestroyList() {
@@ -44,9 +67,7 @@ namespace PuzzleSister {
 			}
 		}
 
-		void InitPackageList() {
-			oLoading.SetActive(true);
-			var packages = Repository.shared.GetAllPackages();
+		void InitPackageList(Package[] packages) {
 			oLoading.SetActive(false);
 			for(int i=0; i<6; i++) {
 				var item = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
@@ -73,12 +94,14 @@ namespace PuzzleSister {
 			item.transform.Find("Name").GetComponent<Text>().text = package.name;
 			if (package.thumb == null || string.IsNullOrEmpty(package.thumb.Trim())) {
 				item.transform.Find("Image").GetComponent<Image>().sprite = normalThumb;
+			} else if(package.thumb.StartsWith("http") || package.thumb.StartsWith("https")) {
+				StartCoroutine(LoadThumbAsync(item, package));
 			} else {
 				item.transform.Find("Image").GetComponent<Image>().sprite = package.ThumbSprite;
 			}
 			item.GetComponent<Button>().onClick.AddListener(() => {
+				UIController.singleton.PushPopup(dialogueView.gameObject);
 				dialogueView.SetPackage(package);
-				dialogueView.gameObject.SetActive(true);
 			});
 			
 			if (package.temporary) {
@@ -89,6 +112,11 @@ namespace PuzzleSister {
 			}
 		}
 		
+		IEnumerator LoadThumbAsync(GameObject item, Package package) {
+			WWW www = new WWW(package.thumb);
+			yield return www;
+			item.transform.Find("Image").GetComponent<Image>().sprite = SpriteExtensions.fromTexture(www.texture);
+		}
 
 		IEnumerator AnimateShowItem(GameObject item, float delay) {
 			yield return new WaitForSeconds(delay);

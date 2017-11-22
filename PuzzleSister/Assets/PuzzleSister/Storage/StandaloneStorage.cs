@@ -22,7 +22,12 @@ namespace PuzzleSister {
     }
 
     private string GetSavePath(string subpath) {
-      string savePath = Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, subpath);
+      string savePath;
+      if (subpath.StartsWith(Utils.GetAppInstallDir())) {
+        savePath = subpath;
+      } else {
+        savePath = Utils.Path(Utils.GetAppInstallDir(), Const.SAVE_DIR, subpath);
+      }
       string saveDir = Path.GetDirectoryName(savePath);
       if (!Directory.Exists(saveDir)) {
         Directory.CreateDirectory(saveDir);

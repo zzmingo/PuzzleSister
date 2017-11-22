@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.IO;
+using Steamworks;
+using PuzzleSister.UGCEditor;
 
 namespace PuzzleSister {
 
@@ -16,58 +18,51 @@ namespace PuzzleSister {
     public bool IsPackagesLoaded { get { return isPackagesLoaded; } }
 
     private bool isPackagesLoaded = false;
+    private List<Package> builtinList = new List<Package>();
     private List<Package> packageList = new List<Package>();
 
-    public void LoadPackages() {
-      if (isPackagesLoaded) {
-        return;
-      }
-      bool internalTesting = false;
-#if INTERNAL_TESTING
-      internalTesting = true;
-#endif
-      if (internalTesting || Application.isEditor) {
-        foreach(var pkgItem in DataConst.TESTING_PACKAGES) {
-          Package pkg = new Package();
-          var pkgCSVStr = CryptoUtils.Decript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
-          var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-          pkg.FromDict(pkgDict, pkgItem.questionPath);
-          AddPackage(pkg);
-        }
-      }
-
+    public void LoadBuildtins() {
+      builtinList.Clear();
       foreach(var pkgItem in DataConst.BUILTIN_PACKAGES) {
         Package pkg = new Package();
         var pkgCSVStr = CryptoUtils.Decript(Resources.Load<TextAsset>(pkgItem.packagePath).text);
         var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
         pkg.FromDict(pkgDict, pkgItem.questionPath);
-        AddPackage(pkg);
+        pkg.state = Package.State.Ready;
+        builtinList.Add(pkg);
       }
+    }
 
-#if UNITY_STANDALONE
-      // DLC
-      // TODO check file broken
-      // string appInstallDir = Utils.GetAppInstallDir();
-
-      // if (Directory.Exists(appInstallDir)) {
-      //   Debug.Log("Load DLC at " + appInstallDir);
-      //   foreach(var path in Directory.GetDirectories(appInstallDir)) {
-      //     if (File.Exists(Path.Combine(path, "Package.csv"))) {
-      //       Debug.Log("Loading DLC");
-      //       Package pkg = new Package();
-      //       string pkgCSVStr = CryptoUtils.Decript(File.ReadAllText(Path.Combine(path, "Package.csv")));
-      //       var pkgDict = CSVUtils.Parse(pkgCSVStr)[0];
-      //       pkg.FromDict(pkgDict, Path.Combine(path, "Question.csv"), Package.Type.CSV, Package.Source.DLC);
-      //       Debug.Log("  ID: " + pkg.id);
-      //       AddPackage(pkg);
-      //       Debug.Log("Loaded");
-      //     }
-      //   }
-      // }
-#endif
-
-      isPackagesLoaded = true;
+    public void LoadPackages() {
+      List<PackageItem> packageList = UGCService.shared.GetAllPackages();
+      this.packageList.Clear();
+      foreach(PackageItem packageItem in packageList) {
+        Package package = new Package();
+        Debug.Log("Repository.loadPackages " + packageItem.name);
+        package.id = packageItem.id;
+        package.name = packageItem.name;
+        package.description = packageItem.description;
+        package.thumb = packageItem.imagePath;
+        package.type = Package.Type.JSON;
+        package.source = Package.Source.UGC;
+        uint state = SteamUGC.GetItemState(packageItem.publishedFileId);
+        bool downloaded = (state & (uint)EItemState.k_EItemStateInstalled) == (uint)EItemState.k_EItemStateInstalled;
+        bool updateRequired = (state & (uint)EItemState.k_EItemStateNeedsUpdate) == (uint)EItemState.k_EItemStateNeedsUpdate;
+        package.state = (downloaded && !updateRequired) ? Package.State.Ready : Package.State.Prepare;
+        if (package.state == Package.State.Ready) {
+          string folder = null;
+          ulong size;
+          uint timestamp;
+          SteamUGC.GetItemInstallInfo(packageItem.publishedFileId, out size, out folder, 1024, out timestamp);
+          package.path = folder;
+        }
+        this.packageList.Add(package);
+      }
       OnPackagesLoaded.Invoke();
+    }
+
+    public Package[] GetBuiltinPackages() {
+      return builtinList.ToArray();
     }
 
     public Package[] GetAllPackages() {

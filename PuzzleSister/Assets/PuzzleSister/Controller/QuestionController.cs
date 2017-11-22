@@ -23,6 +23,7 @@ namespace PuzzleSister {
     [NotNull] public GameObject oRewardIllustration;
 
     private Coroutine coroutineForStart;
+    private bool waitingAnswer = false;
     private bool dialgueConfirmed = false;
     private Question.Result answer = Question.Result.Unknow;
     private VoiceSuite voiceSuite;
@@ -66,9 +67,14 @@ namespace PuzzleSister {
       coroutineForStart = StartCoroutine(StartQuestion());
     }
 
+    public bool IsStartedPackage() {
+      return roundService != null;
+    }
+
     public void StopAndReset() {
       if (coroutineForStart != null) {
         StopCoroutine(coroutineForStart);
+        roundService = null;
       }
     }
 
@@ -179,7 +185,7 @@ namespace PuzzleSister {
         progressService.Save();
       }
       
-      if (completedCount < roundService.Total) {
+      if (completedCount < roundService.Total || completedCount < 10) {
         // show ending dialogue
         string roundResult = "『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击任意位置返回";
         roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
@@ -256,9 +262,11 @@ namespace PuzzleSister {
       yield return new WaitForSeconds(0.3f);
       answer = Question.Result.Unknow;
       questionView.SetInteractable(true);
+      waitingAnswer = true;
       while(answer == Question.Result.Unknow) {
         yield return 1;
       }
+      waitingAnswer = false;
       questionView.SetInteractable(false);
     }
 
@@ -281,6 +289,22 @@ namespace PuzzleSister {
           yield return 1;
         }
       }
+    }
+
+    void Update() {
+#if UNITY_STANDALONE
+      if (waitingAnswer) {
+        if (Input.GetKeyUp(KeyCode.Alpha1)) {
+          answer = Question.Result.A;
+        } else if (Input.GetKeyUp(KeyCode.Alpha2)) {
+          answer = Question.Result.B;
+        } else if (Input.GetKeyUp(KeyCode.Alpha3)) {
+          answer = Question.Result.C;
+        } else if (Input.GetKeyUp(KeyCode.Alpha4)) {
+          answer = Question.Result.D;
+        }
+      }
+#endif
     }
 
   }

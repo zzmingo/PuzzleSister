@@ -10,7 +10,6 @@ namespace PuzzleSister {
       Unknow, A, B, C, D
     }
 
-    public string package;
     public string id;
     public string title;
     public Result result;
@@ -36,6 +35,19 @@ namespace PuzzleSister {
         case "D": return optionD;
         default: throw new UnityException("Unknow option name: " + name);
       }
+    }
+
+    public Question Clone() {
+      Question question = new Question();
+      question.id = id;
+      question.title = title;
+      question.result = result;
+      question.explain = explain;
+      question.optionA = optionA;
+      question.optionB = optionB;
+      question.optionC = optionC;
+      question.optionD = optionD;
+      return question;
     }
   }
 

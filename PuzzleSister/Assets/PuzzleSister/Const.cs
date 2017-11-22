@@ -10,7 +10,10 @@ namespace PuzzleSister {
     public const string QEDITOR_PACKAGES_FILE = "QEditorPackages.qeditor";
 
     public const string SAVE_DIR = "SavesDir";
+    public const string UGC_CONTENT_DIR = "UGCContentDir";
     public const string SAVE_EXT = ".sav";
+
+    public const string QUESTION_FILENAME = "Question.json";
 
     public const string SAVE_DIR_PACAKGES = "Packages";
     public const string SAVE_PATH_PACKAGE_PROGRESS = "PackageProgress";

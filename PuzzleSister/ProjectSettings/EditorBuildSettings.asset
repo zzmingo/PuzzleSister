@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/PuzzleSister/Asset/Main.unity
     guid: 4e5f7472bea7547bf9df2e87facbb231
   - enabled: 1
-    path: Assets/PuzzleSister/Asset/QEditor.unity
-    guid: 76e370e71652a4ad497ae196e87066e6
+    path: Assets/PuzzleSister/Asset/UGCEditor.unity
+    guid: 7c440cddd2ad947cda73d1353fb08450

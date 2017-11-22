@@ -10,13 +10,17 @@ namespace PuzzleSister {
       var dropdown = GetComponent<Dropdown>();
       var resolutions = Settings.GetAvailableResolutions();
       var options = new List<Dropdown.OptionData>();
-      foreach(var resol in resolutions) {
-        string text = string.Format("{0}x{1}", resol.width, resol.height);
+      for(int i=0; i<resolutions.Length; i++) {
+        var resol = resolutions[i];
+        if (resol.refreshRate == 0) {
+          resol.refreshRate = 60;
+        }
+        string text = string.Format("{0}x{1} ({2}hz)", resol.width, resol.height, resol.refreshRate);
         options.Add(new Dropdown.OptionData(text));
       }
       dropdown.options = options;
 
-      var resolution = Settings.GetString(Settings.RESOLUTION, "800x600");
+      var resolution = Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION);
       options = dropdown.options;
       for(int i=0; i<options.Count; i++) {
         var option = options[i];
@@ -27,9 +31,9 @@ namespace PuzzleSister {
       }
       dropdown.onValueChanged.AddListener((int value) => {
         var resolutionStr = dropdown.options[value].text;
-        var resolutionVec = Settings.ParseResolutino(resolutionStr);
+        var resol = Settings.ParseResolution(resolutionStr);
         Settings.SetString(Settings.RESOLUTION, resolutionStr);
-        Screen.SetResolution(resolutionVec.x, resolutionVec.y, Settings.IsFullscreen(), 60);
+        Screen.SetResolution(resol.width, resol.height, Settings.IsFullscreen(), resol.refreshRate);
       });
     }
 
