@@ -23,7 +23,7 @@ namespace PuzzleSister {
     public void Load() {
       if (loaded) return;
       progressDict = Storage.shared.DeserializeLoad(GetSavePath(), new Dictionary<string, ProgressItem>());
-      Package[] packages = Repository.shared.GetAllPackages();
+			Package[] packages = Repository.shared.GetBuiltinPackages ();
       foreach(var pkg in packages) {
         ProgressItem item;
         if (progressDict.ContainsKey(pkg.id)) {

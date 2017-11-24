@@ -9,9 +9,9 @@ namespace PuzzleSister {
     void Awake() {
       var audioSource = GetComponent<AudioSource>();
       audioSource.volume = Settings.GetFloat(key.Strings(), 1);
-      Settings.OnChange.AddListener((key) => {
-        if (key != this.key.Strings()) return;
-        audioSource.volume = Settings.GetFloat(key, 1);
+      Settings.OnChange.AddListener((_key) => {
+        if (_key != this.key.Strings()) return;
+        audioSource.volume = Settings.GetFloat(_key, 1);
       });
     }
 
