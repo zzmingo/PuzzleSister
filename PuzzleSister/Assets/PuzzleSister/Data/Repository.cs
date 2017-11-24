@@ -65,9 +65,15 @@ namespace PuzzleSister {
       return builtinList.ToArray();
     }
 
-    public Package[] GetAllPackages() {
+    public Package[] GetUGCPackages() {
       return packageList.ToArray();
     }
+
+		public Package[] GetAllPackages() {
+			Package[] allPackages = GetUGCPackages();
+			GetBuiltinPackages().CopyTo(allPackages, 0);
+			return allPackages;
+		}
 
     public Package GetPackageById(string id) {
       return packageList.Find((pkg) => pkg.id.Equals(id));

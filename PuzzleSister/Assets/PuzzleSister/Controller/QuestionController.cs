@@ -122,29 +122,44 @@ namespace PuzzleSister {
             yield return ShowDialogue(false, false, "请继续作答...");
           } else {
             yield return characterController.ShowStateFor(roundService);
-            if (roundService.Energy < 5) {
-              VoicePlayer.shared.Play(voiceSuite.XYClips.RandomOne());
-            } else {
-              if (roundService.Current == 1) {
-                VoicePlayer.shared.Play(voiceSuite.Y1Clips.RandomOne());
-              } else {
-                if (roundService.Combo <= 1) {
-                  VoicePlayer.shared.Play(voiceSuite.X5Clips.RandomOne());
-                } else {
-                  switch(roundService.Combo) {
-                    case 2: VoicePlayer.shared.Play(voiceSuite.Y2Clips.RandomOne()); break;
-                    case 3: VoicePlayer.shared.Play(voiceSuite.Y3Clips.RandomOne()); break;
-                    case 4: VoicePlayer.shared.Play(voiceSuite.Y4Clips.RandomOne()); break;
-                    case 5: VoicePlayer.shared.Play(voiceSuite.Y5Clips.RandomOne()); break;
-                    case 6: VoicePlayer.shared.Play(voiceSuite.Y6Clips.RandomOne()); break;
-                    case 7: VoicePlayer.shared.Play(voiceSuite.Y7Clips.RandomOne()); break;
-                    case 8: VoicePlayer.shared.Play(voiceSuite.Y8Clips.RandomOne()); break;
-                    case 9: VoicePlayer.shared.Play(voiceSuite.Y9Clips.RandomOne()); break;
-                    case 10: VoicePlayer.shared.Play(voiceSuite.Y10Clips.RandomOne()); break;
-                  }
-                }
-              }
-            }
+						if (roundService.IsChanllenge()) {
+							int random = UnityEngine.Random.Range(1, 9);
+							switch (random) {
+								case 1: VoicePlayer.shared.Play(voiceSuite.Y1Clips.RandomOne()); break;
+								case 2: VoicePlayer.shared.Play(voiceSuite.Y2Clips.RandomOne()); break;
+								case 3: VoicePlayer.shared.Play(voiceSuite.Y3Clips.RandomOne()); break;
+								case 4: VoicePlayer.shared.Play(voiceSuite.Y4Clips.RandomOne()); break;
+								case 5: VoicePlayer.shared.Play(voiceSuite.Y5Clips.RandomOne()); break;
+								case 6: VoicePlayer.shared.Play(voiceSuite.Y6Clips.RandomOne()); break;
+								case 7: VoicePlayer.shared.Play(voiceSuite.Y7Clips.RandomOne()); break;
+								case 8: VoicePlayer.shared.Play(voiceSuite.Y8Clips.RandomOne()); break;
+								case 9: VoicePlayer.shared.Play(voiceSuite.Y9Clips.RandomOne()); break;
+							}
+						} else {
+							if (roundService.Energy < 5) {
+								VoicePlayer.shared.Play(voiceSuite.XYClips.RandomOne());
+							} else {
+								if (roundService.Current == 1) {
+									VoicePlayer.shared.Play(voiceSuite.Y1Clips.RandomOne());
+								} else {
+									if (roundService.Combo <= 1) {
+										VoicePlayer.shared.Play(voiceSuite.X5Clips.RandomOne());
+									} else {
+										switch (roundService.Combo) {
+											case 2: VoicePlayer.shared.Play(voiceSuite.Y2Clips.RandomOne()); break;
+											case 3: VoicePlayer.shared.Play(voiceSuite.Y3Clips.RandomOne()); break;
+											case 4: VoicePlayer.shared.Play(voiceSuite.Y4Clips.RandomOne()); break;
+											case 5: VoicePlayer.shared.Play(voiceSuite.Y5Clips.RandomOne()); break;
+											case 6: VoicePlayer.shared.Play(voiceSuite.Y6Clips.RandomOne()); break;
+											case 7: VoicePlayer.shared.Play(voiceSuite.Y7Clips.RandomOne()); break;
+											case 8: VoicePlayer.shared.Play(voiceSuite.Y8Clips.RandomOne()); break;
+											case 9: VoicePlayer.shared.Play(voiceSuite.Y9Clips.RandomOne()); break;
+											case 10: VoicePlayer.shared.Play(voiceSuite.Y10Clips.RandomOne()); break;
+										}
+									}
+								}
+							}
+						}
           }
         }
 
