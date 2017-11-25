@@ -44,7 +44,7 @@ namespace PuzzleSister {
 				foreach(Transform tItem in transform) {
 					Destroy(tItem.gameObject);
 				}
-				Package[] packages = Repository.shared.GetAllPackages();
+				Package[] packages = Repository.shared.GetUGCPackages();
 				InitPackageList(packages);
 			}
 		}
