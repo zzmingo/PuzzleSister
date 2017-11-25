@@ -28,6 +28,26 @@ namespace PuzzleSister.UGCEditor {
       return new List<Question>(questionList);
     }
 
+    public void AddQuestionList(List<Question> questionList) {
+      List<Question> newList = new List<Question>();
+      newList.AddRange(questionList);
+      foreach(var question in newList) {
+        // 针对名字去重
+        bool repeat = false;
+        foreach(var origin in this.questionList) {
+          repeat = origin.title.Equals(question.title);
+          if (repeat) {
+            break;
+          }
+        }
+        if (!repeat) {
+          question.id = System.Guid.NewGuid().ToString();
+          this.questionList.Add(question);
+        }
+      }
+      Save();
+    }
+
     public void AddQuestion(Question question) {
       question.id = System.Guid.NewGuid().ToString();
       questionList.Add(question);

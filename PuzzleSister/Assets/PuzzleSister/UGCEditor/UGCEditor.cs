@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using SFB;
+using Newtonsoft.Json;
 #if UNITY_STANDALONE
 using Steamworks;
 #endif
@@ -13,6 +14,11 @@ using Steamworks;
 namespace PuzzleSister.UGCEditor {
 
   public class UGCEditor : MonoBehaviour {
+
+    ulong[] admins = new ulong[] {
+      76561198256144099,
+      76561198038776903
+    };
 
     void Start() {
       StartCoroutine(StartEditor());
@@ -24,6 +30,18 @@ namespace PuzzleSister.UGCEditor {
       UGCEditorLoading.shared.Show();
       yield return ReloadPackageList();
       UGCEditorLoading.shared.Hide();
+
+      var steamId = SteamUser.GetSteamID().m_SteamID;
+      Debug.Log(steamId);
+      bool isAdmin = false;
+      foreach(var admin in admins) {
+        if (admin == steamId) {
+          isAdmin = true;
+        }
+      }
+
+      transform.Find("Question/ActionBar/BtnExport").gameObject.SetActive(isAdmin);
+      transform.Find("Question/ActionBar/BtnImport").gameObject.SetActive(isAdmin);
     }
 
     public void ShowUGCLegal() {
@@ -121,6 +139,39 @@ namespace PuzzleSister.UGCEditor {
         }
       }
       StartCoroutine(PublishOrUnpublish(package));
+    }
+
+    public void ExportQuestions() {
+      if (UGCQuestionService.shared.GetQuestionList().Count <= 0) {
+        return;
+      }
+      var path = StandaloneFileBrowser.SaveFilePanel("Export File", "", "exported", "puzzlesisters");
+      if (!string.IsNullOrEmpty(path)) {
+        Debug.LogFormat("export {0}", path);
+        var questonList = UGCQuestionService.shared.GetQuestionList();
+        var questionStr = JsonConvert.SerializeObject(questonList);
+        questionStr = CryptoUtils.Encript(questionStr);
+        File.WriteAllText(path, questionStr);
+      }
+    }
+
+    public void ImportQuestions() {
+      var paths = StandaloneFileBrowser.OpenFilePanel("Import File", "", "puzzlesisters", false);
+      if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0])) {
+        var path = paths[0];
+        if (path.StartsWith("file://")) {
+          path = path.Replace("file://", "");
+        }
+        Debug.LogFormat("import {0}", path);
+        var questionStr = File.ReadAllText(path);
+        questionStr = CryptoUtils.Decript(questionStr);
+        var questionList = JsonConvert.DeserializeObject<List<Question>>(questionStr);
+        Debug.LogFormat("import question: {0}", questionList.Count);
+        if (questionList.Count >= 0) {
+          UGCQuestionService.shared.AddQuestionList(questionList);
+          RefreshQuestionList();
+        }
+      }
     }
 
     public void TryPackage() {
