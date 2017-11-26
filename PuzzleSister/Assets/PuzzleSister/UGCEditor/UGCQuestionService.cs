@@ -28,9 +28,7 @@ namespace PuzzleSister.UGCEditor {
       return new List<Question>(questionList);
     }
 
-    public void AddQuestionList(List<Question> questionList) {
-      List<Question> newList = new List<Question>();
-      newList.AddRange(questionList);
+    public void AddQuestionList(List<Question> newList) {
       foreach(var question in newList) {
         // 针对名字去重
         bool repeat = false;
