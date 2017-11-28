@@ -22,7 +22,7 @@ namespace PuzzleSister {
 						toggle.isOn = true;
 					}
 				}
-				Settings.SaveQuestionLangs((string[])langs.ToArray(typeof(string)));
+				Settings.SaveQuestionLangs(langs);
 			});
 		}
 	}

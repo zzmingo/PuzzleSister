@@ -49,12 +49,12 @@ namespace PuzzleSister {
       return resol;
     }
 
-		public static ArrayList QuestionLangs() {
-			return new ArrayList(GetString(QUESTION_LANG, DEFAULT_QUESTION_LANG).Split(','));
+		public static List<string> QuestionLangs() {
+			return new List<string>(GetString(QUESTION_LANG, DEFAULT_QUESTION_LANG).Split(','));
 		}
 
-		public static void SaveQuestionLangs(string[] langs) {
-			SetString(QUESTION_LANG, string.Join(",", langs));
+		public static void SaveQuestionLangs(List<string> langs) {
+			SetString(QUESTION_LANG, string.Join(",", langs.ToArray()));
 		}
 
     public static string GetVoiceStyle(string defaults) {
