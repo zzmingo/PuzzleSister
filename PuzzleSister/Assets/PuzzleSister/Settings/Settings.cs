@@ -10,10 +10,11 @@ namespace PuzzleSister {
   public class Settings {
 
     public enum Key {
-      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen
+      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, QuestionLang
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
+		public const string DEFAULT_QUESTION_LANG = "简体中文";
 
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
@@ -21,6 +22,7 @@ namespace PuzzleSister {
     public const string VOICE_STYLE = "settings.voice.style";
     public const string RESOLUTION = "settings.resolution";
     public const string FULLSCREEN = "settings.fullscreen";
+		public const string QUESTION_LANG = "settings.question.lang";
 
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
@@ -46,6 +48,14 @@ namespace PuzzleSister {
       resol.refreshRate = int.Parse(split[1].Replace("(", "").Replace(")", "").Replace("hz", ""));
       return resol;
     }
+
+		public static ArrayList QuestionLangs() {
+			return new ArrayList(GetString(QUESTION_LANG, DEFAULT_QUESTION_LANG).Split(','));
+		}
+
+		public static void SaveQuestionLangs(string[] langs) {
+			SetString(QUESTION_LANG, string.Join(",", langs));
+		}
 
     public static string GetVoiceStyle(string defaults) {
       return Settings.GetString(VOICE_STYLE, defaults);
@@ -101,6 +111,7 @@ namespace PuzzleSister {
         case Settings.Key.Voice: return Settings.VOICE;
         case Settings.Key.VoiceStyle: return Settings.VOICE_STYLE;
         case Settings.Key.Resolution: return Settings.RESOLUTION;
+				case Settings.Key.QuestionLang: return Settings.QUESTION_LANG;
         default: throw new UnityException();
       }
     }
