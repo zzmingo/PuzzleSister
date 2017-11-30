@@ -14,6 +14,7 @@ namespace PuzzleSister {
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
+		public const string SUPPORT_QUESTION_LANGS = "简体中文,繁体中文,英语,日语";
 		public const string DEFAULT_QUESTION_LANG = "简体中文";
 
     public const string MUSIC = "settings.music";
@@ -48,6 +49,10 @@ namespace PuzzleSister {
       resol.refreshRate = int.Parse(split[1].Replace("(", "").Replace(")", "").Replace("hz", ""));
       return resol;
     }
+
+		public static List<string> SupportQuestionLangs() {
+			return new List<string>(SUPPORT_QUESTION_LANGS.Split(','));
+		}
 
 		public static List<string> QuestionLangs() {
 			return new List<string>(GetString(QUESTION_LANG, DEFAULT_QUESTION_LANG).Split(','));
