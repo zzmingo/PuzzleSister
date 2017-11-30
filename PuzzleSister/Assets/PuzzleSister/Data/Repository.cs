@@ -41,6 +41,7 @@ namespace PuzzleSister {
         Debug.Log("Repository.loadPackages " + packageItem.name);
         package.id = packageItem.id;
         package.name = packageItem.name;
+				package.language = packageItem.language;
         package.description = packageItem.description;
         package.thumb = packageItem.imagePath;
         package.type = Package.Type.JSON;
@@ -63,16 +64,46 @@ namespace PuzzleSister {
 
     public Package[] GetBuiltinPackages() {
       return builtinList.ToArray();
-    }
+		}
 
-    public Package[] GetUGCPackages() {
-      return packageList.ToArray();
+		public Package[] GetBuiltinPackages(string languages) {
+			List<Package> result = new List<Package>(GetBuiltinPackages());
+			foreach (Package package in result) {
+				if (languages.IndexOf(package.language) == -1) {
+					result.Remove(package);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public Package[] GetUGCPackages() {
+			return packageList.ToArray();
+		}
+
+		public Package[] GetUGCPackages(string languages) {
+			List<Package> result = new List<Package>(GetUGCPackages());
+			foreach (Package package in result) {
+				if (languages.IndexOf(package.language) >= 0) {
+					result.Remove(package);
+				}
+			}
+			return result.ToArray();
     }
 
 		public Package[] GetAllPackages() {
 			Package[] allPackages = GetUGCPackages();
 			GetBuiltinPackages().CopyTo(allPackages, 0);
 			return allPackages;
+		}
+
+		public Package[] GetAllPackages(string languages) {
+			List<Package> result = new List<Package>(GetAllPackages());
+			foreach (Package package in result) {
+				if (languages.IndexOf(package.language) >= 0) {
+					result.Remove(package);
+				}
+			}
+			return result.ToArray();
 		}
 
     public Package GetPackageById(string id) {

@@ -3,34 +3,34 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace PuzzleSister {
-	public class QuestionLangSettingSource : MonoBehaviour {
+	public class PackageLanguageSettingSource : MonoBehaviour {
 		[NotNull] public GameObject template;
 		void Awake() {
-			var supporQuestionLangs = Settings.SupportQuestionLangs ();
+			var supporQuestionLangs = Settings.SupportPackageLanguages ();
 			supporQuestionLangs.ForEach(new Action<string>(delegate(string text) {
 				var obj = Instantiate(template, transform);
 				obj.name = "LangToggle";
 				obj.SetActive(true);
 				var label = obj.transform.Find("Label").GetComponent<Text>();
 				label.text = text;
-				var questionLang = Settings.GetString(Settings.QUESTION_LANG, Settings.DEFAULT_QUESTION_LANG);
+				var questionLang = Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SUPPORT_PACKAGE_LANGUAGES);
 				var toggle = obj.GetComponent<Toggle>();
 				toggle.isOn = questionLang.Contains(text);
 				toggle.onValueChanged.AddListener((_) => {
-					var langs = Settings.QuestionLangs();
-					langs.Remove(text);
+					var languages = Settings.PackageLanguages();
 					if (toggle.isOn) {
-						if (!langs.Contains(text)) {
-							langs.Add(text);
+						if (!languages.Contains(text)) {
+							languages.Add(text);
+							Settings.SavePackageLanguages(languages);
 						}
 					} else {
-						if (langs.Count > 1) {
-							langs.Remove(text);
+						if (languages.Count > 1) {
+							languages.Remove(text);
+							Settings.SavePackageLanguages(languages);
 						} else {
 							toggle.isOn = true;
 						}
 					}
-					Settings.SaveQuestionLangs(langs);
 				});
 			}));
 		}

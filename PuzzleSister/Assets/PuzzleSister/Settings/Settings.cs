@@ -10,12 +10,11 @@ namespace PuzzleSister {
   public class Settings {
 
     public enum Key {
-      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, QuestionLang
+      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, PackageLanguage
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
-		public const string SUPPORT_QUESTION_LANGS = "简体中文,繁体中文,英语,日语";
-		public const string DEFAULT_QUESTION_LANG = "简体中文";
+		public const string SUPPORT_PACKAGE_LANGUAGES = "简体中文,繁体中文,英语,日语";
 
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
@@ -23,7 +22,7 @@ namespace PuzzleSister {
     public const string VOICE_STYLE = "settings.voice.style";
     public const string RESOLUTION = "settings.resolution";
     public const string FULLSCREEN = "settings.fullscreen";
-		public const string QUESTION_LANG = "settings.question.lang";
+		public const string PACKAGE_LANGUAGE = "settings.package.language";
 
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
@@ -50,16 +49,16 @@ namespace PuzzleSister {
       return resol;
     }
 
-		public static List<string> SupportQuestionLangs() {
-			return new List<string>(SUPPORT_QUESTION_LANGS.Split(','));
+		public static List<string> SupportPackageLanguages() {
+			return new List<string>(SUPPORT_PACKAGE_LANGUAGES.Split(','));
 		}
 
-		public static List<string> QuestionLangs() {
-			return new List<string>(GetString(QUESTION_LANG, DEFAULT_QUESTION_LANG).Split(','));
+		public static List<string> PackageLanguages() {
+			return new List<string>(GetString(PACKAGE_LANGUAGE, SUPPORT_PACKAGE_LANGUAGES).Split(','));
 		}
 
-		public static void SaveQuestionLangs(List<string> langs) {
-			SetString(QUESTION_LANG, string.Join(",", langs.ToArray()));
+		public static void SavePackageLanguages(List<string> languages) {
+			SetString(PACKAGE_LANGUAGE, string.Join(",", languages.ToArray()));
 		}
 
     public static string GetVoiceStyle(string defaults) {
@@ -116,7 +115,7 @@ namespace PuzzleSister {
         case Settings.Key.Voice: return Settings.VOICE;
         case Settings.Key.VoiceStyle: return Settings.VOICE_STYLE;
         case Settings.Key.Resolution: return Settings.RESOLUTION;
-				case Settings.Key.QuestionLang: return Settings.QUESTION_LANG;
+				case Settings.Key.PackageLanguage: return Settings.PACKAGE_LANGUAGE;
         default: throw new UnityException();
       }
     }

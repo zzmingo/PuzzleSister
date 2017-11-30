@@ -4,8 +4,8 @@ const shuffle = require('shuffle-array')
 module.exports = function(id, name) {
 
   // Package
-  let lines = ["id,name,order,thumb,description"]
-  lines.push([id, name, 0, "", "自动生成的题库"].join(','))
+  let lines = ["id,name,order,thumb,description,language"]
+  lines.push([id, name, 0, "", "自动生成的题库","简体中文"].join(','))
   const packageCSVStr = lines.join('\n')
   const pkgId = lines[1][0]
   

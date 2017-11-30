@@ -1355,7 +1355,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 157539481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0018310547, y: 379.38818, z: 0}
+  m_LocalPosition: {x: 0.0018310547, y: -70.61182, z: 0}
   m_LocalScale: {x: 1.096, y: 1.096, z: 1.096}
   m_Children:
   - {fileID: 343222689}
@@ -5051,7 +5051,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 616139493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 219.99971, y: -0.10009003, z: 0}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_Children:
   - {fileID: 1420375132}
@@ -8748,7 +8748,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1082328889}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0018310547, y: -305.81238, z: 0}
+  m_LocalPosition: {x: 0.0018310547, y: -305.81235, z: 0}
   m_LocalScale: {x: 1.096, y: 1.096, z: 1.096}
   m_Children:
   - {fileID: 616139494}
@@ -16504,7 +16504,7 @@ GameObject:
   - component: {fileID: 1927466132}
   - component: {fileID: 1927466133}
   m_Layer: 5
-  m_Name: Langs
+  m_Name: Languages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17424,12 +17424,12 @@ GameObject:
   - component: {fileID: 2074482263}
   - component: {fileID: 2074482262}
   m_Layer: 5
-  m_Name: CanvasQuestionLang
+  m_Name: CanvasPackageLanguageSettting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2074482261
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17437,8 +17437,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2074482260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4189453, y: -0.03250122, z: -0.14364624}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: -0.000030517578, z: -0.14364624}
+  m_LocalScale: {x: 0.024271844, y: 0.024271844, z: 0.024271844}
   m_Children:
   - {fileID: 1634042355}
   m_Father: {fileID: 1208592943}
