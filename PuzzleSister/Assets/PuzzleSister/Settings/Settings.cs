@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using TinyLocalization;
 
 namespace PuzzleSister {
 
@@ -14,7 +15,6 @@ namespace PuzzleSister {
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
-		public const string SUPPORT_PACKAGE_LANGUAGES = "简体中文,繁体中文,英语,日语";
 
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
@@ -27,6 +27,9 @@ namespace PuzzleSister {
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
     public static readonly SettingChangeEvent OnChange = new SettingChangeEvent();
+
+		private static string SUPPORT_LANGUAGES_CODES;
+		private static string SUPPORT_LANGUAGES_NAMES;
 
     public static Resolution[] GetAvailableResolutions() {
       return Screen.resolutions;
@@ -49,15 +52,39 @@ namespace PuzzleSister {
       return resol;
     }
 
-		public static List<string> SupportPackageLanguages() {
-			return new List<string>(SUPPORT_PACKAGE_LANGUAGES.Split(','));
+		public static string SupportLanguageCodes() {
+			string result = SUPPORT_LANGUAGES_CODES;
+			if (result != null) {
+				return result;
+			}
+			result = "";
+			List<Language> languages = LocalizationManager.Instance.Languages;
+			foreach (Language language in languages) {
+				result += language.code + ",";
+			}
+			SUPPORT_LANGUAGES_CODES = result = result.Substring(0, result.Length - 1);
+			return result;
 		}
 
-		public static List<string> PackageLanguages() {
-			return new List<string>(GetString(PACKAGE_LANGUAGE, SUPPORT_PACKAGE_LANGUAGES).Split(','));
+		public static string SupportLanguageNames() {
+			string result = SUPPORT_LANGUAGES_NAMES;
+			if (result != null) {
+				return result;
+			}
+			result = "";
+			List<Language> languages = LocalizationManager.Instance.Languages;
+			foreach (Language language in languages) {
+				result += language.languageName + ",";
+			}
+			SUPPORT_LANGUAGES_NAMES = result = result.Substring(0, result.Length - 1);
+			return result;
 		}
 
-		public static void SavePackageLanguages(List<string> languages) {
+		public static List<string> PackageLanguageCodes() {
+			return new List<string>(GetString(PACKAGE_LANGUAGE, SupportLanguageCodes()).Split(','));
+		}
+
+		public static void SavePackageLanguageCodes(List<string> languages) {
 			SetString(PACKAGE_LANGUAGE, string.Join(",", languages.ToArray()));
 		}
 

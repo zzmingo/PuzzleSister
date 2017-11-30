@@ -120,8 +120,7 @@ namespace PuzzleSister.UGCEditor {
 
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
       SteamUGC.SetItemTitle(updateHandle, package.name);
-			var tags = new List<string>{ package.language };
-			SteamUGC.SetItemTags(updateHandle, tags);
+			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language });
       SteamUGC.SetItemDescription(updateHandle, package.description);
       Debug.Log("image path: " + package.imagePath);
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {

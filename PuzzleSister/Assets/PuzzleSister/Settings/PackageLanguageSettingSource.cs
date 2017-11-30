@@ -1,32 +1,34 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TinyLocalization;
 
 namespace PuzzleSister {
 	public class PackageLanguageSettingSource : MonoBehaviour {
 		[NotNull] public GameObject template;
 		void Awake() {
-			var supporQuestionLangs = Settings.SupportPackageLanguages ();
-			supporQuestionLangs.ForEach(new Action<string>(delegate(string text) {
+			var supporLangs = LocalizationManager.Instance.Languages;
+			supporLangs.ForEach(new Action<Language>(delegate(Language language) {
 				var obj = Instantiate(template, transform);
 				obj.name = "LangToggle";
 				obj.SetActive(true);
 				var label = obj.transform.Find("Label").GetComponent<Text>();
-				label.text = text;
-				var questionLang = Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SUPPORT_PACKAGE_LANGUAGES);
+				label.text = language.languageName;
+				var code = language.code;
+				var languageCodes = Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SupportLanguageCodes());
 				var toggle = obj.GetComponent<Toggle>();
-				toggle.isOn = questionLang.Contains(text);
+				toggle.isOn = languageCodes.Contains(code);
 				toggle.onValueChanged.AddListener((_) => {
-					var languages = Settings.PackageLanguages();
+					var codes = Settings.PackageLanguageCodes();
 					if (toggle.isOn) {
-						if (!languages.Contains(text)) {
-							languages.Add(text);
-							Settings.SavePackageLanguages(languages);
+						if (!codes.Contains(code)) {
+							codes.Add(code);
+							Settings.SavePackageLanguageCodes(codes);
 						}
 					} else {
-						if (languages.Count > 1) {
-							languages.Remove(text);
-							Settings.SavePackageLanguages(languages);
+						if (codes.Count > 1) {
+							codes.Remove(code);
+							Settings.SavePackageLanguageCodes(codes);
 						} else {
 							toggle.isOn = true;
 						}

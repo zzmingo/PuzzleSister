@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using PuzzleSister;
+using TinyLocalization;
 #if UNITY_STANDALONE
 using Steamworks;
 #endif
@@ -17,11 +18,6 @@ namespace PuzzleSister.UGCEditor {
 
     private bool blockingFormData = false;
 
-		void Start() {
-			ResetFormData();
-			UpdateFormUI();
-		}
-
     public void ResetFormData() {
       packageItem.name = null;
 			packageItem.language = null;
@@ -33,17 +29,19 @@ namespace PuzzleSister.UGCEditor {
       blockingFormData = true;
 			this.Query<InputField>("Content/InputField-Name").text = packageItem.name;
 			var dropdown = this.Query<Dropdown>("Content/Dropdown-Language");
-			var languages = Settings.SupportPackageLanguages();
+			var languages = LocalizationManager.Instance.Languages;
 			var options = new List<Dropdown.OptionData>();
-			foreach (string language in languages) {
-				options.Add(new Dropdown.OptionData(language));
+			foreach (Language language in languages) {
+				options.Add(new Dropdown.OptionData(language.languageName));
 			}
 			dropdown.options.Clear();
 			dropdown.AddOptions(options);
-			var value = languages.IndexOf(packageItem.language);
+			var value = languages.FindIndex (new Predicate<Language> (delegate(Language obj) {
+				return obj.languageName.Equals(packageItem.language); 
+			}));
 			if (value < 0) {
 				value = 0;
-				packageItem.language = languages[0];
+				packageItem.language = languages[0].code;
 			}
 			dropdown.value = value;
       this.Query<InputField>("Content/InputField-Description").text = packageItem.description;
@@ -58,7 +56,7 @@ namespace PuzzleSister.UGCEditor {
       }
 			packageItem.name = this.Query<InputField>("Content/InputField-Name").text;
 			var dropdown = this.Query<Dropdown>("Content/Dropdown-Language");
-			packageItem.language = dropdown.options[dropdown.value].text;
+			packageItem.language = LocalizationManager.Instance.LanguageNameToCode(dropdown.options[dropdown.value].text);
       packageItem.description = this.Query<InputField>("Content/InputField-Description").text;
       packageItem.imagePath = this.Query<ImageSelector>("Content/ImageArea").imagePath;
     }

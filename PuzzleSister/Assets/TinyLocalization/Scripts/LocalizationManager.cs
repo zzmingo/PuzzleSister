@@ -219,18 +219,18 @@ namespace TinyLocalization {
             Dictionary<string, string> codesMap = new Dictionary<string, string> {
                 {"Afrikaans", "af"}, {"Arabic", "ar"}, {"Basque", "eu"},
                 {"Belarusian", "be"}, {"Bulgarian", "bg"}, {"Catalan", "ca"},
-                {"Chinese", "zh"}, {"Czech", "cs"}, {"Danish", "da"},
+                {"简体中文", "zh-CN"}, {"Czech", "cs"}, {"Danish", "da"},
                 {"Dutch", "nl"}, {"English", "en"}, {"Estonian", "et"},
                 {"Faroese", "fo"}, {"Finnish", "fi"}, {"French", "fr"},
                 {"German", "de"}, {"Greek", "el"}, {"Hebrew", "he"},
                 {"Icelandic", "is"}, {"Indonesian", "id"}, {"Italian", "it"},
-                {"Japanese", "ja"}, {"Korean", "ko"}, {"Latvian", "lv"},
+                {"日本语", "ja"}, {"Korean", "ko"}, {"Latvian", "lv"},
                 {"Lithuanian", "lt"}, {"Norwegian", "no"}, {"Polish", "pl"},
                 {"Portuguese", "pt"}, {"Romanian", "ro"}, {"Russian", "ru"},
                 {"SerboCroatian", "sr"}, {"Slovak", "sk"}, {"Slovenian", "sl"},
                 {"Spanish", "es"}, {"Swedish", "sv"}, {"Thai", "th"},
                 {"Turkish", "tr"}, {"Ukrainian", "uk"}, {"Vietnamese", "vi"},
-                {"Hungarian", "hu"}
+								{"Hungarian", "hu"}, {"繁体中文", "zh-TW"}
             };
             
             if (codesMap.ContainsKey(systemName))
