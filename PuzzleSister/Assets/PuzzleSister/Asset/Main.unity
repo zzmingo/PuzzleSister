@@ -10909,6 +10909,7 @@ GameObject:
   - component: {fileID: 1339169576}
   - component: {fileID: 1339169575}
   - component: {fileID: 1339169574}
+  - component: {fileID: 1339169577}
   m_Layer: 5
   m_Name: Language
   m_TagString: Untagged
@@ -10981,13 +10982,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: "\u7B80\u4F53\u4E2D\u6587"
-      m_Image: {fileID: 0}
-    - m_Text: "\u7E41\u4F53\u4E2D\u6587"
-      m_Image: {fileID: 0}
-    - m_Text: English
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11026,6 +11021,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1339169572}
+--- !u!114 &1339169577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1339169572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d3e75553d994d76b5db62663917c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1344820527
 GameObject:
   m_ObjectHideFlags: 0
@@ -15423,7 +15429,7 @@ RectTransform:
   m_GameObject: {fileID: 1773702723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.009137496, y: 0.009137496, z: 0.009137496}
+  m_LocalScale: {x: 0.007242839, y: 0.007242839, z: 0.007242839}
   m_Children:
   - {fileID: 301456062}
   m_Father: {fileID: 0}
