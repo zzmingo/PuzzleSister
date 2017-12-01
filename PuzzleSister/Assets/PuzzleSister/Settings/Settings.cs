@@ -11,10 +11,11 @@ namespace PuzzleSister {
   public class Settings {
 
     public enum Key {
-      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, PackageLanguage
+      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, PackageLanguage, Language
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
+		public const string DEFAULT_LANGUAGE = "zh-CN";
 
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
@@ -23,6 +24,7 @@ namespace PuzzleSister {
     public const string RESOLUTION = "settings.resolution";
     public const string FULLSCREEN = "settings.fullscreen";
 		public const string PACKAGE_LANGUAGE = "settings.package.language";
+		public const string LANGUAGE = "settings.language";
 
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
@@ -143,6 +145,7 @@ namespace PuzzleSister {
         case Settings.Key.VoiceStyle: return Settings.VOICE_STYLE;
         case Settings.Key.Resolution: return Settings.RESOLUTION;
 				case Settings.Key.PackageLanguage: return Settings.PACKAGE_LANGUAGE;
+				case Settings.Key.Language: return Settings.LANGUAGE;
         default: throw new UnityException();
       }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Steamworks;
 using PuzzleSister.UGCEditor;
+using TinyLocalization;
 
 namespace PuzzleSister {
 
@@ -34,6 +35,7 @@ namespace PuzzleSister {
 		}
 
 		IEnumerator Start () {
+			LocalizationManager.Instance.ChangeLanguage(Settings.GetString(Settings.LANGUAGE, Settings.DEFAULT_LANGUAGE));
 			var resolution = Settings.ParseResolution(Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION));
 			Screen.SetResolution(resolution.width, resolution.height, Settings.IsFullscreen(), resolution.refreshRate);
 			DontDestroyOnLoad(this);
