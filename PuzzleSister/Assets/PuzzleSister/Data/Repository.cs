@@ -68,8 +68,9 @@ namespace PuzzleSister {
 
 		public Package[] GetBuiltinPackages(string languages) {
 			List<Package> result = new List<Package>(GetBuiltinPackages());
-			foreach (Package package in result) {
-				if (languages.IndexOf(package.language) == -1) {
+			for(int i = result.Count - 1; i >= 0; i--) {
+				Package package = result [i];
+				if (languages.IndexOf(package.language.Trim()) == -1) {
 					result.Remove(package);
 				}
 			}
@@ -82,8 +83,9 @@ namespace PuzzleSister {
 
 		public Package[] GetUGCPackages(string languages) {
 			List<Package> result = new List<Package>(GetUGCPackages());
-			foreach (Package package in result) {
-				if (languages.IndexOf(package.language) >= 0) {
+			for(int i = result.Count - 1; i >= 0; i--) {
+				Package package = result [i];
+				if (languages.IndexOf(package.language) == -1) {
 					result.Remove(package);
 				}
 			}
@@ -98,8 +100,9 @@ namespace PuzzleSister {
 
 		public Package[] GetAllPackages(string languages) {
 			List<Package> result = new List<Package>(GetAllPackages());
-			foreach (Package package in result) {
-				if (languages.IndexOf(package.language) >= 0) {
+			for(int i = result.Count - 1; i >= 0; i--) {
+				Package package = result [i];
+				if (languages.IndexOf(package.language) == -1) {
 					result.Remove(package);
 				}
 			}

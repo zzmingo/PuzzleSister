@@ -18,13 +18,13 @@ module.exports = function(xlsxFile) {
   let dlcId
   let dlcArray = XLSX.utils.sheet_to_json(dlcSheet, {
     blankrows: false
-  })
-  dlcArray.shift()
+  });
+  dlcArray.shift();
   dlcId = dlcArray[0].id
   dlcArray = dlcArray.filter(item => !!item.id).map((item) => {
     delete item[""]
     return item
-  })
+  });
   let dlcCSV = array2csv(dlcArray)
 
   // handle questions
@@ -37,7 +37,6 @@ module.exports = function(xlsxFile) {
     return item
   })
   let questionCSV = array2csv(questionArray)
-
   return {
     id: dlcId,
     Package: dlcCSV,
@@ -55,7 +54,7 @@ function array2csv(array) {
   array.forEach(item => {
     const values = []
     keys.forEach(key => {
-      values.push("\"" + escape(item[key] || '') + "\"")
+      values.push(escape(item[key] || ''))
     })
     lines.push(values.join(','))
   })
