@@ -10,7 +10,7 @@ namespace PuzzleSister {
     public static string Encript(string message) {
       using(DESCryptoServiceProvider desProvider = new DESCryptoServiceProvider()) {
         desProvider.Mode = CipherMode.CBC;
-				desProvider.Padding = PaddingMode.PKCS7;
+				desProvider.Padding = PaddingMode.Zeros;
         desProvider.Key = Encoding.ASCII.GetBytes(DataConst.ENSCRIPT_KEY);
         desProvider.IV = Encoding.ASCII.GetBytes(DataConst.ENSCRIPT_KEY);
         using (var ms = new MemoryStream()) {
@@ -30,7 +30,7 @@ namespace PuzzleSister {
 		public static string Decript(string message) {
       using(DESCryptoServiceProvider desProvider = new DESCryptoServiceProvider()) {
         desProvider.Mode = CipherMode.CBC;
-				desProvider.Padding = PaddingMode.PKCS7;
+				desProvider.Padding = PaddingMode.Zeros;
         desProvider.Key = Encoding.ASCII.GetBytes(DataConst.ENSCRIPT_KEY);
         desProvider.IV = Encoding.ASCII.GetBytes(DataConst.ENSCRIPT_KEY);
         using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(message))) {

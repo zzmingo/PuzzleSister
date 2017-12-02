@@ -54,7 +54,7 @@ function array2csv(array) {
   array.forEach(item => {
     const values = []
     keys.forEach(key => {
-      values.push(escape(item[key] || ''))
+      values.push("\"" + escape(item[key] || '') + "\"")
     })
     lines.push(values.join(','))
   })
