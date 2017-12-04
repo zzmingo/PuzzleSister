@@ -93,9 +93,12 @@ namespace PuzzleSister {
     }
 
 		public Package[] GetAllPackages() {
-			Package[] allPackages = GetUGCPackages();
-			GetBuiltinPackages().CopyTo(allPackages, 0);
-			return allPackages;
+			Package[] ugcPackages = GetUGCPackages();
+      Package[] builtinPackages = GetBuiltinPackages();
+      List<Package> pkgList = new List<Package>();
+      pkgList.AddRange(ugcPackages);
+      pkgList.AddRange(builtinPackages);
+			return pkgList.ToArray();
 		}
 
 		public Package[] GetAllPackages(string languages) {
