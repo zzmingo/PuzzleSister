@@ -24,6 +24,9 @@ namespace PuzzleSister {
         if (energy <= 4 && combo <= 1) {
           state = CharacterView.State.UnfullMiddle;
         } else {
+          if (combo > 10) {
+            combo = (combo - 1) % 10 + 1;
+          }
           switch(combo) {
             case 1: state = CharacterView.State.Combo1; break;
             case 2: state = CharacterView.State.Combo2; break;
@@ -34,7 +37,7 @@ namespace PuzzleSister {
             case 7: state = CharacterView.State.Combo7; break;
             case 8: state = CharacterView.State.Combo8; break;
             case 9: state = CharacterView.State.Combo9; break;
-            case 10: state = CharacterView.State.Combo10; break;
+						case 10: state = CharacterView.State.Combo10; break;
           }
         }
       } else {
