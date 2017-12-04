@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using TinyLocalization;
 
 namespace PuzzleSister.UGCEditor {
 
@@ -33,6 +34,7 @@ namespace PuzzleSister.UGCEditor {
 
     void AdaptItem(Transform item, PackageItem package) {
       item.Find("Name").GetComponent<Text>().text = package.name;
+			item.Find("Language").GetComponent<Text>().text = LocalizationManager.Instance.GetLanguage(package.language).languageName;
       item.Find("Description").GetComponent<Text>().text = package.description;
       item.GetComponent<ItemView>().itemData = package;
       if (coLoadPreview != null) {

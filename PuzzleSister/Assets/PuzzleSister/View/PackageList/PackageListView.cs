@@ -34,7 +34,7 @@ namespace PuzzleSister {
 
 			if (GameState.isShowBuiltins) {
 				Repository.shared.LoadBuildtins();
-				Package[] packages = Repository.shared.GetBuiltinPackages();
+				Package[] packages = Repository.shared.GetBuiltinPackages(Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SupportLanguageCodes()));
 				InitPackageList(packages);
 			} else {
 				EResult loadResult = EResult.k_EResultOK;
@@ -44,7 +44,7 @@ namespace PuzzleSister {
 				foreach(Transform tItem in transform) {
 					Destroy(tItem.gameObject);
 				}
-				Package[] packages = Repository.shared.GetUGCPackages();
+				Package[] packages = Repository.shared.GetUGCPackages(Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SupportLanguageCodes()));
 				InitPackageList(packages);
 			}
 		}

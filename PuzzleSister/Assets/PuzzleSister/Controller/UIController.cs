@@ -12,6 +12,7 @@ namespace PuzzleSister {
 		[NotNull] public GameObject showingUIObject;
 		[NotNull] public GameObject packageListUIObject;
 		[NotNull] public GameObject questionUIObject;
+		[NotNull] public GameObject questionLangUIObject;
 		[NotNull] public BGMController bGMController;
 		[NotNull] public QuestionController questionController;
 
@@ -76,6 +77,9 @@ namespace PuzzleSister {
 					showingUIPopup = null;
 					uiPopupStack.Clear();
 					PopUI();
+					break;
+				case EventType.CloseQuestionLangToSetting:
+					PopUI ();
 					break;
 			}
 		}

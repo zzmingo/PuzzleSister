@@ -14,9 +14,13 @@ module.exports = function(packageItem, dist) {
 
 function encrypt (message, key) {
   key = key.length >= 8 ? key.slice(0, 8) : key.concat('0'.repeat(8 - key.length))
-  const keyHex = new Buffer(key)
+  const keyHex = Buffer.from(key, )
   const cipher = crypto.createCipheriv('des-cbc', keyHex, keyHex)
-  let result = cipher.update(message, 'utf8', 'base64')
+  cipher.setAutoPadding(false)
+  const data = Buffer.from(message)
+  const finalData = Buffer.alloc(Math.ceil(data.length / 8) * 8);
+  data.copy(finalData)
+  let result = cipher.update(finalData, 'utf8', 'base64')
   result += cipher.final('base64')
   return result
 }

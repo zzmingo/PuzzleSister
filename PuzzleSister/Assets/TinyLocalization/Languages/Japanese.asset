@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a489ed53c12bd7478b9005b3e6781c0, type: 3}
-  m_Name: English
+  m_Name: Japanese
   m_EditorClassIdentifier: 
-  languageName: English
-  code: en
-  description: English
+  languageName: "\u65E5\u672C\u8BED"
+  code: ja
+  description: Japanese
   keys: []

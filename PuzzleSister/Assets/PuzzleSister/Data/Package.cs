@@ -34,6 +34,7 @@ namespace PuzzleSister {
     public string id;
     public string name;
     public string author;
+		public string language;
     public string description;
     public string thumb;
     public string path;
@@ -91,6 +92,7 @@ namespace PuzzleSister {
     public void FromDict(Dictionary<string, object> dict, string path, Type type = Type.CSV, Source source = Source.Resources) {
       this.id = dict["id"].ToString();
       this.name = dict["name"].ToString();
+			this.language = dict["language"].ToString();
       this.thumb = dict["thumb"].ToString();
       this.path = path;
       this.type = type;

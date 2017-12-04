@@ -29,6 +29,7 @@ namespace PuzzleSister {
     CloseIllustration,
     PackageChanllengeClick,
     FullscreenEndingPlayEnd,
+		CloseQuestionLangToSetting
     // 只能往后加
   }
 

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PuzzleSister {
 
@@ -25,7 +27,6 @@ namespace PuzzleSister {
     public static readonly Vector2Int PACKAGE_IMAGE_SIZE = new Vector2Int(440, 270);
 
     public const int ILLUSTRATION_REWARD_BASE_FACTOR = 100;
-
   }
 
 }

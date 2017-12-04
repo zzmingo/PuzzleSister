@@ -4,16 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using TinyLocalization;
 
 namespace PuzzleSister {
 
   public class Settings {
 
     public enum Key {
-      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen
+      Music, Sound, Voice, VoiceStyle, Resolution, Fullscreen, PackageLanguage, Language
     }
     
     public const string DEFAULT_RESOLUTION = "800x600 (60hz)";
+		public const string DEFAULT_LANGUAGE = "zh-CN";
 
     public const string MUSIC = "settings.music";
     public const string SOUND = "settings.sound";
@@ -21,10 +23,15 @@ namespace PuzzleSister {
     public const string VOICE_STYLE = "settings.voice.style";
     public const string RESOLUTION = "settings.resolution";
     public const string FULLSCREEN = "settings.fullscreen";
+		public const string PACKAGE_LANGUAGE = "settings.package.language";
+		public const string LANGUAGE = "settings.language";
 
     public sealed class SettingChangeEvent : UnityEvent<string> {}
 
     public static readonly SettingChangeEvent OnChange = new SettingChangeEvent();
+
+		private static string SUPPORT_LANGUAGES_CODES;
+		private static string SUPPORT_LANGUAGES_NAMES;
 
     public static Resolution[] GetAvailableResolutions() {
       return Screen.resolutions;
@@ -46,6 +53,42 @@ namespace PuzzleSister {
       resol.refreshRate = int.Parse(split[1].Replace("(", "").Replace(")", "").Replace("hz", ""));
       return resol;
     }
+
+		public static string SupportLanguageCodes() {
+			string result = SUPPORT_LANGUAGES_CODES;
+			if (result != null) {
+				return result;
+			}
+			result = "";
+			List<Language> languages = LocalizationManager.Instance.Languages;
+			foreach (Language language in languages) {
+				result += language.code + ",";
+			}
+			SUPPORT_LANGUAGES_CODES = result = result.Substring(0, result.Length - 1);
+			return result;
+		}
+
+		public static string SupportLanguageNames() {
+			string result = SUPPORT_LANGUAGES_NAMES;
+			if (result != null) {
+				return result;
+			}
+			result = "";
+			List<Language> languages = LocalizationManager.Instance.Languages;
+			foreach (Language language in languages) {
+				result += language.languageName + ",";
+			}
+			SUPPORT_LANGUAGES_NAMES = result = result.Substring(0, result.Length - 1);
+			return result;
+		}
+
+		public static List<string> PackageLanguageCodes() {
+			return new List<string>(GetString(PACKAGE_LANGUAGE, SupportLanguageCodes()).Split(','));
+		}
+
+		public static void SavePackageLanguageCodes(List<string> languages) {
+			SetString(PACKAGE_LANGUAGE, string.Join(",", languages.ToArray()));
+		}
 
     public static string GetVoiceStyle(string defaults) {
       return Settings.GetString(VOICE_STYLE, defaults);
@@ -101,6 +144,8 @@ namespace PuzzleSister {
         case Settings.Key.Voice: return Settings.VOICE;
         case Settings.Key.VoiceStyle: return Settings.VOICE_STYLE;
         case Settings.Key.Resolution: return Settings.RESOLUTION;
+				case Settings.Key.PackageLanguage: return Settings.PACKAGE_LANGUAGE;
+				case Settings.Key.Language: return Settings.LANGUAGE;
         default: throw new UnityException();
       }
     }
