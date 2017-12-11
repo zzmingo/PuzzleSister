@@ -33,7 +33,7 @@ namespace PuzzleSister {
         var resolutionStr = dropdown.options[value].text;
         var resol = Settings.ParseResolution(resolutionStr);
         Settings.SetString(Settings.RESOLUTION, resolutionStr);
-        Screen.SetResolution(resol.width, resol.height, Settings.IsFullscreen(), resol.refreshRate);
+        Screen.SetResolution(resol.width, resol.height, Settings.IsFullscreen());
       });
     }
 
