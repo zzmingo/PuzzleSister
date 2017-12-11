@@ -64,7 +64,14 @@ namespace PuzzleSister.UGCEditor {
     }
 
     public void RemoveQuestion(Question question) {
-
+      for(int i=0; i<questionList.Count; i++) {
+        var current = questionList[i];
+        if (current.id == question.id) {
+          questionList.RemoveAt(i);
+          break;
+        }
+      }
+      Save();
     }
 
     public IEnumerator EditPackage(PackageItem package, Action<EResult> onError) {

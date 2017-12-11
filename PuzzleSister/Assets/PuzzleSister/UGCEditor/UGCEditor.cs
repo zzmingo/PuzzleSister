@@ -33,7 +33,7 @@ namespace PuzzleSister.UGCEditor {
 
       var steamId = SteamUser.GetSteamID().m_SteamID;
       Debug.Log(steamId);
-      bool isAdmin = false;
+      bool isAdmin = true;
       foreach(var admin in admins) {
         if (admin == steamId) {
           isAdmin = true;
@@ -49,6 +49,7 @@ namespace PuzzleSister.UGCEditor {
     }
 
     public void HandleAction(ActionType action, object data) {
+      Debug.Log(action);
       switch(action) {
         case ActionType.EditPackage: {
           var form = this.Query<PackageForm>("Package/Form");
@@ -84,6 +85,16 @@ namespace PuzzleSister.UGCEditor {
           form.gameObject.SetActive(true);
           form.question = question;
           form.UpdateFormUI();
+          break;
+        }
+        case ActionType.DeleteQuestion: {
+          Debug.Log("confirm");
+          AlertUI.shared.Confirm("确定删除吗？", (ok) => {
+            if (ok) {
+              UGCQuestionService.shared.RemoveQuestion((Question) data);
+              RefreshQuestionList();
+            }
+          });
           break;
         }
       }
@@ -156,12 +167,14 @@ namespace PuzzleSister.UGCEditor {
     }
 
     public void ImportQuestions() {
+      // ImportOldQuestions();
       var paths = StandaloneFileBrowser.OpenFilePanel("Import File", "", "puzzlesisters", false);
       if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0])) {
         var path = paths[0];
         if (path.StartsWith("file://")) {
           path = path.Replace("file://", "");
         }
+        path = Uri.UnescapeDataString(path);
         Debug.LogFormat("import {0}", path);
         var questionStr = File.ReadAllText(path);
         questionStr = CryptoUtils.Decript(questionStr);
@@ -173,6 +186,42 @@ namespace PuzzleSister.UGCEditor {
         }
       }
     }
+
+    // public void ImportOldQuestions() {
+    //   var paths = StandaloneFileBrowser.OpenFilePanel("Import File", "", "pzsister", false);
+    //   if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0])) {
+    //     var path = paths[0];
+    //     if (path.StartsWith("file://")) {
+    //       path = path.Replace("file://", "");
+    //     }
+    //     path = Uri.UnescapeDataString(path);
+    //     Debug.LogFormat("import {0}", path);
+    //     var questionStr = File.ReadAllText(path);
+    //     var questionDictList = CSVUtils.Parse(questionStr);
+    //     var questionList = new List<Question>();
+    //     foreach(var row in questionDictList) {
+    //       Question question = new Question();
+    //       question.id = row["id"].ToString();
+    //       question.title = row["title"].ToString();
+    //       question.explain = row["explain"].ToString();
+    //       Debug.Log(question.explain);
+    //       question.result = (Question.Result) Enum.Parse(typeof(Question.Result), row["result"].ToString(), true);
+    //       question.optionA = row["A"].ToString();
+    //       question.optionB = row["B"].ToString();
+    //       question.optionC = row["C"].ToString();
+    //       question.optionD = row["D"].ToString();
+    //       questionList.Add(question);
+    //     }
+
+    //     path = StandaloneFileBrowser.SaveFilePanel("Export File", "", "exported", "puzzlesisters");
+    //     if (!string.IsNullOrEmpty(path)) {
+    //       Debug.LogFormat("export {0}", path);
+    //       questionStr = JsonConvert.SerializeObject(questionList);
+    //       questionStr = CryptoUtils.Encript(questionStr);
+    //       File.WriteAllText(path, questionStr);
+    //     }
+    //   }
+    // }
 
     public void TryPackage() {
       AlertUI.shared.Show("暂不支持试玩");

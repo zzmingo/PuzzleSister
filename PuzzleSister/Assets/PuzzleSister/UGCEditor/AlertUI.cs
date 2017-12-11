@@ -22,7 +22,16 @@ namespace PuzzleSister.UGCEditor {
       transform.Query<Text>("AlertUI/Panel/Btn/Text").text = button;
     }
 
-    public IEnumerator Confirm(string text, Action<bool> callback) {
+    public void Hide() {
+      transform.Find("AlertUI").gameObject.SetActive(false);
+      transform.Find("ConfirmUI").gameObject.SetActive(false);
+    }
+
+    public void Confirm(string text, Action<bool> callback) {
+      StartCoroutine(ConfirmCO(text, callback));
+    }
+ 
+    public IEnumerator ConfirmCO(string text, Action<bool> callback) {
       transform.Find("ConfirmUI").gameObject.SetActive(true);
       transform.Query<Text>("ConfirmUI/Panel/Text").text = text;
       waitingConfirm = true;
