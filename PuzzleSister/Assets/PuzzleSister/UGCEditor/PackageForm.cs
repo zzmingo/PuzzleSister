@@ -14,6 +14,11 @@ namespace PuzzleSister.UGCEditor {
 
   public class PackageForm : MonoBehaviour {
 
+		void Awake() {
+			ResetFormData();
+			UpdateFormUI();
+		}
+
     public readonly PackageItem packageItem = new PackageItem();
 
     private bool blockingFormData = false;
