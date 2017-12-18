@@ -14,7 +14,7 @@ namespace PuzzleSister.UGCEditor {
 
   public class PackageForm : MonoBehaviour {
 
-		void Awake() {
+		void OnEnable() {
 			ResetFormData();
 			UpdateFormUI();
 		}
@@ -42,7 +42,7 @@ namespace PuzzleSister.UGCEditor {
 			dropdown.options.Clear();
 			dropdown.AddOptions(options);
 			var value = languages.FindIndex (new Predicate<Language> (delegate(Language obj) {
-				return obj.languageName.Equals(packageItem.language); 
+				return obj.code.Equals(packageItem.language); 
 			}));
 			if (value < 0) {
 				value = 0;
