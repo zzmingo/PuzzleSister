@@ -41,6 +41,7 @@ namespace PuzzleSister {
         Debug.Log("Repository.loadPackages " + packageItem.name);
         package.id = packageItem.id;
         package.name = packageItem.name;
+				package.author = packageItem.author;
 				package.language = packageItem.language;
         package.description = packageItem.description;
         package.thumb = packageItem.imagePath;

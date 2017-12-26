@@ -25,6 +25,7 @@ namespace PuzzleSister.UGCEditor {
 
     public void ResetFormData() {
       packageItem.name = null;
+			packageItem.author = null;
 			packageItem.language = null;
       packageItem.description = null;
       packageItem.imagePath = null;
@@ -33,20 +34,21 @@ namespace PuzzleSister.UGCEditor {
     public void UpdateFormUI() {
       blockingFormData = true;
 			this.Query<InputField>("Content/InputField-Name").text = packageItem.name;
+			this.Query<InputField>("Content/InputField-Author").text = packageItem.author;
 			var dropdown = this.Query<Dropdown>("Content/Dropdown-Language");
-			var languages = LocalizationManager.Instance.Languages;
 			var options = new List<Dropdown.OptionData>();
-			foreach (Language language in languages) {
-				options.Add(new Dropdown.OptionData(language.languageName));
+			var codes = new List<string>(PackageLanguageSettingSource.SupprotLanguages.Keys);
+			foreach (string code in codes) {
+				options.Add(new Dropdown.OptionData(PackageLanguageSettingSource.SupprotLanguages[code]));
 			}
 			dropdown.options.Clear();
 			dropdown.AddOptions(options);
-			var value = languages.FindIndex (new Predicate<Language> (delegate(Language obj) {
-				return obj.code.Equals(packageItem.language); 
+			var value = codes.FindIndex(new Predicate<string> (delegate(string obj) {
+				return obj.Equals(packageItem.language); 
 			}));
 			if (value < 0) {
 				value = 0;
-				packageItem.language = languages[0].code;
+				packageItem.language = codes[0];
 			}
 			dropdown.value = value;
       this.Query<InputField>("Content/InputField-Description").text = packageItem.description;
@@ -60,8 +62,14 @@ namespace PuzzleSister.UGCEditor {
         return;
       }
 			packageItem.name = this.Query<InputField>("Content/InputField-Name").text;
+			packageItem.author = this.Query<InputField>("Content/InputField-Author").text;
 			var dropdown = this.Query<Dropdown>("Content/Dropdown-Language");
-			packageItem.language = LocalizationManager.Instance.LanguageNameToCode(dropdown.options[dropdown.value].text);
+			foreach (var language in PackageLanguageSettingSource.SupprotLanguages) {
+				if (language.Value.Equals (dropdown.options [dropdown.value].text)) {
+					packageItem.language = language.Key;
+					break;
+				}
+			}
       packageItem.description = this.Query<InputField>("Content/InputField-Description").text;
       packageItem.imagePath = this.Query<ImageSelector>("Content/ImageArea").imagePath;
     }

@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Name: LocalizationManager
   m_EditorClassIdentifier: 
   languages:
-  - {fileID: 11400000, guid: 46fc24094faadb3499edc64fa6d2facf, type: 2}
   - {fileID: 11400000, guid: 823c94266dbae4a85a86523717c9df93, type: 2}
-  - {fileID: 11400000, guid: ceb8df13272b74d2a967a688337dfc12, type: 2}
-  - {fileID: 11400000, guid: 2fe003dbd7a044c5fad009169fa37c51, type: 2}
-  startLanguage: en
+  startLanguage: zh-CN
   StartWithDeviceLanguage: 0

@@ -52,7 +52,9 @@ namespace PuzzleSister.UGCEditor {
           packageItem.id = "" + details.m_nPublishedFileId.m_PublishedFileId;
           packageItem.publishedFileId = details.m_nPublishedFileId;
           packageItem.name = details.m_rgchTitle;
-					packageItem.language = details.m_rgchTags;
+					var tags = details.m_rgchTags.Split(',');
+					packageItem.author = tags.Length == 2 ? tags[1].FromUnicodeString() : "未知";
+					packageItem.language = tags[0];
           packageItem.description = details.m_rgchDescription;
           packageItem.timeUpdated = details.m_rtimeUpdated;
           packageItem.visible = details.m_eVisibility == ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPublic;
@@ -120,7 +122,8 @@ namespace PuzzleSister.UGCEditor {
 
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
       SteamUGC.SetItemTitle(updateHandle, package.name);
-			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language });
+			Debug.Log (package.author.ToUnicodeString());
+			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language, package.author.ToUnicodeString() });
       SteamUGC.SetItemDescription(updateHandle, package.description);
       Debug.Log("image path: " + package.imagePath);
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {
