@@ -34,7 +34,7 @@ namespace PuzzleSister {
 
 			if (GameState.isShowBuiltins) {
 				Repository.shared.LoadBuildtins();
-				Package[] packages = Repository.shared.GetBuiltinPackages(Settings.GetString(Settings.PACKAGE_LANGUAGE, Settings.SupportLanguageCodes()));
+				Package[] packages = Repository.shared.GetBuiltinPackages(Settings.GetString (Settings.PACKAGE_LANGUAGE, Settings.SupportLanguageCodes ()));
 				InitPackageList(packages);
 			} else {
 				EResult loadResult = EResult.k_EResultOK;

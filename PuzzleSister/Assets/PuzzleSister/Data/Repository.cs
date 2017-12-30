@@ -75,7 +75,7 @@ namespace PuzzleSister {
 					result.Remove(package);
 				}
 			}
-			return result.ToArray();
+			return result.ToArray();;
 		}
 
 		public Package[] GetUGCPackages() {

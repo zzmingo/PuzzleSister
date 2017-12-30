@@ -7,7 +7,7 @@ using TinyLocalization;
 namespace PuzzleSister {
 	public class PackageLanguageSettingSource : MonoBehaviour {
 		public static Dictionary<string, string> SupprotLanguages = new Dictionary<string, string>(){
-			{"zh_CN", "简体中文"}, {"zh_TW", "繁体中文"}, {"en", "英语"},
+			{"zh-CN", "简体中文"}, {"zh-TW", "繁体中文"}, {"en", "英语"},
 			{"ja", "日语"}, {"ru", "俄语"}, {"de", "德语"}, {"pt", "葡萄牙语"},
 			{"fr", "法语"}, {"it", "意大利语"}, {"ko", "朝鲜语"},
 			{"es", "西班牙语"}, {"sq", "阿尔巴尼亚语"}, {"af", "南非荷兰语"},
