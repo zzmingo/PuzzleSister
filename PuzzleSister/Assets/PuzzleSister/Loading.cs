@@ -35,7 +35,12 @@ namespace PuzzleSister {
 		}
 
 		IEnumerator Start () {
-			LocalizationManager.Instance.ChangeLanguage(Settings.GetString(Settings.LANGUAGE, Settings.DEFAULT_LANGUAGE));
+			var lang = Settings.GetString(Settings.LANGUAGE, Settings.DEFAULT_LANGUAGE);
+			var localLang = LocalizationManager.Instance.GetLanguage(lang);
+			if (localLang == null) {
+				lang = Settings.DEFAULT_LANGUAGE;
+			}
+			LocalizationManager.Instance.ChangeLanguage(lang);
 			var resolution = Settings.ParseResolution(Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION));
 			Screen.SetResolution(resolution.width, resolution.height, Settings.IsFullscreen(), resolution.refreshRate);
 			DontDestroyOnLoad(this);

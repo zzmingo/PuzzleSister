@@ -181,6 +181,7 @@ namespace PuzzleSister {
       // save completed
       var completedCount = 0;
       var pkgService = PackageService.For(roundService.package);
+      var isCompletedBefore = pkgService.CompletedCount >= roundService.PackageQuestionCount;
       pkgService.Load();
       foreach(var answerItem in roundService.CompletedList) {
         if (answerItem.completed) {
@@ -189,16 +190,6 @@ namespace PuzzleSister {
         }
       }
       pkgService.Save();
-
-      int originCompleted = PackageProgressService.shared.CompletedCount;
-
-      // save progress
-      if (!roundService.package.temporary) {
-        var progressService = PackageProgressService.shared;
-        progressService.Load();
-        progressService.SetProgress(roundService.package.id, pkgService.CompletedCount, roundService.PackageQuestionCount);
-        progressService.Save();
-      }
       
       if (completedCount < roundService.Total || completedCount < 10) {
         // show ending dialogue
@@ -210,9 +201,14 @@ namespace PuzzleSister {
         yield return ShowFullScreenEffect();
       }
 
-      int currentCompleted = PackageProgressService.shared.CompletedCount;
+      var pkgProgress = PackageProgressService.shared.GetProgress(roundService.package.id);
 
-      if (currentCompleted / Const.ILLUSTRATION_REWARD_BASE_FACTOR > originCompleted / Const.ILLUSTRATION_REWARD_BASE_FACTOR) {
+      // 如果已经完成，而且是正常模式，就获得图鉴
+      if (!isCompletedBefore && 
+        pkgProgress.Completed &&
+        roundService.IsChanllenge() &&
+        roundService.PackageQuestionCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR
+      ) {
         yield return RewardIllustration();
       }
 

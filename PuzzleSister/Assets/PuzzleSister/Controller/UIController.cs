@@ -60,7 +60,7 @@ namespace PuzzleSister {
 						PushUI(questionUIObject);
 						bool chanllenge = PackageProgressService.shared.GetProgress(package.id).Completed;
 						questionController.StartPackage(package, chanllenge);
-						bGMController.RandomBGM();
+						bGMController.PlayGame();
           }
 					break;
 				case EventType.CloseSettingsToMenu:
@@ -72,7 +72,7 @@ namespace PuzzleSister {
 					bGMController.PlayMenu();
 					break;
 				case EventType.QuestionPanelToPackageList:
-					bGMController.RandomBGM();
+					bGMController.PlayMenu();
 					questionController.StopAndReset();
 					showingUIPopup = null;
 					uiPopupStack.Clear();
