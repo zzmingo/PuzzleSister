@@ -34,10 +34,8 @@ namespace PuzzleSister.UGCEditor {
 
     void AdaptItem(Transform item, PackageItem package) {
       item.Find("Name").GetComponent<Text>().text = package.name;
-			var language = PackageLanguageSettingSource.SupprotLanguages[package.language];
-      if (language == null) {
-				language = PackageLanguageSettingSource.SupprotLanguages["zh_CN"];
-      }
+      var supportLangs = PackageLanguageSettingSource.SupprotLanguages;
+			var language = supportLangs.ContainsKey(package.language) ? supportLangs[package.language] : supportLangs["zh_CN"];
 			item.Find("Language").GetComponent<Text>().text = language;
       item.Find("Description").GetComponent<Text>().text = package.description;
       item.GetComponent<ItemView>().itemData = package;
