@@ -37,14 +37,14 @@ namespace PuzzleSister {
       }
       
       transform.Query<Text>("Content/Name").text = package.name;
-      transform.Query<Text>("Content/Author").text = "编辑：" + (package.author == null ? "未知" : package.author);
+      transform.Query<Text>("Content/Author").text = "作者：" + (package.author == null ? "未知" : package.author);
       transform.Query<Text>("Content/Description").text = 
         package.description == null ? string.Format("一个关于\"{0}\"的题库", package.name) : package.description;
 
       if (package.state == Package.State.Ready) {
         transform.Query<Button>("Content/BtnContinue").interactable = true;
         transform.Query<Text>("Content/BtnContinue/Text").text = 
-          progress.Completed ? "挑战连答" : string.Format("继续答题({0})", progress.Percentage());
+					progress.Completed ? "连答挑战" : string.Format("继续答题({0})", progress.Percentage());
       } else {
         transform.Query<Button>("Content/BtnContinue").interactable = false;
         transform.Query<Text>("Content/BtnContinue/Text").text = "下载中...";

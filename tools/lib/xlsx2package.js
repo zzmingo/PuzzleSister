@@ -18,8 +18,8 @@ module.exports = function(xlsxFile) {
   let dlcId
   let dlcArray = XLSX.utils.sheet_to_json(dlcSheet, {
     blankrows: false
-  });
-  dlcArray.shift();
+  })
+  dlcArray.shift()
   dlcId = dlcArray[0].id
   dlcArray = dlcArray.filter(item => !!item.id).map((item) => {
     delete item[""]

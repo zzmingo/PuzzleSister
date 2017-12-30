@@ -14,6 +14,7 @@ namespace PuzzleSister.UGCEditor {
 
     public String id;
     public String name;
+		public String author;
 		public String language;
     public String description;
     public String imagePath;
@@ -24,6 +25,7 @@ namespace PuzzleSister.UGCEditor {
     public void Set(PackageItem other) {
       id = other.id;
       name = other.name;
+			author = other.author;
 			language = other.language;
       description = other.description;
       imagePath = other.imagePath;
@@ -34,6 +36,7 @@ namespace PuzzleSister.UGCEditor {
       PackageItem pkg = new PackageItem();
       pkg.id = id;
       pkg.name = name;
+			pkg.author = author;
 			pkg.language = language;
       pkg.description = description;
       pkg.imagePath = imagePath;
