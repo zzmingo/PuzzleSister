@@ -60,9 +60,9 @@ namespace PuzzleSister {
 				return result;
 			}
 			result = "";
-			List<Language> languages = LocalizationManager.Instance.Languages;
-			foreach (Language language in languages) {
-				result += language.code + ",";
+			List<string> languages = new List<string>(PackageLanguageSettingSource.SupprotLanguages.Keys);
+			foreach (string language in languages) {
+				result += language + ",";
 			}
 			SUPPORT_LANGUAGES_CODES = result = result.Substring(0, result.Length - 1);
 			return result;
@@ -74,9 +74,9 @@ namespace PuzzleSister {
 				return result;
 			}
 			result = "";
-			List<Language> languages = LocalizationManager.Instance.Languages;
-			foreach (Language language in languages) {
-				result += language.languageName + ",";
+			List<string> languages = new List<string>(PackageLanguageSettingSource.SupprotLanguages.Values);
+			foreach (string language in languages) {
+				result += language + ",";
 			}
 			SUPPORT_LANGUAGES_NAMES = result = result.Substring(0, result.Length - 1);
 			return result;
