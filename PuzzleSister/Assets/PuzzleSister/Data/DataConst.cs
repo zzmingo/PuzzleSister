@@ -24,7 +24,13 @@ namespace PuzzleSister {
       )
     };
 
-    public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
+		public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
+			new PackageItem(
+				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001"),
+				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", PACKAGE_FILE_NAME),
+				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", QUESTION_FILE_NAME),
+				FILE_EXT
+			),
       new PackageItem(
         Utils.Path(PACKAGES_DIR, "lengzhishi001"),
         Utils.Path(PACKAGES_DIR, "lengzhishi001", PACKAGE_FILE_NAME),
