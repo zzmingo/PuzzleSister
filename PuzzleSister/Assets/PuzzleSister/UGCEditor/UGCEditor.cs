@@ -283,6 +283,16 @@ namespace PuzzleSister.UGCEditor {
       var questionList = UGCQuestionService.shared.GetQuestionList();
       transform.Query<QuestionList>("Question/Table/Scroll View/Viewport/Content").InitList(questionList);
     }
+
+		public void onBtnAddQeustionClick(GameObject formObj) {
+			if (UGCQuestionService.shared.GetQuestionList().Count >= 100) {
+				AlertUI.shared.Show("题目数量必须在30~100题");
+				return;
+			}
+			formObj.SetActive(true);
+			QuestionForm form = formObj.GetComponent<QuestionForm>();
+			form.ResetDataAndUpdateUI();
+		}
     
   }
 
