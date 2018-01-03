@@ -451,8 +451,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d8f56c8d613a7431a8858b434c562f75, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7ee470073b3a6493e87b597752c588e4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5924,7 +5924,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 703040060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -550.01935, y: -124.31752, z: 0}
+  m_LocalPosition: {x: -550, y: -117, z: 0}
   m_LocalScale: {x: 0.9995998, y: 0.9995998, z: 0.9995998}
   m_Children: []
   m_Father: {fileID: 1525595674}
@@ -5932,7 +5932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -550.01935, y: 198.68248}
+  m_AnchoredPosition: {x: -550, y: 206}
   m_SizeDelta: {x: 406, y: 74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703040063
@@ -13674,27 +13674,31 @@ MonoBehaviour:
   items:
   - id: ILST001
     name: ???
-    image: {fileID: 21300000, guid: 9608c704ebd6e496aa492905d99df117, type: 3}
+    image: {fileID: 21300000, guid: 06c025b9c02b147d0bb98edbdbc790a2, type: 3}
     rewarded: 0
   - id: ILST002
     name: ???
-    image: {fileID: 21300000, guid: 940e61981f4f44c2481ca285ca2edb5e, type: 3}
+    image: {fileID: 21300000, guid: 62a4338dd30dc4a6ab1b6745bac990a3, type: 3}
     rewarded: 0
   - id: ILST003
     name: ???
-    image: {fileID: 21300000, guid: 47dd94dcd8ef04596966c89522a033b5, type: 3}
+    image: {fileID: 21300000, guid: 7c46a7e91c3da4a9f87e8d06a78f7706, type: 3}
     rewarded: 0
   - id: ILST004
     name: ???
-    image: {fileID: 21300000, guid: 47dd94dcd8ef04596966c89522a033b5, type: 3}
+    image: {fileID: 21300000, guid: a7012cd0c36fe4aee9d760a32e245e80, type: 3}
     rewarded: 0
   - id: ILST005
     name: ???
-    image: {fileID: 21300000, guid: 47dd94dcd8ef04596966c89522a033b5, type: 3}
+    image: {fileID: 21300000, guid: 316a357c0f3b44c84a28fe28256c0e93, type: 3}
     rewarded: 0
   - id: ILST006
     name: ???
-    image: {fileID: 21300000, guid: 47dd94dcd8ef04596966c89522a033b5, type: 3}
+    image: {fileID: 21300000, guid: aad024a2086bd425995ceae982885e7c, type: 3}
+    rewarded: 0
+  - id: ILST006
+    name: ???
+    image: {fileID: 21300000, guid: ce34d4990f17c40b0b47aa7e8192feb9, type: 3}
     rewarded: 0
 --- !u!4 &1552002153
 Transform:
@@ -14491,7 +14495,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1636576043}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41897583, y: -0.03250122, z: -0.14364624}
+  m_LocalPosition: {x: 0.41896364, y: -0.032511547, z: -0.14364624}
   m_LocalScale: {x: 0.013020833, y: 0.013020833, z: 0.013020833}
   m_Children:
   - {fileID: 209166982}
@@ -15207,6 +15211,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 358e3bcfaee1843879a3a3c4d8f68820, type: 3}
   menuClip: {fileID: 8300000, guid: 8639c68e7f5cd4e41a1947e7b57ad263, type: 3}
   editorClip: {fileID: 8300000, guid: 11468cbc32c5b419a82c8d1c84edf568, type: 3}
+  playingMenu: 0
+  playingEditor: 0
+  playingGame: 0
 --- !u!82 &1710623779
 AudioSource:
   m_ObjectHideFlags: 0
