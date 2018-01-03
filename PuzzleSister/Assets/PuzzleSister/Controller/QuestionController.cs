@@ -204,11 +204,20 @@ namespace PuzzleSister {
       var pkgProgress = PackageProgressService.shared.GetProgress(roundService.package.id);
 
       // 如果已经完成，而且是正常模式，就获得图鉴
-      if (!isCompletedBefore && 
+      var canReward = !isCompletedBefore && 
         pkgProgress.Completed &&
         !roundService.IsChanllenge() &&
-        roundService.PackageQuestionCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR
-      ) {
+        roundService.PackageQuestionCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR;
+
+      // save progress		
+      if (!roundService.package.temporary) {		
+        var progressService = PackageProgressService.shared;		
+        progressService.Load();		
+        progressService.SetProgress(roundService.package.id, pkgService.CompletedCount, roundService.PackageQuestionCount);		
+        progressService.Save();		
+      }
+
+      if (canReward) {
         yield return RewardIllustration();
       }
 
