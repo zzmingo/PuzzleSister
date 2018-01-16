@@ -24,14 +24,15 @@ namespace PuzzleSister.UGCEditor {
           } else {
             item = transform.GetChild(i);
           }
-          AdaptItem(item, question);
+          AdaptItem(i + 1, item, question);
         }
       }
     }
 
-    void AdaptItem(Transform item, Question question) {
+    void AdaptItem(int index, Transform item, Question question) {
       item.name = question.id;
-      item.GetComponent<ItemView>().itemData = question;
+			item.GetComponent<ItemView>().itemData = question;
+			item.Query<Text>("Index").text = "" + index;
       item.Query<Text>("Title").text = question.title;
       item.Query<Text>("A").text = question.optionA;
       item.Query<Text>("B").text = question.optionB;
