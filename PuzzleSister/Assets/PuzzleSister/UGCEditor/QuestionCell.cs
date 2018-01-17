@@ -10,7 +10,7 @@ namespace PuzzleSister.UGCEditor {
 		void Update () {
 			var rowSize = (transform.parent as RectTransform).sizeDelta;
 			var elt = GetComponent<LayoutElement>();
-			elt.minWidth = (rowSize.x - 70) / 8f - 1;
+			elt.minWidth = (rowSize.x - 80) / 9f - 1;
 		}
 
 	}
