@@ -103,6 +103,33 @@ namespace PuzzleSister.UGCEditor {
     public void CreateOrUpdatePackage() {
       var form = this.Query<PackageForm>("Package/Form");
       var package = form.packageItem.Clone();
+      string errMsg = "";
+      do {
+        if (string.IsNullOrEmpty(package.name)) {
+          errMsg = "请先输入题库名称";
+          break;
+        }
+        if (string.IsNullOrEmpty(package.author)) {
+          errMsg = "请先输入题库作者";
+          break;
+        }
+        if (string.IsNullOrEmpty(package.description)) {
+          errMsg = "请先输入题库描述";
+          break;
+        }
+        if (string.IsNullOrEmpty(package.language)) {
+          errMsg = "请先选择题库语言";
+          break;
+        }
+        if (string.IsNullOrEmpty(package.imagePath)) {
+          errMsg = "请先选择题库图片";
+          break;
+        }
+      } while (false);
+      if (!string.IsNullOrEmpty(errMsg)) {
+        AlertUI.shared.Show(errMsg, "确定");
+        return;
+      }
       StartCoroutine(CreateOrUpdatePackageAsync(package));
       form.gameObject.SetActive(false);
       form.ResetFormData();
