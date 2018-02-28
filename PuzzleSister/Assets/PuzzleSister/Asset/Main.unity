@@ -16324,6 +16324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1791247312}
   - component: {fileID: 1791247311}
+  - component: {fileID: 1791247313}
   m_Layer: 0
   m_Name: SteamManager
   m_TagString: Untagged
@@ -16355,6 +16356,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1791247313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1791247310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f14f06b5ac34695a6d8394f948416d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803358193
 GameObject:
   m_ObjectHideFlags: 0
