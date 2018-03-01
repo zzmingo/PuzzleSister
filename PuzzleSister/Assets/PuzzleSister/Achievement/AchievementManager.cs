@@ -61,6 +61,7 @@ namespace PuzzleSister {
 		private bool initedUserStats = false;
 		private bool receivedUserStats = false;
 		private bool needToStore = false;
+		private bool checkedStartAchievement = false;
 		private bool checkedPackageAchievement = false;
 		private bool initedUGCPackages = false;
 		private Callback<UserStatsStored_t> userStatsStoredCallback;
@@ -82,8 +83,13 @@ namespace PuzzleSister {
 			if (!initedUserStats) {
 				initedUserStats = SteamUserStats.RequestCurrentStats();
 			}
-			if (receivedUserStats && !checkedPackageAchievement) {
-				checkPackageAchievement();
+			if (receivedUserStats) {
+				if (!checkedStartAchievement) {
+					checkStartAchievement ();
+				}
+				if (!checkedPackageAchievement) {
+					checkPackageAchievement();
+				}
 			}
 			if (receivedUserStats && needToStore) {
 				Debug.Log("store user stats");
@@ -105,7 +111,10 @@ namespace PuzzleSister {
 
 		private void onUserAchievementStored(UserAchievementStored_t pCallback) {
 			if ((ulong)Const.STEAM_APP_ID == pCallback.m_nGameID) {
-				Debug.Log("store user achievement(" + pCallback.m_rgchAchievementName + ") success");
+				if (0 == pCallback.m_nMaxProgress) {
+					achievements[(int)Enum.Parse (typeof(AchievementEnum), pCallback.m_rgchAchievementName)].beenAchieved = true;
+					Debug.Log ("store user achievement(" + pCallback.m_rgchAchievementName + ") success");
+				}
 			}
 		}
 
@@ -135,11 +144,16 @@ namespace PuzzleSister {
 			}
 			foreach(Achievement achievement in achievements) {
 				if (achievement.id.Equals(aEnum) && !achievement.beenAchieved) {
-					SteamUserStats.SetAchievement(achievement.id.ToString());
-					needToStore = true;
-					AlertUI.shared.Show("解锁新成就：" + achievement.name, "确定", 5);
+					needToStore = SteamUserStats.SetAchievement(achievement.id.ToString());
 					break;
 				}
+			}
+		}
+
+		private void checkStartAchievement() {
+			checkedStartAchievement = true;
+			if (!achievements[(int)AchievementEnum.NEW_ACHIEVEMENT_1_20].beenAchieved) {
+				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_20);
 			}
 		}
 
