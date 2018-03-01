@@ -196,7 +196,7 @@ namespace PuzzleSister {
 			int completeCount = 0;
 			foreach(Package package in packages) {
 				var progress = PackageProgressService.shared.GetProgress(package.id);
-				if (progress != null && progress.total == progress.progress) {
+				if (progress != null && progress.Completed) {
 					completeCount++;
 				}
 			}
