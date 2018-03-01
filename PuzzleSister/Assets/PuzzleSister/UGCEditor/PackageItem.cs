@@ -21,6 +21,7 @@ namespace PuzzleSister.UGCEditor {
     public uint timeUpdated;
     public bool visible;
     public PublishedFileId_t publishedFileId = PublishedFileId_t.Invalid;
+    public int questionCount;
 
     public void Set(PackageItem other) {
       id = other.id;
@@ -30,6 +31,7 @@ namespace PuzzleSister.UGCEditor {
       description = other.description;
       imagePath = other.imagePath;
       publishedFileId = other.publishedFileId;
+      questionCount = other.questionCount;
     }
 
     public PackageItem Clone() {
@@ -41,6 +43,7 @@ namespace PuzzleSister.UGCEditor {
       pkg.description = description;
       pkg.imagePath = imagePath;
       pkg.publishedFileId = publishedFileId;
+      pkg.questionCount = questionCount;
       return pkg;
     }
 

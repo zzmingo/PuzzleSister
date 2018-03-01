@@ -18,6 +18,13 @@ namespace PuzzleSister.UGCEditor {
 
     private List<PackageItem> packageList = new List<PackageItem>();
 
+    private bool loaded = false;
+    public bool Loaded {
+      get {
+        return loaded;
+      }
+    }
+
     public List<PackageItem> GetAllPackages() {
       return packageList;
     }
@@ -53,8 +60,12 @@ namespace PuzzleSister.UGCEditor {
           packageItem.publishedFileId = details.m_nPublishedFileId;
           packageItem.name = details.m_rgchTitle;
 					var tags = details.m_rgchTags.Split(',');
-					packageItem.author = tags.Length == 2 ? tags[1].FromUnicodeString() : "未知";
+					packageItem.author = tags.Length >= 2 ? tags[1].FromUnicodeString() : "未知";
 					packageItem.language = tags[0];
+          packageItem.questionCount = 0;
+          if (tags.Length >= 3) {
+            int.TryParse(tags[2], out packageItem.questionCount);
+          }
           packageItem.description = details.m_rgchDescription;
           packageItem.timeUpdated = details.m_rtimeUpdated;
           packageItem.visible = details.m_eVisibility == ERemoteStoragePublishedFileVisibility.k_ERemoteStoragePublishedFileVisibilityPublic;
@@ -80,6 +91,7 @@ namespace PuzzleSister.UGCEditor {
         yield return null;
       }
 
+      loaded = true;
       Debug.Log("loaded");
     }
 
@@ -94,6 +106,7 @@ namespace PuzzleSister.UGCEditor {
         }
         publishedFileId = callback.m_nPublishedFileId;
         package.id = "" + publishedFileId.m_PublishedFileId;
+        package.questionCount = 0;
         package.publishedFileId = publishedFileId;
         itemCreated = true;
       });
@@ -123,7 +136,7 @@ namespace PuzzleSister.UGCEditor {
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
       SteamUGC.SetItemTitle(updateHandle, package.name);
 			Debug.Log (package.author.ToUnicodeString());
-			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language, package.author.ToUnicodeString() });
+			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language, package.author.ToUnicodeString(), package.questionCount.ToString() });
       SteamUGC.SetItemDescription(updateHandle, package.description);
       Debug.Log("image path: " + package.imagePath);
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {

@@ -57,8 +57,8 @@ namespace PuzzleSister {
           uint timestamp;
           SteamUGC.GetItemInstallInfo(packageItem.publishedFileId, out size, out folder, 1024, out timestamp);
           package.path = folder;
+          this.packageList.Add(package);
         }
-        this.packageList.Add(package);
       }
       OnPackagesLoaded.Invoke();
     }

@@ -17,11 +17,16 @@ namespace PuzzleSister {
     }
 
     private Dictionary<string, ProgressItem> progressDict;
-    private bool loaded = false;
+    private bool _loaded = false;
+    public bool loaded {
+      get {
+        return _loaded;
+      }
+    }
     private int completedCount = 0;
 
     public void Load() {
-      if (loaded) return;
+      if (_loaded) return;
       progressDict = Storage.shared.DeserializeLoad(GetSavePath(), new Dictionary<string, ProgressItem>());
 			Package[] packages = Repository.shared.GetAllPackages();
       foreach(var pkg in packages) {
@@ -36,7 +41,7 @@ namespace PuzzleSister {
         item.total = pkg.CountQuestions();
         completedCount += item.progress;
       }
-      loaded = true;
+      _loaded = true;
     }
 
     public void Save() {

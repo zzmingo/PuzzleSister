@@ -309,6 +309,8 @@ namespace PuzzleSister.UGCEditor {
     void RefreshQuestionList() {
       var questionList = UGCQuestionService.shared.GetQuestionList();
       transform.Query<QuestionList>("Question/Table/Scroll View/Viewport/Content").InitList(questionList);
+      UGCQuestionService.shared.GetPackage().questionCount = questionList.Count;
+      UpdatePackageToUGC();
     }
 
 		public void onBtnAddQeustionClick(GameObject formObj) {
