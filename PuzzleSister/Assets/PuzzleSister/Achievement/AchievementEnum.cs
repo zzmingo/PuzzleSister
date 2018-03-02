@@ -1,27 +1,16 @@
-enum AchievementEnum : int {
-    NEW_ACHIEVEMENT_1_0,//完成一次十连对
-    NEW_ACHIEVEMENT_1_1,//完成一次百题连答挑战
-    NEW_ACHIEVEMENT_1_2,//编辑并发布1个题库。（最低30题即可，可以和100题那个成就同时解锁）
-    NEW_ACHIEVEMENT_1_3,//编辑并发布1个百题题库。
-    NEW_ACHIEVEMENT_1_4,//编辑并发布2个百题题库。
-    NEW_ACHIEVEMENT_1_5,//编辑并发布3个百题题库。
-    NEW_ACHIEVEMENT_1_6,//完成1套题库。（变量大于）
-    NEW_ACHIEVEMENT_1_7,//完成2套题库。（变量大于）
-    NEW_ACHIEVEMENT_1_8,//完成3套题库。
-    NEW_ACHIEVEMENT_1_9,//完成4套题库。
-    NEW_ACHIEVEMENT_1_10,//完成5套题库。
-    NEW_ACHIEVEMENT_1_11,//完成6套题库。
-    NEW_ACHIEVEMENT_1_12,//完成7套题库。
-    NEW_ACHIEVEMENT_1_13,//完成8套题库。
-    NEW_ACHIEVEMENT_1_14,//下载1个创意工坊题库
-    NEW_ACHIEVEMENT_1_15,//下载3个创意工坊题库（变量大于）
-    NEW_ACHIEVEMENT_1_16,//下载5个创意工坊题库（变量大于）
-    NEW_ACHIEVEMENT_1_17,//下载8个创意工坊题库（变量大于）
-    NEW_ACHIEVEMENT_1_18,//下载10个创意工坊题库（变量大于）
-    NEW_ACHIEVEMENT_1_19,//（基础答题模式中）挑战失败导致题库姬菲迩电量耗尽。
-    NEW_ACHIEVEMENT_1_20,//启动游戏
-    NEW_ACHIEVEMENT_1_21,//完成9套题库。
-    NEW_ACHIEVEMENT_1_22,//完成10套题库。
-    NEW_ACHIEVEMENT_1_23,//完成11套题库。
-    NEW_ACHIEVEMENT_1_24,//下载12个创意工坊题库（变量大于）
+enum BaseAchievementEnum : int {
+    BASE_0,//完成一次十连对
+    BASE_1,//完成一次百题连答挑战
+    BASE_2,//编辑并发布1个题库。（最低30题即可，可以和100题那个成就同时解锁）
+    BASE_3,//编辑并发布1个百题题库。
+    BASE_4,//编辑并发布2个百题题库。
+    BASE_5,//编辑并发布3个百题题库。
+    BASE_6,//下载1个创意工坊题库
+    BASE_7,//下载3个创意工坊题库（变量大于）
+    BASE_8,//下载5个创意工坊题库（变量大于）
+    BASE_9,//下载7个创意工坊题库（变量大于）
+    BASE_10,//下载9个创意工坊题库（变量大于）
+    BASE_11,//（基础答题模式中）挑战失败导致题库姬菲迩电量耗尽。
+    BASE_12,//启动游戏
+    BASE_13,//下载12个创意工坊题库（变量大于）
 };

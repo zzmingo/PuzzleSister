@@ -8,53 +8,14 @@ using PuzzleSister.UGCEditor;
 namespace PuzzleSister {
 	public class AchievementManager : MonoBehaviour {
 
-		public static AchievementManager instance;
-
-		private Achievement[] achievements = new Achievement[]{
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_0, "轻轻松松", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_1, "小菜一碟", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_2, "会打字就能参与制作游戏！", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_3, "一起来玩啊！", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_4, "毛遂自荐美滋滋", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_5, "我也是制作人！", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_6, "小试牛刀", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_7, "马马虎虎", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_8, "渐入佳境", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_9, "颇有见地", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_10, "涉猎广泛", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_11, "足智多谋", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_12, "才华横溢", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_13, "聪明绝顶", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_14, "免费获取新知识", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_15, "精挑细选", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_16, "新姿势GET!", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_17, "集思广益", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_18, "知识收藏家", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_19, "脑子短路", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_20, "充电开始", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_21, "无所不能", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_22, "博大精深", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_23, "全知全能", ""),
-			new Achievement(AchievementEnum.NEW_ACHIEVEMENT_1_24, "博学家", ""),
-		};
-
-		private class Achievement {
-			public AchievementEnum id;
-			public string name;
-			public string description;
-			public bool beenAchieved;
-
-			/// <summary>
-			/// Creates an Achievement. You must also mirror the data provided here in https://partner.steamgames.com/apps/achievements/yourappid
-			/// </summary>
-			/// <param name="achievement">The "API Name Progress Stat" used to uniquely identify the achievement.</param>
-			/// <param name="name">The "Display Name" that will be shown to players in game and on the Steam Community.</param>
-			/// <param name="desc">The "Description" that will be shown to players in game and on the Steam Community.</param>
-			public Achievement(AchievementEnum achievementID, string name, string desc) {
-				id = achievementID;
-				this.name = name;
-				description = desc;
-				beenAchieved = false;
+		private static AchievementManager instance;
+		public static AchievementManager Instance {
+			get {
+				if (instance == null) {
+					return new GameObject("AchievementManager").AddComponent<AchievementManager>();
+				} else {
+					return instance;
+				}
 			}
 		}
 
@@ -62,7 +23,8 @@ namespace PuzzleSister {
 		private bool receivedUserStats = false;
 		private bool needToStore = false;
 		private bool checkedStartAchievement = false;
-		private bool checkedPackageAchievement = false;
+		private bool checkedCompletePackageAchievement = false;
+		private bool checkedPublishUGCPackageAchievement = false;
 		private bool initedUGCPackages = false;
 		private Callback<UserStatsStored_t> userStatsStoredCallback;
 		private Callback<UserAchievementStored_t> userAchievementStoredCallback;
@@ -70,10 +32,17 @@ namespace PuzzleSister {
 
 		// Use this for initialization
 		void Start() {
+			if (instance != null) {
+				Destroy(gameObject);
+				return;
+			}
+
 			instance = this;
 			userStatsStoredCallback = Callback<UserStatsStored_t>.Create(onUserStatsStored);
 			userAchievementStoredCallback = Callback<UserAchievementStored_t>.Create(onUserAchievementStored);
 			userStatsReceivedCallback = Callback<UserStatsReceived_t>.Create(OnUserStatsReceived);
+
+			DontDestroyOnLoad(gameObject);
 		}
 
 		void Update() {
@@ -87,8 +56,11 @@ namespace PuzzleSister {
 				if (!checkedStartAchievement) {
 					checkStartAchievement ();
 				}
-				if (!checkedPackageAchievement) {
-					checkPackageAchievement();
+				if (!checkedCompletePackageAchievement) {
+					checkCompletePackageAchievement();
+				}
+				if (!checkedPublishUGCPackageAchievement) {
+					checkPublishUGCPackageAchievement();
 				}
 			}
 			if (receivedUserStats && needToStore) {
@@ -97,6 +69,14 @@ namespace PuzzleSister {
 				bool result = SteamUserStats.StoreStats();
 				Debug.Log("store user stats result: " + result);
 			}
+		}
+
+		void OnDestroy() {
+			if (instance != this) {
+				return;
+			}
+
+			instance = null;
 		}
 
 		private void onUserStatsStored(UserStatsStored_t pCallback) {
@@ -112,7 +92,7 @@ namespace PuzzleSister {
 		private void onUserAchievementStored(UserAchievementStored_t pCallback) {
 			if ((ulong)Const.STEAM_APP_ID == pCallback.m_nGameID) {
 				if (0 == pCallback.m_nMaxProgress) {
-					achievements[(int)Enum.Parse (typeof(AchievementEnum), pCallback.m_rgchAchievementName)].beenAchieved = true;
+					baseAchievements[(int)Enum.Parse (typeof(BaseAchievementEnum), pCallback.m_rgchAchievementName)].beenAchieved = true;
 					Debug.Log ("store user achievement(" + pCallback.m_rgchAchievementName + ") success");
 				}
 			}
@@ -122,7 +102,7 @@ namespace PuzzleSister {
 			receivedUserStats = true;
 			if ((ulong)Const.STEAM_APP_ID == pCallback.m_nGameID) {
 				if (EResult.k_EResultOK == pCallback.m_eResult) {
-					foreach (Achievement achievement in achievements) {
+					foreach (Achievement achievement in baseAchievements) {
 						string id = achievement.id.ToString ();
 						bool result = SteamUserStats.GetAchievement (id, out achievement.beenAchieved);
 						if (result) {
@@ -132,17 +112,22 @@ namespace PuzzleSister {
 							Debug.LogWarning("SteamUserStats.GetAchievement failed for Achievement " + achievement.id + "\nIs it registered in the Steam Partner site?");
 						}
 					}
+					for (int i = 1; i < 2000; i++) {
+						string id = "A" + i;
+						Achievement achievement = new Achievement(id, "", "");
+
+					}
 				}else {
 					Debug.Log("RequestStats - failed, " + pCallback.m_eResult);
 				}
 			}
 		}
 
-		void unlockAchievement(AchievementEnum aEnum) {
+		void unlockAchievement(BaseAchievementEnum aEnum) {
 			if (!SteamManager.Initialized) {
 				return;
 			}
-			foreach(Achievement achievement in achievements) {
+			foreach(Achievement achievement in baseAchievements) {
 				if (achievement.id.Equals(aEnum) && !achievement.beenAchieved) {
 					needToStore = SteamUserStats.SetAchievement(achievement.id.ToString());
 					break;
@@ -152,15 +137,19 @@ namespace PuzzleSister {
 
 		private void checkStartAchievement() {
 			checkedStartAchievement = true;
-			if (!achievements[(int)AchievementEnum.NEW_ACHIEVEMENT_1_20].beenAchieved) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_20);
+			if (!baseAchievements[(int)BaseAchievementEnum.BASE_12].beenAchieved) {
+				unlockAchievement(BaseAchievementEnum.BASE_12);
 			}
 		}
 
-		private void checkPackageAchievement() {
+		private void checkCompletePackageAchievement() {
 			if (!PackageProgressService.shared.loaded && !Repository.shared.IsPackagesLoaded) {
 				return;
 			}
+			checkedCompletePackageAchievement = true;
+		}
+
+		private void checkPublishUGCPackageAchievement() {
 			if (!UGCService.shared.Loaded) {
 				if (!initedUGCPackages) {
 					initedUGCPackages = true;
@@ -172,69 +161,8 @@ namespace PuzzleSister {
 				}
 				return;
 			}
-			checkedPackageAchievement = true;
-			Package[] packages = Repository.shared.GetUGCPackages();
-			if (packages.Length >= 1) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_14);
-			}
-			if (packages.Length >= 3) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_15);
-			}
-			if (packages.Length >= 5) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_16);
-			}
-			if (packages.Length >= 8) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_17);
-			}
-			if (packages.Length >= 10) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_18);
-			}
-			if (packages.Length >= 12) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_24);
-			}
-			packages = Repository.shared.GetAllPackages();
-			int completeCount = 0;
-			foreach(Package package in packages) {
-				var progress = PackageProgressService.shared.GetProgress(package.id);
-				if (progress != null && progress.Completed) {
-					completeCount++;
-				}
-			}
-			if (completeCount >= 1) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_6);
-			}
-			if (completeCount >= 2) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_7);
-			}
-			if (completeCount >= 3) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_8);
-			}
-			if (completeCount >= 4) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_9);
-			}
-			if (completeCount >= 5) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_10);
-			}
-			if (completeCount >= 6) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_11);
-			}
-			if (completeCount >= 7) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_12);
-			}
-			if (completeCount >= 8) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_13);
-			}
-			if (completeCount >= 9) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_21);
-			}
-			if (completeCount >= 10) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_22);
-			}
-			if (completeCount >= 11) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_23);
-			}
+			checkedPublishUGCPackageAchievement = true;
 			List<PackageItem> packageItems = UGCService.shared.GetAllPackages();
-			
 			int p100Count = 0;
 			int pCount = 0;
 			foreach(PackageItem package in packageItems) {
@@ -249,18 +177,63 @@ namespace PuzzleSister {
 					}
 				}
 			}
-			if (pCount >= 1) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_2);
-			}
-			if (p100Count >= 1) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_3);
-			}
-			if (p100Count >= 2) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_4);
-			}
-			if (p100Count >= 3) {
-				unlockAchievement(AchievementEnum.NEW_ACHIEVEMENT_1_5);
+			do {
+				if (pCount < 1) {
+					break;
+				}
+				unlockAchievement(BaseAchievementEnum.BASE_2);
+				if (p100Count < 1) {
+					break;
+				}
+				unlockAchievement(BaseAchievementEnum.BASE_3);
+				if (p100Count < 2) {
+					break;
+				}
+				unlockAchievement(BaseAchievementEnum.BASE_4);
+				if (p100Count < 3) {
+					break;
+				}
+				unlockAchievement(BaseAchievementEnum.BASE_5);
+			} while (false);
+		}
+
+		private class Achievement {
+			public BaseAchievementEnum id;
+			public string name;
+			public string description;
+			public bool beenAchieved;
+
+			/// <summary>
+			/// Creates an Achievement. You must also mirror the data provided here in https://partner.steamgames.com/apps/achievements/yourappid
+			/// </summary>
+			/// <param name="achievement">The "API Name Progress Stat" used to uniquely identify the achievement.</param>
+			/// <param name="name">The "Display Name" that will be shown to players in game and on the Steam Community.</param>
+			/// <param name="desc">The "Description" that will be shown to players in game and on the Steam Community.</param>
+			public Achievement(BaseAchievementEnum achievementID, string name, string desc) {
+				id = achievementID;
+				this.name = name;
+				description = desc;
+				beenAchieved = false;
 			}
 		}
+
+		private Achievement[] baseAchievements = new Achievement[]{
+			new Achievement(BaseAchievementEnum.BASE_0, "轻轻松松", ""),
+			new Achievement(BaseAchievementEnum.BASE_1, "小菜一碟", ""),
+			new Achievement(BaseAchievementEnum.BASE_2, "会打字就能参与制作游戏！", ""),
+			new Achievement(BaseAchievementEnum.BASE_3, "一起来玩啊！", ""),
+			new Achievement(BaseAchievementEnum.BASE_4, "毛遂自荐美滋滋", ""),
+			new Achievement(BaseAchievementEnum.BASE_5, "我也是制作人！", ""),
+			new Achievement(BaseAchievementEnum.BASE_6, "免费获取新知识", ""),
+			new Achievement(BaseAchievementEnum.BASE_7, "精挑细选", ""),
+			new Achievement(BaseAchievementEnum.BASE_8, "新姿势GET!", ""),
+			new Achievement(BaseAchievementEnum.BASE_9, "集思广益", ""),
+			new Achievement(BaseAchievementEnum.BASE_10, "知识收藏家", ""),
+			new Achievement(BaseAchievementEnum.BASE_11, "脑子短路", ""),
+			new Achievement(BaseAchievementEnum.BASE_12, "充电开始", ""),
+			new Achievement(BaseAchievementEnum.BASE_13, "博学家", ""),
+		};
+
+		private Achievement[] completePackageAchievements = new Achievement[]{};
 	}
 }
