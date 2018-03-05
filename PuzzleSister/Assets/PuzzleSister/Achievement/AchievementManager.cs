@@ -23,14 +23,13 @@ namespace PuzzleSister {
 		private bool receivedUserStats = false;
 		private bool needToStore = false;
 		private bool checkedStartAchievement = false;
-		private bool checkedCompletePackageAchievement = false;
-		private bool checkedPublishUGCPackageAchievement = false;
+		public bool checkedCompletePackageAchievement = false;
+		public bool checkedPublishUGCPackageAchievement = false;
 		private bool initedUGCPackages = false;
 		private Callback<UserStatsStored_t> userStatsStoredCallback;
 		private Callback<UserAchievementStored_t> userAchievementStoredCallback;
 		private Callback<UserStatsReceived_t> userStatsReceivedCallback;
 
-		// Use this for initialization
 		void Start() {
 			if (instance != null) {
 				Destroy(gameObject);
@@ -171,7 +170,29 @@ namespace PuzzleSister {
 				return;
 			}
 			checkedCompletePackageAchievement = true;
-			//Todo 检查答题进度
+			int completedCount = 0;
+			Package[] packages = Repository.shared.GetAllPackages();
+			foreach(Package package in packages) {
+				if (PackageProgressService.shared.GetProgress(package.id).Completed) {
+					completedCount++;
+				}
+			}
+			int index = 0, len = aAchievements.Count, last = completedCount * 10;
+			if (last > len) {
+				last = len;
+			}
+			for (;index < len;) {
+				var achievement = aAchievements[index];
+				if (achievement.beenAchieved) {
+					index += 10;
+					continue;
+				}
+			}
+			if (index < len) {
+				for (int i = index; i < last; i++) {
+					unlockAchievement(aAchievements[i].id);
+				}
+			}
 		}
 
 		private void checkPublishUGCPackageAchievement() {

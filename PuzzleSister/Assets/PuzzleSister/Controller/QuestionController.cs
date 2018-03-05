@@ -218,6 +218,7 @@ namespace PuzzleSister {
       }
 
       if (canReward) {
+        AchievementManager.Instance.checkedCompletePackageAchievement = false;
         yield return RewardIllustration();
       }
 

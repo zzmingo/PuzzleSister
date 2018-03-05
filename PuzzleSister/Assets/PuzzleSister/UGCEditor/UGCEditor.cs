@@ -276,6 +276,9 @@ namespace PuzzleSister.UGCEditor {
       yield return ReloadPackageList();
       UGCQuestionService.shared.GetPackage().visible = package.visible;
       transform.Query<Text>("Question/ActionBar/BtnPublish/Text").text = package.visible ? "下架" : "发布";
+      if (package.visible) {
+        AchievementManager.Instance.checkedPublishUGCPackageAchievement = false;
+      }
       UGCEditorLoading.shared.Hide();
     }
 
