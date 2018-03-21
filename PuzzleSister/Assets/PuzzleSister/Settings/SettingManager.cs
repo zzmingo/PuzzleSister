@@ -1,55 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
-public class SettingManager : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IMoveHandler {
-	
-	private static SettingManager instance;
-	public static SettingManager Instance {
-		get {
-			if (instance == null) {
-				return new GameObject("SettingManager").AddComponent<SettingManager>();
-			} else {
-				return instance;
-			}
-		}
-	}
+public class SettingManager : MonoBehaviour {
 
-	private 
+	public GameObject settingBtn;
+	public GameObject soundBtn;
+	public GameObject musicBtn;
+	public GameObject screenBtn;
+	public GameObject languageBtn;
 
     void Start () {
-		if (instance != null) {
-			Destroy(gameObject);
-			return;
-		}
 
-		instance = this;
-
-		DontDestroyOnLoad(gameObject);
+		soundBtn.SetActive(false);
+		musicBtn.SetActive(false);
+		screenBtn.SetActive(false);
+		languageBtn.SetActive(false);
+		settingBtn.SetActive (true);
 	}
 	
 	void Update () {
 		
 	}
 
-	void OnDestroy() {
-		if (instance != this) {
-			return;
-		}
-
-		instance = null;
+	public void onSettingBtnClick() {
+//		soundBtn.transform.position = settingBtn.transform.position;
+//		musicBtn.transform.position = settingBtn.transform.position;
+//		screenBtn.transform.position = settingBtn.transform.position;
+//		languageBtn.transform.position = settingBtn.transform.position;
+		soundBtn.SetActive(true);
+		musicBtn.SetActive(true);
+		screenBtn.SetActive(true);
+		languageBtn.SetActive(true);
 	}
-
-    public void OnMove(AxisEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerDown(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerUp(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
 }
