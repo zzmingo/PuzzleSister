@@ -13,12 +13,6 @@ public class SettingManager : MonoBehaviour {
 	public GameObject languageBtn;
 
     void Start () {
-
-		soundBtn.SetActive(false);
-		musicBtn.SetActive(false);
-		screenBtn.SetActive(false);
-		languageBtn.SetActive(false);
-		settingBtn.SetActive (true);
 	}
 	
 	void Update () {
