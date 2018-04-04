@@ -9,6 +9,10 @@ public class SettingManager : MonoBehaviour {
 	public GameObject musicBtn;
 	public GameObject screenBtn;
 	public GameObject languageBtn;
+	public GameObject maskPanel;
+	public GameObject bgPanel;
+	public GameObject soundSlider;
+	public GameObject musicSlider;
 	private bool shown = false;
 	private Vector3 settingBtnPos;
 	private Vector3 soundBtnPos;
@@ -28,9 +32,8 @@ public class SettingManager : MonoBehaviour {
 		languageBtn.transform.position = settingBtnPos;
 	}
 
-	public void onSettingBtnClick() {
-		Hashtable args = new Hashtable();
-		shown = !shown;
+	private void showOrHideBtns(bool show) {
+		shown = show;
 		if (shown) {
 			iTween.MoveTo(soundBtn, iTween.Hash (
 				"position", soundBtnPos,
@@ -74,5 +77,27 @@ public class SettingManager : MonoBehaviour {
 				"time", 0.2f
 			));
 		}
+	}
+
+	public void onSettingBtnClick() {
+		showOrHideBtns(!shown);
+	}
+
+	public void onMaskPanelClick() {
+		this.maskPanel.SetActive(false);
+	}
+
+	public void onSoundBtnClick() {
+		this.soundSlider.SetActive(true);
+		this.musicSlider.SetActive(false);
+		this.maskPanel.SetActive(true);
+		showOrHideBtns(false);
+	}
+
+	public void onMusicBtnClick() {
+		this.soundSlider.SetActive(false);
+		this.musicSlider.SetActive(true);
+		this.maskPanel.SetActive(true);
+		showOrHideBtns(false);
 	}
 }
