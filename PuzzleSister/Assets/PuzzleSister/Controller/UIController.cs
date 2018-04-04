@@ -137,10 +137,8 @@ namespace PuzzleSister {
 			#if UNITY_STANDALONE
             if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1)) {
 
-                // 正在答题跳设置
-                if (showingUIObject == questionUIObject) {
-                    PushUI(uiSettings);
-                } else { // 否则退去当前UI
+                // 正在答题不跳转
+                if (showingUIObject != questionUIObject) {
                     PopUI();
                 }
             }
