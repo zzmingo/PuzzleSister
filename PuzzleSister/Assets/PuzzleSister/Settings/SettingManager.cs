@@ -18,6 +18,9 @@ namespace PuzzleSister {
 		public GameObject soundSlider;
 		public GameObject musicSlider;
 		public GameObject voiceSlider;
+		public GameObject resolution;
+		public GameObject uiController;
+		public GameObject manualUI;
 		private bool shown = false;
 		private Vector3 settingBtnPos;
 		private Vector3 soundBtnPos;
@@ -136,6 +139,7 @@ namespace PuzzleSister {
 			this.soundSlider.SetActive(true);
 			this.musicSlider.SetActive(false);
 			this.voiceSlider.SetActive(false);
+			this.resolution.SetActive(false);
 			this.maskPanel.SetActive(true);
 			showOrHideBtns(false);
 		}
@@ -144,6 +148,7 @@ namespace PuzzleSister {
 			this.soundSlider.SetActive(false);
 			this.musicSlider.SetActive(true);
 			this.voiceSlider.SetActive(false);
+			this.resolution.SetActive(false);
 			this.maskPanel.SetActive(true);
 			showOrHideBtns(false);
 		}
@@ -152,8 +157,26 @@ namespace PuzzleSister {
 			this.soundSlider.SetActive(false);
 			this.musicSlider.SetActive(false);
 			this.voiceSlider.SetActive(true);
+			this.resolution.SetActive(false);
 			this.maskPanel.SetActive(true);
 			showOrHideBtns(false);
+		}
+
+		public void onResolutionBtnClick() {
+			this.soundSlider.SetActive(false);
+			this.musicSlider.SetActive(false);
+			this.voiceSlider.SetActive(false);
+			this.resolution.SetActive(true);
+			this.maskPanel.SetActive(true);
+			showOrHideBtns(false);
+		}
+
+		public void onManualBtnClick() {
+			showOrHideBtns(false);
+			if (manualUI.activeSelf) {
+				return;
+			}
+			uiController.GetComponent<UIController>().PushUI(manualUI);
 		}
 
 		public void onCloseBtnClick() {
