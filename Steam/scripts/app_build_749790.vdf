@@ -1,0 +1,14 @@
+"appbuild"
+{
+	"appid"	"749790"
+	"desc" "Soundtrack"
+	"buildoutput" "..\output\"
+	"contentroot" "..\content\"
+	"setlive"	""
+	"preview" "0"
+	"local"	""
+	"depots"
+	{
+		"749792" "depot_build_749792.vdf"
+	}
+}

@@ -23,13 +23,13 @@ namespace PuzzleSister {
 
 			Debug.Log("load packages");
 			Repository.shared.LoadBuildtins();
-      Repository.shared.LoadPackages();
+      		Repository.shared.LoadPackages();
 			Debug.Log("load PackageProgressService");
 			PackageProgressService.shared.Load();
 			Debug.Log("load IllustrationService");
-      IllustrationService.shared.Load();
+      		IllustrationService.shared.Load();
 			Debug.Log("load VoiceSuite");
-      VoiceSuite.LoadBySetting();
+      		VoiceSuite.LoadBySetting();
 			Debug.Log("load ok");
 			loaded = true;
 		}

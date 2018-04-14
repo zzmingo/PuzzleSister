@@ -217,6 +217,10 @@ namespace PuzzleSister {
         progressService.Save();		
       }
 
+			if (!isCompletedBefore && pkgProgress.Completed && !roundService.IsChanllenge()) {
+				AchievementManager.Instance.checkedCompletePackageAchievement = false;
+			}
+
       if (canReward) {
         yield return RewardIllustration();
       }
