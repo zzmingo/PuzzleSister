@@ -24,19 +24,37 @@ namespace PuzzleSister {
       )
     };
 
-		public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
-			new PackageItem(
-				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001"),
-				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", PACKAGE_FILE_NAME),
-				Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", QUESTION_FILE_NAME),
-				FILE_EXT
-			),
-      new PackageItem(
-        Utils.Path(PACKAGES_DIR, "lengzhishi001"),
-        Utils.Path(PACKAGES_DIR, "lengzhishi001", PACKAGE_FILE_NAME),
-        Utils.Path(PACKAGES_DIR, "lengzhishi001", QUESTION_FILE_NAME),
-        FILE_EXT
-      )
+	public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "laosijishangluzhinan001"),
+			Utils.Path(PACKAGES_DIR, "laosijishangluzhinan001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "laosijishangluzhinan001", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+    new PackageItem(
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua001"),
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua001", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua002"),
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua002", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "zishenwanjiazaijinhua002", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "ribenmanhuajia001"),
+			Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "ribenmanhuajia001", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "lengzhishi001"),
+			Utils.Path(PACKAGES_DIR, "lengzhishi001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "lengzhishi001", QUESTION_FILE_NAME),
+			FILE_EXT
+		)
     };
 
     public class PackageItem {
