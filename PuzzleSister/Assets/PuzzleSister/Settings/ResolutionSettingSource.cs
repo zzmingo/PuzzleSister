@@ -6,36 +6,63 @@ namespace PuzzleSister {
 
   public class ResolutionSettingSource : MonoBehaviour {
 
-    void Awake() {
-      var dropdown = GetComponent<Dropdown>();
-      var resolutions = Settings.GetAvailableResolutions();
-      var options = new List<Dropdown.OptionData>();
-      for(int i=0; i<resolutions.Length; i++) {
-        var resol = resolutions[i];
-        if (resol.refreshRate == 0) {
-          resol.refreshRate = 60;
-        }
-        string text = string.Format("{0}x{1} ({2}hz)", resol.width, resol.height, resol.refreshRate);
-        options.Add(new Dropdown.OptionData(text));
-      }
-      dropdown.options = options;
+		[NotNullAttribute]public GameObject label;
 
-      var resolution = Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION);
-      options = dropdown.options;
-      for(int i=0; i<options.Count; i++) {
-        var option = options[i];
-        if (option.text.Equals(resolution)) {
-          dropdown.value = i;
-          break;
-        }
-      }
-      dropdown.onValueChanged.AddListener((int value) => {
-        var resolutionStr = dropdown.options[value].text;
-        var resol = Settings.ParseResolution(resolutionStr);
-        Settings.SetString(Settings.RESOLUTION, resolutionStr);
-        Screen.SetResolution(resol.width, resol.height, Settings.IsFullscreen());
-      });
+		void Awake() {
+			label.GetComponent<Text>().text = Settings.GetString(Settings.RESOLUTION, Settings.DEFAULT_RESOLUTION);
     }
+
+		private void ChangeResolution(Resolution resol) {
+			if (resol.refreshRate == 0) {
+				resol.refreshRate = 60;
+			}
+			var resolStr = string.Format("{0}x{1} ({2}hz)", resol.width, resol.height, resol.refreshRate);
+			label.GetComponent<Text>().text = resolStr;
+			Settings.SetString(Settings.RESOLUTION, resolStr);
+			Screen.SetResolution(resol.width, resol.height, Settings.IsFullscreen());
+		}
+
+		public void OnLeftArrowClick() {
+			var resolutionStr = label.GetComponent<Text>().text;
+			var resol = Settings.ParseResolution(resolutionStr);
+			var resolutions = Settings.GetAvailableResolutions();
+			int index = 0;
+			for (int i = 0, len = resolutions.Length; i < len; i++) {
+				var resolution = resolutions[i];
+				if (resolution.refreshRate == 0) {
+					resolution.refreshRate = 60;
+				}
+				if (resolution.Equals(resol)) {
+					if (i > 0) {
+						index = i - 1;
+					}
+				}
+			}
+			resol = resolutions [index];
+			ChangeResolution(resol);
+		}
+
+		public void onRightArrowClick() {
+			var resolutionStr = label.GetComponent<Text>().text;
+			var resol = Settings.ParseResolution(resolutionStr);
+			var resolutions = Settings.GetAvailableResolutions();
+			int index = 0;
+			for (int i = 0, len = resolutions.Length; i < len; i++) {
+				var resolution = resolutions[i];
+				if (resolution.refreshRate == 0) {
+					resolution.refreshRate = 60;
+				}
+				if (resolution.Equals(resol)) {
+					if (i < len - 2) {
+						index = i + 1;
+					} else {
+						index = len - 2;
+					}
+				}
+			}
+			resol = resolutions [index];
+			ChangeResolution(resol);
+		}
 
   }
 
