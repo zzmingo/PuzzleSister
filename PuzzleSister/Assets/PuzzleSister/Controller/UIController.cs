@@ -55,7 +55,7 @@ namespace PuzzleSister {
                 case EventType.PackageItemClick:
                     Package package = (data as PackageClickEventData).package;
                     if (package == null) {
-                        Utils.ShowDLCStore();
+                        ToUGCPackages();
                     } else {
                         PopPopup();
                         PushUI(questionUIObject);

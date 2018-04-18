@@ -83,7 +83,7 @@ namespace PuzzleSister {
 			var dlcItem = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
 			dlcItem.transform.SetParent(transform);
 			dlcItem.transform.localScale = new Vector3(1, 1, 1);
-			dlcItem.transform.Find("Name").GetComponent<Text>().text = "获取DLC";
+			dlcItem.transform.Find("Name").GetComponent<Text>().text = "获取创意工坊免费题库";
 			dlcItem.transform.Find("Progress").gameObject.SetActive(false);
 			dlcItem.GetComponent<Button>().onClick.AddListener(() => {
 				var data = new PackageClickEventData();
