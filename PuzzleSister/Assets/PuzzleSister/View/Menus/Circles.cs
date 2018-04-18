@@ -11,16 +11,14 @@ namespace PuzzleSister{
 
         void Start() {
             iTween.RotateBy(circleImg0, iTween.Hash(
-                "z", 10,
-                "looptype", iTween.LoopType.pingPong,
-                "time", 60.0f,
-                "easetype", iTween.EaseType.easeInOutSine
+                "z", 10.0f,
+								"looptype", iTween.LoopType.loop,
+                "speed", 5.0f
             ));
             iTween.RotateBy(circleImg1, iTween.Hash(
-                "z", -30,
-                "looptype", iTween.LoopType.pingPong,
-                "time", 80.0f,
-                "easetype", iTween.EaseType.easeInOutSine
+                "z", -30.0f,
+								"looptype", iTween.LoopType.loop,
+                "speed", 10.0f
             ));
         }
     }
