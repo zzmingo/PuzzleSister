@@ -15,6 +15,7 @@ namespace PuzzleSister {
 		[NotNull] public GameObject packageItemPrefab;
 		[NotNull] public Sprite normalThumb;
 		[NotNull] public Sprite dlcThumb;
+		[NotNull] public Sprite wsThumb;
 
 		[NotNull] public PackageDialogView dialogueView;
 
@@ -81,17 +82,28 @@ namespace PuzzleSister {
 				item.SetActive(false);
 				CoroutineUtils.Start(AnimateShowItem(item, i * 0.05f));
 			}
-			var dlcItem = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
-			dlcItem.transform.SetParent(transform);
-			dlcItem.transform.localScale = new Vector3(1, 1, 1);
-			dlcItem.transform.Find("Name").GetComponent<Text>().text = "获取DLC";
-			dlcItem.transform.Find ("Image").GetComponent<Image>().sprite = dlcThumb;
-			dlcItem.transform.Find("Progress").gameObject.SetActive(false);
-			dlcItem.GetComponent<Button>().onClick.AddListener(() => {
-				var data = new PackageClickEventData();
-				data.type = EventType.PackageItemClick;
-				GlobalEvent.shared.Invoke(data);
-			});
+			int dlcItemLen = 1;
+			if (packages.Length < 6) {
+				dlcItemLen = 6 - packages.Length;
+			}
+			for (int i = 0; i < dlcItemLen; i++) {
+				var dlcItem = Instantiate (packageItemPrefab, transform.position, Quaternion.identity);
+				dlcItem.transform.SetParent (transform);
+				dlcItem.transform.localScale = new Vector3 (1, 1, 1);
+				if (GameState.isShowBuiltins) {
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = "获取DLC";
+					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = dlcThumb;
+				} else {
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = "获取更多免费题库";
+					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = wsThumb;
+				}
+				dlcItem.transform.Find ("Progress").gameObject.SetActive (false);
+				dlcItem.GetComponent<Button> ().onClick.AddListener (() => {
+					var data = new PackageClickEventData ();
+					data.type = EventType.PackageItemClick;
+					GlobalEvent.shared.Invoke (data);
+				});
+			}
 		}
 
 		void AdaptItem(GameObject item, Package package) {
