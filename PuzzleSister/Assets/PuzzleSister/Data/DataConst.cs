@@ -16,12 +16,6 @@ namespace PuzzleSister {
     public static readonly string FILE_EXT = ".csv";
 
     public static readonly List<PackageItem> TESTING_PACKAGES = new List<PackageItem> {
-      new PackageItem(
-        Utils.Path(PACKAGES_DIR, "lengzhishi001-test"),
-        Utils.Path(PACKAGES_DIR, "lengzhishi001-test", PACKAGE_FILE_NAME),
-        Utils.Path(PACKAGES_DIR, "lengzhishi001-test", QUESTION_FILE_NAME),
-        FILE_EXT
-      )
     };
 
 	public static readonly List<PackageItem> BUILTIN_PACKAGES = new List<PackageItem> {
@@ -50,9 +44,21 @@ namespace PuzzleSister {
 			FILE_EXT
 		),
 		new PackageItem(
-			Utils.Path(PACKAGES_DIR, "lengzhishi001"),
-			Utils.Path(PACKAGES_DIR, "lengzhishi001", PACKAGE_FILE_NAME),
-			Utils.Path(PACKAGES_DIR, "lengzhishi001", QUESTION_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi01"),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi01", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi01", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi02"),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi02", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi02", QUESTION_FILE_NAME),
+			FILE_EXT
+		),
+		new PackageItem(
+			Utils.Path(PACKAGES_DIR, "yinshijiankang01"),
+			Utils.Path(PACKAGES_DIR, "yinshijiankang01", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "yinshijiankang01", QUESTION_FILE_NAME),
 			FILE_EXT
 		)
     };

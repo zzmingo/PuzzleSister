@@ -13253,7 +13253,7 @@ MonoBehaviour:
   packageItemPrefab: {fileID: 1822836135631946, guid: b8c138ca46d1b4c0da99a2478ce22258,
     type: 2}
   normalThumb: {fileID: 21300000, guid: 99688a36624034abcadee664b0d6e1fd, type: 3}
-  dlcThumb: {fileID: 21300000, guid: d870e02a6669b45e8b136e02fa1f73d5, type: 3}
+  dlcThumb: {fileID: 21300000, guid: cf52b360a88d2234f883ee14fded6df7, type: 3}
   wsThumb: {fileID: 21300000, guid: 19553f63c1419469399202e1305c2e97, type: 3}
   dialogueView: {fileID: 1054093908}
 --- !u!114 &1429927460
@@ -17182,7 +17182,7 @@ RectTransform:
   m_GameObject: {fileID: 1773702723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.007817371, y: 0.007817371, z: 0.007817371}
+  m_LocalScale: {x: 0.012090774, y: 0.012090774, z: 0.012090774}
   m_Children:
   - {fileID: 301456062}
   m_Father: {fileID: 0}
