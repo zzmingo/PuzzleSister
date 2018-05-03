@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 222373079052155784}
   - component: {fileID: 114253089177553268}
   - component: {fileID: 114977495329792404}
+  - component: {fileID: 114766967932382894}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -99,7 +100,20 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u62A2\u5148\u4F53\u9A8C\u7248"
+  m_Text: "\u62A2\u5148\u4F53\u9A8C\u7248 \u5B98\u65B9Q\u7FA452756441"
+--- !u!114 &114766967932382894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797724181603026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f957660067e3dc42ab5c42a4aa68ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetKey: "\u62A2\u5148\u4F53\u9A8C\u7248 \u5B98\u65B9Q\u7FA452756441"
+  postfix: 
 --- !u!114 &114977495329792404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +170,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 420, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!224 &224520381477108754
 RectTransform:
