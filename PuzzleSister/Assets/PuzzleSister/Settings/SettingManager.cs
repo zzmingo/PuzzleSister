@@ -1,126 +1,122 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PuzzleSister {
 	public class SettingManager : MonoBehaviour {
 
-		public GameObject settingBtn;
-		public GameObject soundBtn;
-		public GameObject musicBtn;
-		public GameObject screenBtn;
-		public GameObject languageBtn;
-		public GameObject resolutionBtn;
-		public GameObject manualBtn;
-		public GameObject closeBtn;
-		public GameObject maskPanel;
-		public GameObject bgPanel;
-		public GameObject soundSlider;
-		public GameObject musicSlider;
-		public GameObject voiceSlider;
-		public GameObject resolution;
-		public GameObject uiController;
-		public GameObject manualUI;
+		[NotNull] public GameObject settingBtn;
+		[NotNull] public GameObject soundBtn;
+		[NotNull] public GameObject musicBtn;
+		[NotNull] public GameObject screenBtn;
+		[NotNull] public GameObject voiceBtn;
+		[NotNull] public GameObject resolutionBtn;
+		[NotNull] public GameObject manualBtn;
+		[NotNull] public GameObject closeBtn;
+		[NotNull] public GameObject languageBtn;
+		[NotNull] public GameObject maskPanel;
+		[NotNull] public GameObject bgPanel;
+		[NotNull] public GameObject soundSlider;
+		[NotNull] public GameObject musicSlider;
+		[NotNull] public GameObject voiceSlider;
+		[NotNull] public GameObject resolution;
+		[NotNull] public GameObject uiController;
+		[NotNull] public GameObject manualUI;
+		[NotNull] public Sprite cnImg;
+		[NotNull] public Sprite jpImg;
+		[NotNull] public Sprite enImg;
+
 		private bool shown = false;
-		private Vector3 settingBtnPos;
-		private Vector3 soundBtnPos;
-		private Vector3 musicBtnPos;
-		private Vector3 screenBtnPos;
-		private Vector3 languageBtnPos;
-		private Vector3 resolutionBtnPos;
-		private Vector3 manualBtnPos;
-		private Vector3 closeBtnPos;
 
 		void Start() {
-			settingBtnPos = settingBtn.transform.position;
-			soundBtnPos = soundBtn.transform.position;
-			musicBtnPos = musicBtn.transform.position;
-			screenBtnPos = screenBtn.transform.position;
-			languageBtnPos = languageBtn.transform.position;
-			resolutionBtnPos = resolutionBtn.transform.position;
-			manualBtnPos = manualBtn.transform.position;
-			closeBtnPos = closeBtn.transform.position;
-
-			soundBtn.transform.position = settingBtnPos;
-			musicBtn.transform.position = settingBtnPos;
-			screenBtn.transform.position = settingBtnPos;
-			languageBtn.transform.position = settingBtnPos;
-			resolutionBtn.transform.position = settingBtnPos;
-			manualBtn.transform.position = settingBtnPos;
-			closeBtn.transform.position = settingBtnPos;
+			soundBtn.transform.position = musicBtn.transform.position = screenBtn.transform.position
+				= voiceBtn.transform.position = resolutionBtn.transform.position = manualBtn.transform.position
+				= closeBtn.transform.position = languageBtn.transform.position = settingBtn.transform.position;
+			changeLanguageIcon(TinyLocalization.LocalizationManager.Instance.CurrentLanguage.code);
 		}
 
 		private void showOrHideBtns(bool show) {
 			shown = show;
 			if (shown) {
+				iTween.MoveTo(languageBtn, iTween.Hash (
+					"position", settingBtn.transform.TransformPoint(-624, 0, 0),
+					"easetype", iTween.EaseType.easeOutElastic,
+					"time", 0.2f
+				));
 				iTween.MoveTo(soundBtn, iTween.Hash (
-					"position", soundBtnPos,
+					"position", settingBtn.transform.TransformPoint(-546, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(musicBtn, iTween.Hash(
-					"position", musicBtnPos,
+					"position", settingBtn.transform.TransformPoint(-468, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(screenBtn, iTween.Hash(
-					"position", screenBtnPos,
+					"position", settingBtn.transform.TransformPoint(-312, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
-				iTween.MoveTo(languageBtn, iTween.Hash(
-					"position", languageBtnPos,
+				iTween.MoveTo(voiceBtn, iTween.Hash(
+					"position", settingBtn.transform.TransformPoint(-390, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(resolutionBtn, iTween.Hash(
-					"position", resolutionBtnPos,
+					"position", settingBtn.transform.TransformPoint(-234, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(manualBtn, iTween.Hash(
-					"position", manualBtnPos,
+					"position", settingBtn.transform.TransformPoint(-156, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(closeBtn, iTween.Hash(
-					"position", closeBtnPos,
+					"position", settingBtn.transform.TransformPoint(-78, 0, 0),
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 			} else {
+				iTween.MoveTo(languageBtn, iTween.Hash(
+					"position", settingBtn.transform.position,
+					"easetype", iTween.EaseType.easeOutElastic,
+					"time", 0.2f
+				));
 				iTween.MoveTo(soundBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(musicBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(screenBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
-				iTween.MoveTo(languageBtn, iTween.Hash(
-					"position", settingBtnPos,
+				iTween.MoveTo(voiceBtn, iTween.Hash(
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(resolutionBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(manualBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
 				iTween.MoveTo(closeBtn, iTween.Hash(
-					"position", settingBtnPos,
+					"position", settingBtn.transform.position,
 					"easetype", iTween.EaseType.easeOutElastic,
 					"time", 0.2f
 				));
@@ -186,6 +182,34 @@ namespace PuzzleSister {
 					Application.Quit();
 				}
 			});
+		}
+
+		public void onLanguageBtnClick() {
+			var manager = TinyLocalization.LocalizationManager.Instance;
+			var currentLanguage = manager.CurrentLanguage;
+			var languages = manager.Languages;
+			for (int i = 0, len = languages.Count; i < len; i++) {
+				if (languages[i].Equals(currentLanguage)) {
+					var j = i + 1;
+					if (j >= len) {
+						j = 0;
+					}
+					var code = languages[j].code;
+					manager.ChangeLanguage(code);
+					changeLanguageIcon(code);
+					break;
+				}
+			}
+		}
+
+		private void changeLanguageIcon(string code) {
+			if (code == "zh-CN") {
+				this.languageBtn.Query<Image>("Image").sprite = cnImg;
+			} else if (code == "en") {
+				this.languageBtn.Query<Image>("Image").sprite = enImg;
+			} else if (code == "ja") {
+				this.languageBtn.Query<Image>("Image").sprite = jpImg;
+			}
 		}
 	}
 
