@@ -2,8 +2,7 @@
 
 Mouse Control: LButton Confirm, RButton Cancel/Return.
 
-Keyboard: Up Down Left Right to focus, Enter to select
-1 2 3 4 equals to A B C D
+Keyboard: Up Down Left Right to focus, Enter to select,1 2 3 4 equals to A B C D
 
 Rules:
 ◆ All questions have only one answer.
