@@ -91,10 +91,10 @@ namespace PuzzleSister {
 				dlcItem.transform.SetParent (transform);
 				dlcItem.transform.localScale = new Vector3 (1, 1, 1);
 				if (GameState.isShowBuiltins) {
-					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = "获取DLC";
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = TinyLocalization.LocalizationManager.Instance.GetLocalizedText("获取DLC");
 					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = dlcThumb;
 				} else {
-					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = "获取更多免费题库";
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = TinyLocalization.LocalizationManager.Instance.GetLocalizedText("获取更多免费题库");
 					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = wsThumb;
 				}
 				dlcItem.transform.Find ("Progress").gameObject.SetActive (false);

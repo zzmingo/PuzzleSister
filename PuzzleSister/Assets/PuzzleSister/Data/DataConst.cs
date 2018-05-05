@@ -44,21 +44,21 @@ namespace PuzzleSister {
 			FILE_EXT
 		),
 		new PackageItem(
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi01"),
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi01", PACKAGE_FILE_NAME),
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi01", QUESTION_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi001"),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "quweilengzhishi001", QUESTION_FILE_NAME),
 			FILE_EXT
 		),
 		new PackageItem(
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi02"),
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi02", PACKAGE_FILE_NAME),
-			Utils.Path(PACKAGES_DIR, "quweilengzhishi02", QUESTION_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "dongwuquduoduo001"),
+			Utils.Path(PACKAGES_DIR, "dongwuquduoduo001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "dongwuquduoduo001", QUESTION_FILE_NAME),
 			FILE_EXT
 		),
 		new PackageItem(
-			Utils.Path(PACKAGES_DIR, "yinshijiankang01"),
-			Utils.Path(PACKAGES_DIR, "yinshijiankang01", PACKAGE_FILE_NAME),
-			Utils.Path(PACKAGES_DIR, "yinshijiankang01", QUESTION_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "yinshijiankang001"),
+			Utils.Path(PACKAGES_DIR, "yinshijiankang001", PACKAGE_FILE_NAME),
+			Utils.Path(PACKAGES_DIR, "yinshijiankang001", QUESTION_FILE_NAME),
 			FILE_EXT
 		)
     };

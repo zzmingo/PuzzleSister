@@ -1,0 +1,8 @@
+﻿<size=50>Notes When Editing Puzzle Sets</size>
+
+1. Please ensure the questions' accuracy and interest, every question should have explanations.
+2. It should be 30 to 100 questions in a set, please double check before upload.
+3. Please use written language to minimize typos.
+4. Please not involving sensitive or controversial topics.
+5. DO NOT copy from other's puzzle set.
+6. Try to avoid the problem of timeliness.

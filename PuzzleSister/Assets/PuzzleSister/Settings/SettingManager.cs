@@ -21,11 +21,12 @@ namespace PuzzleSister {
 		[NotNull] public GameObject musicSlider;
 		[NotNull] public GameObject voiceSlider;
 		[NotNull] public GameObject resolution;
-		[NotNull] public GameObject uiController;
-		[NotNull] public GameObject manualUI;
-		[NotNull] public Sprite cnImg;
-		[NotNull] public Sprite jpImg;
-		[NotNull] public Sprite enImg;
+
+		public GameObject uiController;
+		public GameObject manualUI;
+		public Sprite cnImg;
+		public Sprite jpImg;
+		public Sprite enImg;
 
 		private bool shown = false;
 
@@ -204,11 +205,11 @@ namespace PuzzleSister {
 
 		private void changeLanguageIcon(string code) {
 			if (code == "zh-CN") {
-				this.languageBtn.Query<Image>("Image").sprite = cnImg;
+				this.languageBtn.GetComponent<Image>().sprite = cnImg;
 			} else if (code == "en") {
-				this.languageBtn.Query<Image>("Image").sprite = enImg;
+				this.languageBtn.GetComponent<Image>().sprite = enImg;
 			} else if (code == "ja") {
-				this.languageBtn.Query<Image>("Image").sprite = jpImg;
+				this.languageBtn.GetComponent<Image>().sprite = jpImg;
 			}
 		}
 	}

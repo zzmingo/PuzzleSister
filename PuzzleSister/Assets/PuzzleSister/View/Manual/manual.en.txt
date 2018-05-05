@@ -1,0 +1,13 @@
+﻿<size=50><color=#4FF0FFFF>How to play</color></size>
+
+Mouse Control: LButton Confirm, RButton Cancel/Return.
+
+Keyboard: Up Down Left Right to focus, Enter to select
+1 2 3 4 equals to A B C D
+
+Rules:
+◆ All questions have only one answer.
+◆ Energy reduced by 1 if answered wrong, and increased 1 if right.
+◆ You can continue answering after you answered wrong, but you fail when energy falls to 0.
+◆ Every round has 10 questions, the question will not appear in the following rounds if your first answer is right, and vice versa.
+◆ Once you finished all 100 questions in a package, you will unlock an illustration.
