@@ -27,6 +27,7 @@ namespace PuzzleSister {
 		public Sprite cnImg;
 		public Sprite jpImg;
 		public Sprite enImg;
+		public Sprite twImg;
 
 		private bool shown = false;
 
@@ -178,7 +179,7 @@ namespace PuzzleSister {
 
 		public void onCloseBtnClick() {
 			showOrHideBtns(false);
-			AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("主人要休息了吗？"), (bool result) => {
+			AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("确认退出游戏？"), (bool result) => {
 				if (result) {
 					Application.Quit();
 				}
@@ -210,6 +211,8 @@ namespace PuzzleSister {
 				this.languageBtn.GetComponent<Image>().sprite = enImg;
 			} else if (code == "ja") {
 				this.languageBtn.GetComponent<Image>().sprite = jpImg;
+			} else if (code == "zh-TW") {
+				this.languageBtn.GetComponent<Image>().sprite = twImg;
 			}
 		}
 	}
