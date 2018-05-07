@@ -12,6 +12,7 @@ namespace PuzzleSister {
     public TextAsset zh_CNTextAsset;
 		public TextAsset jaTextAsset;
 		public TextAsset enTextAsset;
+		public TextAsset zh_TWTextAsset;
 
 		private TinyLocalization.LocalizationManager.ChangeLanguageAction onChangeLanguage;
 
@@ -31,6 +32,8 @@ namespace PuzzleSister {
 				GetComponent<Text>().text = jaTextAsset.text;
 			} else if (code == "en") {
 				GetComponent<Text>().text = enTextAsset.text;
+			} else if (code == "zh-TW") {
+				GetComponent<Text>().text = zh_TWTextAsset.text;
 			}
 		}
 

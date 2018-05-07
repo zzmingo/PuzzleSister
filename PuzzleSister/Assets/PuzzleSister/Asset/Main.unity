@@ -4675,6 +4675,7 @@ MonoBehaviour:
   zh_CNTextAsset: {fileID: 4900000, guid: cdddf3ce61450417198a29b630d9958d, type: 3}
   jaTextAsset: {fileID: 4900000, guid: 77afbc724357945df9946fe12a3df6c0, type: 3}
   enTextAsset: {fileID: 4900000, guid: 34bfa7aa124e54a1292466b3f13bf3c4, type: 3}
+  zh_TWTextAsset: {fileID: 4900000, guid: 3d377670dcc445c44b0f9368175e453c, type: 3}
 --- !u!114 &534663761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12296,7 +12297,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1320891454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95, y: -107.5, z: 0}
+  m_LocalPosition: {x: -300, y: 160, z: 0}
   m_LocalScale: {x: 0.49979997, y: 0.49979997, z: 1.0001249}
   m_Children:
   - {fileID: 794322438}
@@ -14090,6 +14091,7 @@ MonoBehaviour:
   zh_CNTextAsset: {fileID: 4900000, guid: ccc25cae37e584e2a826fa1aed467028, type: 3}
   jaTextAsset: {fileID: 4900000, guid: f8f4d5734b80b494a987979a52ee1039, type: 3}
   enTextAsset: {fileID: 4900000, guid: 8d42e8ba1b1e84889ae6b923324ab83e, type: 3}
+  zh_TWTextAsset: {fileID: 4900000, guid: 14fd0bd310f66ee4fa6ae2c1417e9dcf, type: 3}
 --- !u!1 &1473776512
 GameObject:
   m_ObjectHideFlags: 0
@@ -16138,7 +16140,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1636576043}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41897583, y: -0.03253174, z: -0.14364624}
+  m_LocalPosition: {x: 0.41896364, y: -0.032511547, z: -0.14364624}
   m_LocalScale: {x: 0.018691588, y: 0.018691588, z: 0.018691588}
   m_Children:
   - {fileID: 209166982}
