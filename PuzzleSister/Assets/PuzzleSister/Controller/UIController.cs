@@ -115,25 +115,13 @@ namespace PuzzleSister {
             if (uiStack.Count <= 0) {
                 return;
             }
-            if (showingUIObject.name == "CanvasQuestion") {
-                AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("返回主界面？"), (bool result) => {
-                    if (result) {
-                        DoPopUI();
-                    }
-                });
-            } else {
-                DoPopUI();
-            }
-        }
-
-        private void DoPopUI() {
-            Debug.Log("## push " + showingUIObject.name);
-            showingUIObject.SetActive(false);
-            showingUIObject = uiStack.Pop();
-            showingUIObject.SetActive(true);
-            if (showingUIObject == uiMenu) {
-                bGMController.PlayMenu();
-            }
+						Debug.Log("## push " + showingUIObject.name);
+						showingUIObject.SetActive(false);
+						showingUIObject = uiStack.Pop();
+						showingUIObject.SetActive(true);
+						if (showingUIObject == uiMenu) {
+							bGMController.PlayMenu();
+						}
         }
 
         public void PopPopup() {

@@ -95,6 +95,7 @@ namespace PuzzleSister {
 			this.author = dict.ContainsKey("author") ? dict["author"].ToString() : "未知";
 			this.language = dict["language"].ToString();
       this.thumb = dict["thumb"].ToString();
+			this.description = dict["description"].ToString();
       this.path = path;
       this.type = type;
       this.source = source;
