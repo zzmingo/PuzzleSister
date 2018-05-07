@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 224203674407167320}
   - component: {fileID: 222005115456192058}
   - component: {fileID: 114662378902657740}
+  - component: {fileID: 114892643492967262}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -91,6 +92,7 @@ GameObject:
   - component: {fileID: 224060360895488470}
   - component: {fileID: 222395423079030714}
   - component: {fileID: 114504893214232750}
+  - component: {fileID: 114350777243031480}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -272,6 +274,7 @@ GameObject:
   - component: {fileID: 224523550812548170}
   - component: {fileID: 222761701810522118}
   - component: {fileID: 114988791867299956}
+  - component: {fileID: 114339876602233848}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -449,6 +452,32 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &114339876602233848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971302240053042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f957660067e3dc42ab5c42a4aa68ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetKey: "\u7BA1\u7406\u9898\u76EE"
+  postfix: 
+--- !u!114 &114350777243031480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1430345341431212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f957660067e3dc42ab5c42a4aa68ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetKey: "\u5DE5\u574A\u4E2D\u67E5\u770B"
+  postfix: 
 --- !u!114 &114376245035421528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -863,6 +892,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &114892643492967262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422252258215782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f957660067e3dc42ab5c42a4aa68ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetKey: "\u4FEE\u6539\u6807\u9898"
+  postfix: 
 --- !u!114 &114928324042937158
 MonoBehaviour:
   m_ObjectHideFlags: 1

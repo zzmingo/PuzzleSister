@@ -103,3 +103,13 @@ MonoBehaviour:
     textValue: "\u3082\u3063\u3068"
   - key: "\u83B7\u53D6DLC"
     textValue: "\u53D6\u5F97DLC"
+  - key: "\u4E3B\u4EBA\u8981\u4F11\u606F\u4E86\u5417\uFF1F"
+    textValue: 
+  - key: "\u8FD4\u56DE\u4E3B\u754C\u9762\uFF1F"
+    textValue: 
+  - key: "\u4FEE\u6539\u6807\u9898"
+    textValue: 
+  - key: "\u7BA1\u7406\u9898\u76EE"
+    textValue: 
+  - key: "\u5DE5\u574A\u4E2D\u67E5\u770B"
+    textValue: 

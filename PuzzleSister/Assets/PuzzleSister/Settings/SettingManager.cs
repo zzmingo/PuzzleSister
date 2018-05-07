@@ -178,7 +178,7 @@ namespace PuzzleSister {
 
 		public void onCloseBtnClick() {
 			showOrHideBtns(false);
-			AlertUI.shared.Confirm("主人要休息了吗？", (bool result) => {
+			AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("主人要休息了吗？"), (bool result) => {
 				if (result) {
 					Application.Quit();
 				}
