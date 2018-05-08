@@ -43,6 +43,10 @@ namespace PuzzleSister {
 			bigImage.gameObject.SetActive(true);
 			bigImage.gameObject.ScaleFrom(Vector3.zero, 0.4f, 0f);
 		}
+
+		public void OnDisable() {
+			bigImage.gameObject.SetActive(false);
+		}
 	}
 
 }
