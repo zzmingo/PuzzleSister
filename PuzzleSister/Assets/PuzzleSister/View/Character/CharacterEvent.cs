@@ -15,6 +15,7 @@ namespace PuzzleSister {
 		}
 
 		void OnEnable() {
+			animator.SetBool("Blink", false);
 			StartCoroutine(wait(Random.Range(3, 10)));
 		}
 
