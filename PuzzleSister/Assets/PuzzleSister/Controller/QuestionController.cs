@@ -28,8 +28,6 @@ namespace PuzzleSister {
     private Question.Result answer = Question.Result.Unknow;
     private VoiceSuite voiceSuite;
 
-		private TinyLocalization.LocalizationManager localizationManager = TinyLocalization.LocalizationManager.Instance;
-
     void Start() {
       GlobalEvent.shared.AddListener((data) => {
         if (data.type == EventType.DialogueConfirmed) {
@@ -82,14 +80,14 @@ namespace PuzzleSister {
 
     public IEnumerator StartQuestion() {
       GlobalEvent.shared.Invoke(EventType.PlayStartAudio);
-			yield return ShowDialogue(true, true, string.Format(localizationManager.GetLocalizedText("『{0}』马上要开始了，点击任意位置开始答题"), roundService.IsChanllenge() ? localizationManager.GetLocalizedText("挑战模式") : localizationManager.GetLocalizedText("答题回合")));
+			yield return ShowDialogue(true, true, string.Format(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("『{0}』马上要开始了，点击任意位置开始答题"), roundService.IsChanllenge() ? TinyLocalization.LocalizationManager.Instance.GetLocalizedText("挑战模式") : TinyLocalization.LocalizationManager.Instance.GetLocalizedText("答题回合")));
       yield return WaitDialogueConfirm();
       
       while(roundService.HasNextQuestion() && !roundService.IsEnergyEmpty()) {
         questionView.gameObject.SetActive(true);
         questionView.ShowQuestion(roundService.NextQuestion());
         SetProgress(roundService.Current, roundService.Total);
-				yield return ShowDialogue(false, false, localizationManager.GetLocalizedText("请作答..."));
+				yield return ShowDialogue(false, false, TinyLocalization.LocalizationManager.Instance.GetLocalizedText("请作答..."));
 
         while(!roundService.IsCurrentCompleted) {
           Debug.Log(roundService.Current + "," + roundService.CurrentQuestion.result);
@@ -118,10 +116,10 @@ namespace PuzzleSister {
               case 3: VoicePlayer.shared.Play(voiceSuite.X3Clips.RandomOne()); break;
               case 4: VoicePlayer.shared.Play(voiceSuite.X4Clips.RandomOne()); break;
             }
-						yield return ShowDialogue(false, true, localizationManager.GetLocalizedText("好像不正确哦"));
+						yield return ShowDialogue(false, true, TinyLocalization.LocalizationManager.Instance.GetLocalizedText("好像不正确哦"));
             yield return WaitDialogueConfirm();
             StartCoroutine(characterController.ResumeStateFor(roundService));
-						yield return ShowDialogue(false, false, localizationManager.GetLocalizedText("请继续作答..."));
+						yield return ShowDialogue(false, false, TinyLocalization.LocalizationManager.Instance.GetLocalizedText("请继续作答..."));
           } else {
             yield return characterController.ShowStateFor(roundService);
 						if (roundService.IsChanllenge()) {
@@ -168,8 +166,8 @@ namespace PuzzleSister {
         questionView.HighlightOptions(roundService.CurrentQuestion.result);
 
         // show explaination
-				string resultTpl = "{1}，" + localizationManager.GetLocalizedText("解释如下：") + "\n『{2}』";
-				string result = (roundService.IsCorrect ? localizationManager.GetLocalizedText("回答正确") : localizationManager.GetLocalizedText("回答错误"));
+				string resultTpl = "{1}，" + TinyLocalization.LocalizationManager.Instance.GetLocalizedText("解释如下：") + "\n『{2}』";
+				string result = (roundService.IsCorrect ? TinyLocalization.LocalizationManager.Instance.GetLocalizedText("回答正确") : TinyLocalization.LocalizationManager.Instance.GetLocalizedText("回答错误"));
         string dialogue = String.Format(
           resultTpl, Const.COLOR_CORRECT_HEX_STRING, result, roundService.CurrentQuestion.explain);
         yield return ShowDialogue(false, true, dialogue);
@@ -195,7 +193,7 @@ namespace PuzzleSister {
       
       if (completedCount < roundService.Total || completedCount < 10) {
         // show ending dialogue
-				string roundResult = localizationManager.GetLocalizedText("『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击任意位置返回");
+				string roundResult = TinyLocalization.LocalizationManager.Instance.GetLocalizedText("『答题回合』结束了，总共{0}题，本次完成{1}题，只有一次回答成功才算完成，点击任意位置返回");
         roundResult = String.Format(roundResult, "" + roundService.Total, "" + completedCount);
         yield return ShowDialogue(true, true, roundResult);
         yield return WaitDialogueConfirm();
