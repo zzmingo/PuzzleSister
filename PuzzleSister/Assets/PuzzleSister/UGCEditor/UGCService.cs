@@ -59,8 +59,11 @@ namespace PuzzleSister.UGCEditor {
           packageItem.id = "" + details.m_nPublishedFileId.m_PublishedFileId;
           packageItem.publishedFileId = details.m_nPublishedFileId;
           packageItem.name = details.m_rgchTitle;
-					var tags = details.m_rgchTags.Split(',');
-					packageItem.author = tags.Length >= 2 ? tags[1].FromUnicodeString() : "未知";
+					string metaData;
+					SteamUGC.GetQueryUGCMetadata(callback.m_handle, i, out metaData, Constants.k_cchDeveloperMetadataMax);
+					metaData.Trim('\0');
+					var tags = metaData.Split(',');
+					packageItem.author = tags.Length >= 2 ? tags[1].FromUnicodeString() : "???";
 					packageItem.language = tags[0];
           packageItem.questionCount = 0;
           if (tags.Length >= 3) {
@@ -85,6 +88,7 @@ namespace PuzzleSister.UGCEditor {
         SteamUtils.GetAppID(),
         1
       );
+			SteamUGC.SetReturnMetadata (queryHandle, true);
       callResult.Set(SteamUGC.SendQueryUGCRequest(queryHandle));
 
       while(!packageLoaded) {
@@ -136,7 +140,9 @@ namespace PuzzleSister.UGCEditor {
       var updateHandle = SteamUGC.StartItemUpdate(SteamUtils.GetAppID(), package.publishedFileId);
       SteamUGC.SetItemTitle(updateHandle, package.name);
 			Debug.Log (package.author.ToUnicodeString());
-			SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language, package.author.ToUnicodeString(), package.questionCount.ToString() });
+			SteamUGC.SetItemMetadata(updateHandle, package.language + "," + package.author.ToUnicodeString() + "," + package.questionCount.ToString());
+			SteamUGC.SetItemTags(updateHandle, null);
+			//SteamUGC.SetItemTags(updateHandle, new List<string>{ package.language, package.author.ToUnicodeString(), package.questionCount.ToString() });
       SteamUGC.SetItemDescription(updateHandle, package.description);
       Debug.Log("image path: " + package.imagePath);
       if (package.imagePath != null && !package.imagePath.StartsWith("http://") && !package.imagePath.StartsWith("https://") ) {
