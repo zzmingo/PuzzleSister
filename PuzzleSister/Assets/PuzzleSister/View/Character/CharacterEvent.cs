@@ -7,14 +7,10 @@ namespace PuzzleSister {
 
 		private Animator animator;
 
-		void Start() {
-			animator = this.GetComponent<Animator>();
-		}
-
-		void Update() {
-		}
-
 		void OnEnable() {
+			if (!animator) {
+				animator = this.GetComponent<Animator>();
+			}
 			animator.SetBool("Blink", false);
 			StartCoroutine(wait(Random.Range(3, 10)));
 		}
