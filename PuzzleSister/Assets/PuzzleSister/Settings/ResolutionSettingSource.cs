@@ -30,7 +30,7 @@ namespace PuzzleSister {
 			for (int i = 0, len = resolutions.Length; i < len; i++) {
 				var resolution = resolutions[i];
 				if (resolution.refreshRate == 0) {
-					resolution.refreshRate = 60;
+					resolutions[i].refreshRate = 60;
 				}
 				if (resolution.Equals(resol)) {
 					if (i > 0) {
@@ -38,7 +38,7 @@ namespace PuzzleSister {
 					}
 				}
 			}
-			resol = resolutions [index];
+			resol = resolutions[index];
 			ChangeResolution(resol);
 		}
 
@@ -50,7 +50,7 @@ namespace PuzzleSister {
 			for (int i = 0, len = resolutions.Length; i < len; i++) {
 				var resolution = resolutions[i];
 				if (resolution.refreshRate == 0) {
-					resolution.refreshRate = 60;
+					resolutions[i].refreshRate = 60;
 				}
 				if (resolution.Equals(resol)) {
 					if (i < len - 2) {
@@ -60,7 +60,7 @@ namespace PuzzleSister {
 					}
 				}
 			}
-			resol = resolutions [index];
+			resol = resolutions[index];
 			ChangeResolution(resol);
 		}
 
