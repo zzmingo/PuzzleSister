@@ -11,7 +11,7 @@ namespace PuzzleSister {
 			if (!animator) {
 				animator = this.GetComponent<Animator>();
 			}
-			animator.Play("Init");
+			animator.Play("Idle");
 			animator.Update(0);
 			animator.SetBool("Blink", false);
 			StartCoroutine(wait(Random.Range(3, 10)));
@@ -19,7 +19,7 @@ namespace PuzzleSister {
 
 		void EyesNormal() {
 			animator.SetBool("Blink", false);
-			animator.Play("Init");
+			animator.Play("Idle");
 			animator.Update(0);
 			StartCoroutine(wait(Random.Range(3, 10)));
 		}
