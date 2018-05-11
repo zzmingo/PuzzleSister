@@ -203,12 +203,6 @@ namespace PuzzleSister {
 
       var pkgProgress = PackageProgressService.shared.GetProgress(roundService.package.id);
 
-      // 如果已经完成，而且是正常模式，就获得图鉴
-      var canReward = !isCompletedBefore && 
-        pkgProgress.Completed &&
-        !roundService.IsChanllenge() &&
-        roundService.PackageQuestionCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR;
-
       // save progress		
       if (!roundService.package.temporary) {		
         var progressService = PackageProgressService.shared;		
@@ -221,7 +215,7 @@ namespace PuzzleSister {
 				AchievementManager.Instance.checkedCompletePackageAchievement = false;
 			}
 
-      if (canReward) {
+      if (!isCompletedBefore && pkgProgress.Completed && !roundService.IsChanllenge() && roundService.PackageQuestionCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR) {
         yield return RewardIllustration();
       }
 

@@ -28,10 +28,8 @@ namespace PuzzleSister {
 			var resolutions = Settings.GetAvailableResolutions();
 			int index = 0;
 			for (int i = 0, len = resolutions.Length; i < len; i++) {
+				resolutions[i].refreshRate = 60;
 				var resolution = resolutions[i];
-				if (resolution.refreshRate == 0) {
-					resolutions[i].refreshRate = 60;
-				}
 				if (resolution.Equals(resol)) {
 					if (i > 0) {
 						index = i - 1;
@@ -48,10 +46,8 @@ namespace PuzzleSister {
 			var resolutions = Settings.GetAvailableResolutions();
 			int index = 0;
 			for (int i = 0, len = resolutions.Length; i < len; i++) {
+				resolutions[i].refreshRate = 60;
 				var resolution = resolutions[i];
-				if (resolution.refreshRate == 0) {
-					resolutions[i].refreshRate = 60;
-				}
 				if (resolution.Equals(resol)) {
 					if (i < len - 2) {
 						index = i + 1;

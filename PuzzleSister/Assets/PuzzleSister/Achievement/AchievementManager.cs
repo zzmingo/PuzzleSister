@@ -181,12 +181,10 @@ namespace PuzzleSister {
 			if (last > len) {
 				last = len;
 			}
-			for (;index < len;) {
-				var achievement = aAchievements[index];
-				if (!achievement.beenAchieved) {
+			for (;index < len;index++) {
+				if (!aAchievements[index].beenAchieved) {
 					break;
 				}
-				index += 10;
 			}
 			if (index < len) {
 				for (int i = index; i < last; i++) {
