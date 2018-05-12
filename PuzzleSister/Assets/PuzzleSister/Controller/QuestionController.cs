@@ -199,13 +199,13 @@ namespace PuzzleSister {
         yield return ShowDialogue(true, true, roundResult);
         yield return WaitDialogueConfirm();
       } else {
-				if (!roundService.IsChanllenge ()) {
-					AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_0);
-				} else if (completedCount >= Const.ILLUSTRATION_REWARD_BASE_FACTOR) {
-					AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_1);
-				}
+				AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_0);
         yield return ShowFullScreenEffect();
       }
+
+			if (roundService.IsChanllenge()) {
+				AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_1);
+			}
 
       var pkgProgress = PackageProgressService.shared.GetProgress(roundService.package.id);
 
