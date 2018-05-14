@@ -203,7 +203,7 @@ namespace PuzzleSister {
         yield return ShowFullScreenEffect();
       }
 
-			if (roundService.IsChanllenge()) {
+			if (roundService.IsChanllenge() && !roundService.IsEnergyEmpty()) {
 				AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_1);
 			}
 
