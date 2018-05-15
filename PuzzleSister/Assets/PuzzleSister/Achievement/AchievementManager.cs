@@ -53,7 +53,7 @@ namespace PuzzleSister {
 			}
 			if (receivedUserStats) {
 				if (!checkedStartAchievement) {
-					checkStartAchievement ();
+					checkStartAchievement();
 				}
 				if (!checkedCompletePackageAchievement) {
 					checkCompletePackageAchievement();
@@ -136,7 +136,7 @@ namespace PuzzleSister {
 			}
 		}
 
-		void unlockAchievement(Enum aEnum) {
+		public void unlockAchievement(Enum aEnum) {
 			if (!SteamManager.Initialized) {
 				return;
 			}

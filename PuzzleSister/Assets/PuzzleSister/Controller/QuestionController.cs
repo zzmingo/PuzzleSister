@@ -101,6 +101,7 @@ namespace PuzzleSister {
           }
 
           if (roundService.IsEnergyEmpty()) {
+						AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_11);
             questionView.DisableOption(answer);
             yield return characterController.ShowStateFor(roundService);
             VoicePlayer.shared.Play(voiceSuite.X0Clips.RandomOne());
@@ -198,8 +199,13 @@ namespace PuzzleSister {
         yield return ShowDialogue(true, true, roundResult);
         yield return WaitDialogueConfirm();
       } else {
+				AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_0);
         yield return ShowFullScreenEffect();
       }
+
+			if (roundService.IsChanllenge() && !roundService.IsEnergyEmpty()) {
+				AchievementManager.Instance.unlockAchievement(BaseAchievementEnum.BASE_1);
+			}
 
       var pkgProgress = PackageProgressService.shared.GetProgress(roundService.package.id);
 
