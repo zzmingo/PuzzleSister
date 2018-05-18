@@ -26,6 +26,7 @@ namespace PuzzleSister {
 		public bool checkedCompletePackageAchievement = false;
 		public bool checkedPublishUGCPackageAchievement = false;
 		private bool initedUGCPackages = false;
+		private float checkSubscribedUGCPackageAchievementTime = 0;
 		private Callback<UserStatsStored_t> userStatsStoredCallback;
 		private Callback<UserAchievementStored_t> userAchievementStoredCallback;
 		private Callback<UserStatsReceived_t> userStatsReceivedCallback;
@@ -60,6 +61,10 @@ namespace PuzzleSister {
 				}
 				if (!checkedPublishUGCPackageAchievement) {
 					checkPublishUGCPackageAchievement();
+				}
+				if ((checkSubscribedUGCPackageAchievementTime -= Time.deltaTime) <= 0) {
+					checkSubscribedUGCPackageAchievement();
+					checkSubscribedUGCPackageAchievementTime = 60;
 				}
 			}
 			if (receivedUserStats && needToStore) {
@@ -239,6 +244,28 @@ namespace PuzzleSister {
 				}
 				unlockAchievement(BaseAchievementEnum.BASE_5);
 			} while (false);
+		}
+
+		private void checkSubscribedUGCPackageAchievement() {
+			var num = SteamUGC.GetNumSubscribedItems();
+			if (num >= 1) {
+				unlockAchievement(BaseAchievementEnum.BASE_6);
+			}
+			if (num >= 3) {
+				unlockAchievement(BaseAchievementEnum.BASE_7);
+			}
+			if (num >= 5) {
+				unlockAchievement(BaseAchievementEnum.BASE_8);
+			}
+			if (num >= 7) {
+				unlockAchievement(BaseAchievementEnum.BASE_9);
+			}
+			if (num >= 9) {
+				unlockAchievement(BaseAchievementEnum.BASE_10);
+			}
+			if (num >= 12) {
+				unlockAchievement(BaseAchievementEnum.BASE_13);
+			}
 		}
 
 		private class Achievement<T> {
