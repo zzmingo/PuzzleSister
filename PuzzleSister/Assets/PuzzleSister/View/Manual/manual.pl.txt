@@ -1,0 +1,14 @@
+﻿<size=50><color=#4FF0FFFF>Jak grać?</color></size>
+
+Sterowanie myszą: LPM by potwierdzić. PPM by anulować/wycofać.
+Klawiatura: Strzałki kierunkowe - zmiana wyboru odpowiedzi.
+Enter by potwierdzić. Klawisze 1, 2, 3 i 4 - natychmiastowy wybór
+odpowiedzi A, B, C lub D.
+
+Zasady:
+
+◆ Jest tylko jedna poprawna odpowiedź na każde pytanie.
+◆ Każda pomyłka zmniejsza wartość energii o 1, a każda poprawna odpowiedź zwiększa wartość o 1.
+◆ Można dalej grać mimo pomyłki, ale gra kończy się w chwili spadku energii do zera.
+◆ Na każdą rundę składa się 10 pytań. Pytania, na które odpowiesz poprawnie od razu, wypadają z rotacji i nie pojawią się w następnych rundach.
+◆ Gdy ukończysz cały zestaw 100 pytań, odblokujesz ilustrację.

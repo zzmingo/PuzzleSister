@@ -28,6 +28,7 @@ namespace PuzzleSister {
 		public Sprite jpImg;
 		public Sprite enImg;
 		public Sprite twImg;
+		public Sprite plImg;
 
 		private bool shown = false;
 
@@ -213,6 +214,8 @@ namespace PuzzleSister {
 				this.languageBtn.GetComponent<Image>().sprite = jpImg;
 			} else if (code == "zh-TW") {
 				this.languageBtn.GetComponent<Image>().sprite = twImg;
+			} else if (code == "pl") {
+				this.languageBtn.GetComponent<Image>().sprite = plImg;
 			}
 		}
 	}
