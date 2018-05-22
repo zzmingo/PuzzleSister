@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a489ed53c12bd7478b9005b3e6781c0, type: 3}
-  m_Name: traditionalChinese
+  m_Name: TraditionalChinese
   m_EditorClassIdentifier: 
   languageName: "\u7E41\u9AD4\u4E2D\u6587"
   code: zh-TW
