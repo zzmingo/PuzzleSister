@@ -57,7 +57,15 @@ namespace PuzzleSister {
             currentState = State.Normal;
             foreach (Transform child in transform)
             {
-                child.gameObject.SetActive(child.gameObject == StateToGameObject(State.Normal));
+                if (child.gameObject == StateToGameObject(State.Normal))
+                {
+                    child.gameObject.SetActive(true);
+                    child.gameObject.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                }
+                else
+                {
+                    child.gameObject.SetActive(false);
+                }
             }
         }
 

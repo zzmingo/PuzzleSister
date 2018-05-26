@@ -166,9 +166,12 @@ namespace PuzzleSister
             {
 
                 // 正在答题不跳转
+                PopUI();
                 if (showingUIObject != questionUIObject)
                 {
-                    PopUI();
+                    questionController.StopAndReset();
+                    bGMController.PlayMenu();
+
                 }
             }
 #endif
