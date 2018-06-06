@@ -166,12 +166,19 @@ namespace PuzzleSister
             {
 
                 // 正在答题不跳转
-                PopUI();
-                if (showingUIObject != questionUIObject)
+                if (showingUIObject == questionUIObject)
                 {
-                    questionController.StopAndReset();
-                    bGMController.PlayMenu();
-
+                    AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("返回主界面？"), (bool result) => {
+                        if (result)
+                        {
+                            questionController.StopAndReset();
+                            bGMController.PlayMenu();
+                            PopUI();
+                        }
+                    });
+                } else
+                {
+                    PopUI();
                 }
             }
 #endif
