@@ -128,6 +128,7 @@ namespace PuzzleSister.UGCEditor
                 package.id = "" + publishedFileId.m_PublishedFileId;
                 package.questionCount = 0;
                 package.publishedFileId = publishedFileId;
+                package.visible = true;
                 itemCreated = true;
             });
             callResult.Set(SteamUGC.CreateItem(SteamUtils.GetAppID(), EWorkshopFileType.k_EWorkshopFileTypeCommunity));
