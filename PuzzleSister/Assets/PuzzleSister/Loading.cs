@@ -35,6 +35,8 @@ namespace PuzzleSister {
 		}
 
 		IEnumerator Start () {
+			QualitySettings.vSyncCount = 0;
+			Application.targetFrameRate = 60;
 			var lang = Settings.GetString(Settings.LANGUAGE, Settings.DEFAULT_LANGUAGE);
 			var localLang = LocalizationManager.Instance.GetLanguage(lang);
 			if (localLang == null) {
