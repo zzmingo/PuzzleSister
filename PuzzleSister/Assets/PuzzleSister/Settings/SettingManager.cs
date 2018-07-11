@@ -6,21 +6,21 @@ using UnityEngine.UI;
 namespace PuzzleSister {
 	public class SettingManager : MonoBehaviour {
 
-		[NotNull] public GameObject settingBtn;
-		[NotNull] public GameObject soundBtn;
-		[NotNull] public GameObject musicBtn;
-		[NotNull] public GameObject screenBtn;
-		[NotNull] public GameObject voiceBtn;
-		[NotNull] public GameObject resolutionBtn;
-		[NotNull] public GameObject manualBtn;
-		[NotNull] public GameObject closeBtn;
-		[NotNull] public GameObject languageBtn;
-		[NotNull] public GameObject maskPanel;
-		[NotNull] public GameObject bgPanel;
-		[NotNull] public GameObject soundSlider;
-		[NotNull] public GameObject musicSlider;
-		[NotNull] public GameObject voiceSlider;
-		[NotNull] public GameObject resolution;
+		public GameObject settingBtn;
+		public GameObject soundBtn;
+		public GameObject musicBtn;
+		public GameObject screenBtn;
+		public GameObject voiceBtn;
+		public GameObject resolutionBtn;
+		public GameObject manualBtn;
+		public GameObject closeBtn;
+		public GameObject languageBtn;
+		public GameObject maskPanel;
+		public GameObject bgPanel;
+		public GameObject soundSlider;
+		public GameObject musicSlider;
+		public GameObject voiceSlider;
+		public GameObject resolution;
 
 		public GameObject uiController;
 		public GameObject manualUI;
