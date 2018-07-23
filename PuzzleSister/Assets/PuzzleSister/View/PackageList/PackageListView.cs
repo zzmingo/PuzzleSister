@@ -14,6 +14,8 @@ namespace PuzzleSister {
 		[NotNull] public GameObject oLoading;
 		[NotNull] public GameObject packageItemPrefab;
 		[NotNull] public Sprite normalThumb;
+		[NotNull] public Sprite dlcThumb;
+		[NotNull] public Sprite wsThumb;
 
 		[NotNull] public PackageDialogView dialogueView;
 
@@ -69,24 +71,38 @@ namespace PuzzleSister {
 
 		void InitPackageList(Package[] packages) {
 			oLoading.SetActive(false);
-			for(int i=0; i<6; i++) {
+			for(int i=0,len = packages.Length; i<len; i++) {
 				var item = Instantiate(packageItemPrefab, transform.position, Quaternion.identity);
 				item.transform.SetParent(transform);
 				item.transform.localScale = new Vector3(1, 1, 1);
 				// item.SetActive(false);
 				if (i < packages.Length) {
 					AdaptItem(item, packages[i]);
-				} else {
-					item.transform.Find("Name").GetComponent<Text>().text = "获取DLC";
-					item.transform.Find("Progress").gameObject.SetActive(false);
-					item.GetComponent<Button>().onClick.AddListener(() => {
-						var data = new PackageClickEventData();
-						data.type = EventType.PackageItemClick;
-						GlobalEvent.shared.Invoke(data);
-					});
 				}
 				item.SetActive(false);
 				CoroutineUtils.Start(AnimateShowItem(item, i * 0.05f));
+			}
+			int dlcItemLen = 1;
+			if (packages.Length < 6) {
+				dlcItemLen = 6 - packages.Length;
+			}
+			for (int i = 0; i < dlcItemLen; i++) {
+				var dlcItem = Instantiate (packageItemPrefab, transform.position, Quaternion.identity);
+				dlcItem.transform.SetParent (transform);
+				dlcItem.transform.localScale = new Vector3 (1, 1, 1);
+				if (GameState.isShowBuiltins) {
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = TinyLocalization.LocalizationManager.Instance.GetLocalizedText("获取DLC");
+					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = dlcThumb;
+				} else {
+					dlcItem.transform.Find ("Name").GetComponent<Text> ().text = TinyLocalization.LocalizationManager.Instance.GetLocalizedText("获取更多免费题库");
+					dlcItem.transform.Find ("Image").GetComponent<Image> ().sprite = wsThumb;
+				}
+				dlcItem.transform.Find ("Progress").gameObject.SetActive (false);
+				dlcItem.GetComponent<Button> ().onClick.AddListener (() => {
+					var data = new PackageClickEventData ();
+					data.type = EventType.PackageItemClick;
+					GlobalEvent.shared.Invoke (data);
+				});
 			}
 		}
 

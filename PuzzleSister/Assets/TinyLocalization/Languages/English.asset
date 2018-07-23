@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a489ed53c12bd7478b9005b3e6781c0, type: 3}
+  m_Name: English
+  m_EditorClassIdentifier: 
+  languageName: English
+  code: en
+  description: English
+  keys:
+  - key: "\u5F00\u59CB"
+    textValue: Start
+  - key: "\u56FE\u9274"
+    textValue: Illustrations
+  - key: "\u5236\u4F5C\u7EC4\u540D\u5355"
+    textValue: Staff
+  - key: "\u5B98\u65B9\u9898\u5E93"
+    textValue: Official Puzzle Set
+  - key: "\u521B\u610F\u5DE5\u574A"
+    textValue: Steam Workshop
+  - key: "\u7F16\u8F91\u9898\u5E93"
+    textValue: Edit Puzzle Set
+  - key: "\u8FD4\u56DE"
+    textValue: Return
+  - key: "\u7EE7\u7EED\u7B54\u9898"
+    textValue: Continue
+  - key: "\u53D6\u6D88"
+    textValue: Cancel
+  - key: "\u9898\u5E93"
+    textValue: Puzzle Set
+  - key: "\u606D\u559C\u4F60\uFF0C\u83B7\u5F97\u4E86\u65B0\u56FE\u9274"
+    textValue: Congratulations! Get a new illustration!
+  - key: "\u9898\u5E93\u7F16\u8F91\u5668"
+    textValue: Puzzle Set Editor
+  - key: "\u6DFB\u52A0\u9898\u5E93"
+    textValue: Add New Puzzle Set
+  - key: "\u9000\u51FA"
+    textValue: Quit
+  - key: "\u8BF4\u660E"
+    textValue: Instructions
+  - key: "\u786E\u5B9A"
+    textValue: Confirm
+  - key: "\u63D0\u4EA4\u7269\u54C1\u7684\u540C\u65F6\u4E5F\u8868\u793A\u60A8\u540C\u610F\u4E86
+      \u521B\u610F\u5DE5\u574A\u670D\u52A1\u6761\u6B3E"
+    textValue: By submitting this item, you agree to the workshop terms of service
+  - key: "\u540D\u79F0"
+    textValue: Name
+  - key: "\u4F5C\u8005"
+    textValue: Author
+  - key: "\u63CF\u8FF0"
+    textValue: Description
+  - key: "\u8BED\u8A00"
+    textValue: Language
+  - key: "\u56FE\u7247"
+    textValue: Image
+  - key: "\u63A8\u8350\u5C3A\u5BF8\uFF1A440x270 \u652F\u6301\u683C\u5F0F\uFF1AJPG/PNG"
+    textValue: 'Recommand size: 440x270  Supported formats: JPG/PNG'
+  - key: "\u6DFB\u52A0\u9898\u76EE"
+    textValue: Add Question
+  - key: "\u5BFC\u51FA"
+    textValue: Export
+  - key: "\u5BFC\u5165"
+    textValue: Import
+  - key: "\u4E0A\u4F20\u521B\u610F\u5DE5\u574A"
+    textValue: Upload to Workshop
+  - key: "\u53D1\u5E03"
+    textValue: Release
+  - key: "\u5E8F\u53F7"
+    textValue: No.
+  - key: "\u95EE\u9898"
+    textValue: Question
+  - key: "\u89E3\u91CA"
+    textValue: Explanation
+  - key: "\u7ED3\u679C"
+    textValue: Answer
+  - key: "\u64CD\u4F5C"
+    textValue: Operation
+  - key: "\u4FEE\u6539"
+    textValue: Edit
+  - key: "\u5220\u9664"
+    textValue: Delete
+  - key: "\u9898\u76EE"
+    textValue: Question
+  - key: "\u7B54\u6848"
+    textValue: Answer
+  - key: "\u62A2\u5148\u4F53\u9A8C\u7248 \u5B98\u65B9Q\u7FA452756441"
+    textValue: Early Access Version
+  - key: "\u83B7\u53D6\u66F4\u591A\u514D\u8D39\u9898\u5E93"
+    textValue: More
+  - key: "\u83B7\u53D6DLC"
+    textValue: More DLC
+  - key: "\u786E\u8BA4\u9000\u51FA\u6E38\u620F\uFF1F"
+    textValue: Are you sure you want to quit the game?
+  - key: "\u8FD4\u56DE\u4E3B\u754C\u9762\uFF1F"
+    textValue: Back to Main Menu?
+  - key: "\u4FEE\u6539\u6807\u9898"
+    textValue: Change Title
+  - key: "\u7BA1\u7406\u9898\u76EE"
+    textValue: Manage Questions
+  - key: "\u5DE5\u574A\u4E2D\u67E5\u770B"
+    textValue: View in Workshop
+  - key: "\u8FDE\u7B54\u6311\u6218"
+    textValue: Challenge of continuous answer
+  - key: "\u300E{0}\u300F\u9A6C\u4E0A\u8981\u5F00\u59CB\u4E86\uFF0C\u70B9\u51FB\u4EFB\u610F\u4F4D\u7F6E\u5F00\u59CB\u7B54\u9898"
+    textValue: "\u300E{0}\u300F is ready, click anywhere to start."
+  - key: "\u6311\u6218\u6A21\u5F0F"
+    textValue: Challenge Mode
+  - key: "\u7B54\u9898\u56DE\u5408"
+    textValue: Quiz Round
+  - key: "\u8BF7\u4F5C\u7B54..."
+    textValue: Please answer...
+  - key: "\u597D\u50CF\u4E0D\u6B63\u786E\u54E6"
+    textValue: It doesn't seem to be right.
+  - key: "\u8BF7\u7EE7\u7EED\u4F5C\u7B54..."
+    textValue: Please continue to answer...
+  - key: "\u89E3\u91CA\u5982\u4E0B\uFF1A"
+    textValue: 'The explanation is as follows:'
+  - key: "\u56DE\u7B54\u6B63\u786E"
+    textValue: Correct
+  - key: "\u56DE\u7B54\u9519\u8BEF"
+    textValue: Incorrect
+  - key: "\u300E\u7B54\u9898\u56DE\u5408\u300F\u7ED3\u675F\u4E86\uFF0C\u603B\u5171{0}\u9898\uFF0C\u672C\u6B21\u5B8C\u6210{1}\u9898\uFF0C\u53EA\u6709\u4E00\u6B21\u56DE\u7B54\u6210\u529F\u624D\u7B97\u5B8C\u6210\uFF0C\u70B9\u51FB\u4EFB\u610F\u4F4D\u7F6E\u8FD4\u56DE"
+    textValue: "\u300EQuiz Round\u300F has finished, completed {1} questions, {0}
+      in total. It is completed only if the first answer is correct, click anywhere
+      to return."

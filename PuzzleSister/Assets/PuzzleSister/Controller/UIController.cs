@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PuzzleSister {
-    public class UIController : MonoBehaviour {
+namespace PuzzleSister
+{
+    public class UIController : MonoBehaviour
+    {
 
         public static UIController singleton;
 
@@ -21,12 +23,14 @@ namespace PuzzleSister {
         private Stack<GameObject> uiStack = new Stack<GameObject>();
         private Stack<GameObject> uiPopupStack = new Stack<GameObject>();
 
-        void Awake() {
+        void Awake()
+        {
             singleton = this;
             GlobalEvent.shared.AddListener(handleGlobalEvent);
         }
 
-        IEnumerator Start() {
+        IEnumerator Start()
+        {
             bGMController.PlayMenu();
             foreach (Transform child in transform)
             {
@@ -36,27 +40,42 @@ namespace PuzzleSister {
             showingUIObject.SetActive(true);
         }
 
-        public void ToBuiltinPackages() {
+        public void ToBuiltinPackages()
+        {
             GameState.isShowBuiltins = true;
             PushPackageListUI();
         }
 
-        public void ToUGCPackages() {
+        public void ToUGCPackages()
+        {
             GameState.isShowBuiltins = false;
             PushPackageListUI();
         }
 
-        public void PushPackageListUI() {
+        public void PushPackageListUI()
+        {
             PushUI(packageListUIObject);
         }
 
-        void handleGlobalEvent(EventData data) {
-            switch (data.type) {
+        void handleGlobalEvent(EventData data)
+        {
+            switch (data.type)
+            {
                 case EventType.PackageItemClick:
                     Package package = (data as PackageClickEventData).package;
-                    if (package == null) {
-                        Utils.ShowDLCStore();
-                    } else {
+                    if (package == null)
+                    {
+                        if (GameState.isShowBuiltins)
+                        {
+                            Utils.ShowDLCStore();
+                        }
+                        else
+                        {
+                            Utils.ShowWorkShop();
+                        }
+                    }
+                    else
+                    {
                         PopPopup();
                         PushUI(questionUIObject);
                         bool chanllenge = PackageProgressService.shared.GetProgress(package.id).Completed;
@@ -85,7 +104,8 @@ namespace PuzzleSister {
             }
         }
 
-        public void PushUI(GameObject uiGameObject) {
+        public void PushUI(GameObject uiGameObject)
+        {
             Debug.Log("## push " + uiGameObject.name);
             uiGameObject.SetActive(true);
             showingUIObject.SetActive(false);
@@ -93,7 +113,8 @@ namespace PuzzleSister {
             showingUIObject = uiGameObject;
         }
 
-        public void PushPopup(GameObject uiPopupObject) {
+        public void PushPopup(GameObject uiPopupObject)
+        {
             if (showingUIPopup != null)
             {
                 showingUIPopup.SetActive(false);
@@ -103,24 +124,29 @@ namespace PuzzleSister {
             showingUIPopup.SetActive(true);
         }
 
-        public void PopUI() {
-            if (showingUIPopup != null) {
+        public void PopUI()
+        {
+            if (showingUIPopup != null)
+            {
                 PopPopup();
                 return;
             }
-            if (uiStack.Count <= 0) {
+            if (uiStack.Count <= 0)
+            {
                 return;
             }
             Debug.Log("## push " + showingUIObject.name);
             showingUIObject.SetActive(false);
             showingUIObject = uiStack.Pop();
             showingUIObject.SetActive(true);
-            if (showingUIObject == uiMenu) {
+            if (showingUIObject == uiMenu)
+            {
                 bGMController.PlayMenu();
             }
         }
 
-        public void PopPopup() {
+        public void PopPopup()
+        {
             if (showingUIPopup != null)
             {
                 showingUIPopup.SetActive(false);
@@ -133,16 +159,29 @@ namespace PuzzleSister {
             }
         }
 
-        void Update() {
-			#if UNITY_STANDALONE
-            if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1)) {
+        void Update()
+        {
+#if UNITY_STANDALONE
+            if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1))
+            {
 
                 // 正在答题不跳转
-                if (showingUIObject != questionUIObject) {
+                if (showingUIObject == questionUIObject)
+                {
+                    AlertUI.shared.Confirm(TinyLocalization.LocalizationManager.Instance.GetLocalizedText("返回主界面？"), (bool result) => {
+                        if (result)
+                        {
+                            questionController.StopAndReset();
+                            bGMController.PlayMenu();
+                            PopUI();
+                        }
+                    });
+                } else
+                {
                     PopUI();
                 }
             }
-			#endif
+#endif
         }
     }
 }

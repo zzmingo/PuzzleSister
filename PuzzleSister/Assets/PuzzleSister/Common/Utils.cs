@@ -21,6 +21,12 @@ namespace PuzzleSister {
 #endif
     }
 
+	public static void ShowWorkShop() {
+#if UNITY_STANDALONE
+        SteamFriends.ActivateGameOverlayToWebPage("https://steamcommunity.com/app/710190/workshop/");
+#endif
+	}
+
     public static string Path(params string[] paths) {
       return string.Join(System.IO.Path.DirectorySeparatorChar + "", paths);
     }

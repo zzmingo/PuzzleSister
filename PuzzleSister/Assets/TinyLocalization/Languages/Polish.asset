@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a489ed53c12bd7478b9005b3e6781c0, type: 3}
+  m_Name: Polish
+  m_EditorClassIdentifier: 
+  languageName: Polish
+  code: pl
+  description: Polish
+  keys:
+  - key: "\u5F00\u59CB"
+    textValue: Start
+  - key: "\u56FE\u9274"
+    textValue: Ilustracje
+  - key: "\u5236\u4F5C\u7EC4\u540D\u5355"
+    textValue: Autorzy
+  - key: "\u5B98\u65B9\u9898\u5E93"
+    textValue: "Oficjalny zestaw pyta\u0144"
+  - key: "\u521B\u610F\u5DE5\u574A"
+    textValue: Warsztat Steam
+  - key: "\u7F16\u8F91\u9898\u5E93"
+    textValue: "Edytuj zestaw pyta\u0144"
+  - key: "\u8FD4\u56DE"
+    textValue: "Powr\xF3t"
+  - key: "\u7EE7\u7EED\u7B54\u9898"
+    textValue: Kontynuuj
+  - key: "\u53D6\u6D88"
+    textValue: Anuluj
+  - key: "\u9898\u5E93"
+    textValue: "Zestaw pyta\u0144"
+  - key: "\u606D\u559C\u4F60\uFF0C\u83B7\u5F97\u4E86\u65B0\u56FE\u9274"
+    textValue: "Gratulacje! Zdoby\u0142e\u015B now\u0105 ilustracj\u0119!"
+  - key: "\u9898\u5E93\u7F16\u8F91\u5668"
+    textValue: "Edytor zestaw\xF3w pyta\u0144"
+  - key: "\u6DFB\u52A0\u9898\u5E93"
+    textValue: Dodaj nowy zestaw
+  - key: "\u9000\u51FA"
+    textValue: "Wyj\u015Bcie"
+  - key: "\u8BF4\u660E"
+    textValue: Instrukcja
+  - key: "\u786E\u5B9A"
+    textValue: "Potwierd\u017A"
+  - key: "\u63D0\u4EA4\u7269\u54C1\u7684\u540C\u65F6\u4E5F\u8868\u793A\u60A8\u540C\u610F\u4E86
+      \u521B\u610F\u5DE5\u574A\u670D\u52A1\u6761\u6B3E"
+    textValue: "Wysy\u0142aj\u0105c ten przedmiot, wyra\u017Casz zgod\u0119 na warunki
+      korzystania z Warsztatu Steam."
+  - key: "\u540D\u79F0"
+    textValue: Nazwa
+  - key: "\u4F5C\u8005"
+    textValue: Autor
+  - key: "\u63CF\u8FF0"
+    textValue: Opis
+  - key: "\u8BED\u8A00"
+    textValue: "J\u0119zyk"
+  - key: "\u56FE\u7247"
+    textValue: Obrazek
+  - key: "\u63A8\u8350\u5C3A\u5BF8\uFF1A440x270 \u652F\u6301\u683C\u5F0F\uFF1AJPG/PNG"
+    textValue: "Zalecany rozmiar: 440 x 270 Obs\u0142ugiwane formaty: JPG / PNG"
+  - key: "\u6DFB\u52A0\u9898\u76EE"
+    textValue: Dodaj pytanie
+  - key: "\u5BFC\u51FA"
+    textValue: Eksport
+  - key: "\u5BFC\u5165"
+    textValue: Import
+  - key: "\u4E0A\u4F20\u521B\u610F\u5DE5\u574A"
+    textValue: "Prze\u015Blij do Warsztatu"
+  - key: "\u53D1\u5E03"
+    textValue: Wydaj
+  - key: "\u5E8F\u53F7"
+    textValue: Numer
+  - key: "\u95EE\u9898"
+    textValue: Pytanie
+  - key: "\u89E3\u91CA"
+    textValue: "Wyja\u015Bnienie"
+  - key: "\u7ED3\u679C"
+    textValue: "Odpowied\u017A"
+  - key: "\u64CD\u4F5C"
+    textValue: "Dzia\u0142anie"
+  - key: "\u4FEE\u6539"
+    textValue: Edycja
+  - key: "\u5220\u9664"
+    textValue: "Usu\u0144"
+  - key: "\u9898\u76EE"
+    textValue: Pytanie
+  - key: "\u7B54\u6848"
+    textValue: "Odpowied\u017A"
+  - key: "\u62A2\u5148\u4F53\u9A8C\u7248 \u5B98\u65B9Q\u7FA452756441"
+    textValue: "Wersja z wczesnego dost\u0119pu"
+  - key: "\u83B7\u53D6\u66F4\u591A\u514D\u8D39\u9898\u5E93"
+    textValue: "Wi\u0119cej"
+  - key: "\u83B7\u53D6DLC"
+    textValue: "Wi\u0119cej DLC"
+  - key: "\u786E\u8BA4\u9000\u51FA\u6E38\u620F\uFF1F"
+    textValue: "Czy na pewno chcesz zako\u0144czy\u0107 gr\u0119?"
+  - key: "\u8FD4\u56DE\u4E3B\u754C\u9762\uFF1F"
+    textValue: "Czy chcesz wr\xF3ci\u0107 do g\u0142\xF3wnego menu?"
+  - key: "\u4FEE\u6539\u6807\u9898"
+    textValue: "Zmie\u0144 tytu\u0142"
+  - key: "\u7BA1\u7406\u9898\u76EE"
+    textValue: "Zarz\u0105dzaj pytaniami"
+  - key: "\u5DE5\u574A\u4E2D\u67E5\u770B"
+    textValue: "Przegl\u0105daj Warsztat"
+  - key: "\u8FDE\u7B54\u6311\u6218"
+    textValue: 'Wyzwanie: seria poprawnych odpowiedzi'
+  - key: "\u300E{0}\u300F\u9A6C\u4E0A\u8981\u5F00\u59CB\u4E86\uFF0C\u70B9\u51FB\u4EFB\u610F\u4F4D\u7F6E\u5F00\u59CB\u7B54\u9898"
+    textValue: "\u300E{0}\u300Fjest gotowy, kliknij w dowolnym miejscu, aby rozpocz\u0105\u0107."
+  - key: "\u6311\u6218\u6A21\u5F0F"
+    textValue: "Tryb wyzwa\u0144"
+  - key: "\u7B54\u9898\u56DE\u5408"
+    textValue: Runda
+  - key: "\u8BF7\u4F5C\u7B54..."
+    textValue: Udziel odpowiedzi...
+  - key: "\u597D\u50CF\u4E0D\u6B63\u786E\u54E6"
+    textValue: "Niew\u0142a\u015Bciwa odpowied\u017A."
+  - key: "\u8BF7\u7EE7\u7EED\u4F5C\u7B54..."
+    textValue: Odpowiadaj na dalsze pytania.
+  - key: "\u89E3\u91CA\u5982\u4E0B\uFF1A"
+    textValue: "Wyja\u015Bnienie jest nast\u0119puj\u0105ce:"
+  - key: "\u56DE\u7B54\u6B63\u786E"
+    textValue: Poprawne
+  - key: "\u56DE\u7B54\u9519\u8BEF"
+    textValue: Niepoprawne
+  - key: "\u300E\u7B54\u9898\u56DE\u5408\u300F\u7ED3\u675F\u4E86\uFF0C\u603B\u5171{0}\u9898\uFF0C\u672C\u6B21\u5B8C\u6210{1}\u9898\uFF0C\u53EA\u6709\u4E00\u6B21\u56DE\u7B54\u6210\u529F\u624D\u7B97\u5B8C\u6210\uFF0C\u70B9\u51FB\u4EFB\u610F\u4F4D\u7F6E\u8FD4\u56DE"
+    textValue: "\u300ERunda\u300F dobieg\u0142a ko\u0144ca. Pytania zaliczone: {1}
+      , og\xF3\u0142em: {0} . Zaliczenie uznane jest tylko w przypadku, gdy pierwsza
+      odpowied\u017A jest poprawna. Kliknij w dowolnym miejscu, aby wyj\u015B\u0107."

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   languages:
   - {fileID: 11400000, guid: 823c94266dbae4a85a86523717c9df93, type: 2}
+  - {fileID: 11400000, guid: ee1184f1ee6fa4d1d99b03d097b1a536, type: 2}
+  - {fileID: 11400000, guid: 52c0e3cb5ce8c4d378d7cfc9e728c2c7, type: 2}
+  - {fileID: 11400000, guid: 8e738ff97c8dbd54fa75a9e4fb492b64, type: 2}
+  - {fileID: 11400000, guid: 4fbb922bbc3b94f50b8a57721c2d5b4f, type: 2}
   startLanguage: zh-CN
   StartWithDeviceLanguage: 0

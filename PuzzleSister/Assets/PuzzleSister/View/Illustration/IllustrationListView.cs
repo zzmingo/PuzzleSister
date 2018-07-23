@@ -13,6 +13,7 @@ namespace PuzzleSister {
 		[NotNull] public Sprite thumbPlaceholder;
 		[NotNull] public IllustrationSettings settings;
 		[NotNull] public Image bigImage;
+		[NotNull] public GameObject exitBtn;
 
 		public void Start() {
 			InitList();
@@ -28,7 +29,7 @@ namespace PuzzleSister {
 		void AdaptItem(GameObject item, IllustrationItem itemData) {
 			itemData.rewarded = IllustrationService.shared.IsRewarded(itemData);
 			item.Query<Image>("Image").sprite = itemData.rewarded ? itemData.image : thumbPlaceholder;
-			item.Query<Text>("Name").text = itemData.name;
+			item.Query<Text>("Name").text = itemData.rewarded ? "已解锁" : itemData.name;
 			item.GetComponent<Button>().onClick.AddListener(() => {
 				if (itemData.rewarded) {
 					ShowIllustration(itemData);
@@ -37,11 +38,15 @@ namespace PuzzleSister {
 		}
 
 		void ShowIllustration(IllustrationItem itemData) {
+			exitBtn.SetActive(false);
 			bigImage.sprite = itemData.image;
 			bigImage.gameObject.SetActive(true);
 			bigImage.gameObject.ScaleFrom(Vector3.zero, 0.4f, 0f);
 		}
 
+		public void OnDisable() {
+			bigImage.gameObject.SetActive(false);
+		}
 	}
 
 }

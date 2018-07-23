@@ -92,9 +92,10 @@ namespace PuzzleSister {
     public void FromDict(Dictionary<string, object> dict, string path, Type type = Type.CSV, Source source = Source.Resources) {
       this.id = dict["id"].ToString();
       this.name = dict["name"].ToString();
-			this.author = dict.ContainsKey("author") ? dict["author"].ToString() : "未知";
+			this.author = dict.ContainsKey("author") ? dict["author"].ToString() : "???";
 			this.language = dict["language"].ToString();
       this.thumb = dict["thumb"].ToString();
+			this.description = dict["description"].ToString();
       this.path = path;
       this.type = type;
       this.source = source;

@@ -1,11 +1,11 @@
 "DepotBuildConfig"
 {
 	"DepotID" "749792"
-	"ContentRoot"	"./dlc/sound"
+	"ContentRoot"	"./Soundtrack"
   "FileMapping"
   {
     "LocalPath" "*"
-    "DepotPath" "."
+    "DepotPath" "Soundtrack"
     "recursive" "1"
   }
 }

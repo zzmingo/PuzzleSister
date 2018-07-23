@@ -1,0 +1,8 @@
+﻿<size=50>Zalecenia do zestawów pytań</size>
+
+1. Pytania powinny być konkretne i dokładne, a także zawierać wyjaśnienia.
+2. Zestaw powinien zawierać od 30 do 100 pytań. Prosimy sprawdzić każdy zestaw przed jego wysłaniem.
+3. Należy stosować poprawną pisownię i unikać literówek.
+4. Zaleca się unikanie tematów drażliwych i kontrowersyjnych.
+5. Kopiowanie pytań z innych zestawów jest SUROWO ZABRONIONE.
+6. Pytania należy opierać na bieżącym stanie wiedzy.

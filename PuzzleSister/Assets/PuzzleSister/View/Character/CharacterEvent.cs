@@ -7,25 +7,22 @@ namespace PuzzleSister {
 
 		private Animator animator;
 
-		void Start() {
-			animator = this.GetComponent<Animator>();
-		}
-
-		void Update() {
-		}
-
 		void OnEnable() {
+			if (!animator) {
+				animator = GetComponent<Animator>();
+				animator.keepAnimatorControllerStateOnDisable = true;
+            }
 			StartCoroutine(wait(Random.Range(3, 10)));
 		}
 
-		void EyesNormal() {
+        IEnumerator wait(float s) {
+            yield return new WaitForSeconds(s);
+            animator.SetBool("Blink", true);
+        }
+
+		void BlinkDisable() {
 			animator.SetBool("Blink", false);
 			StartCoroutine(wait(Random.Range(3, 10)));
-		}
-
-		IEnumerator wait(float s) {
-			yield return new WaitForSeconds (s);
-			animator.SetBool("Blink", true);
 		}
 	}
 }

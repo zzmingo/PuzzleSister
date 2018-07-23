@@ -26,6 +26,7 @@ namespace PuzzleSister {
 		public bool checkedCompletePackageAchievement = false;
 		public bool checkedPublishUGCPackageAchievement = false;
 		private bool initedUGCPackages = false;
+		private float checkSubscribedUGCPackageAchievementTime = 0;
 		private Callback<UserStatsStored_t> userStatsStoredCallback;
 		private Callback<UserAchievementStored_t> userAchievementStoredCallback;
 		private Callback<UserStatsReceived_t> userStatsReceivedCallback;
@@ -53,13 +54,17 @@ namespace PuzzleSister {
 			}
 			if (receivedUserStats) {
 				if (!checkedStartAchievement) {
-					checkStartAchievement ();
+					checkStartAchievement();
 				}
 				if (!checkedCompletePackageAchievement) {
 					checkCompletePackageAchievement();
 				}
 				if (!checkedPublishUGCPackageAchievement) {
 					checkPublishUGCPackageAchievement();
+				}
+				if ((checkSubscribedUGCPackageAchievementTime -= Time.deltaTime) <= 0) {
+					checkSubscribedUGCPackageAchievement();
+					checkSubscribedUGCPackageAchievementTime = 60;
 				}
 			}
 			if (receivedUserStats && needToStore) {
@@ -136,7 +141,7 @@ namespace PuzzleSister {
 			}
 		}
 
-		void unlockAchievement(Enum aEnum) {
+		public void unlockAchievement(Enum aEnum) {
 			if (!SteamManager.Initialized) {
 				return;
 			}
@@ -181,12 +186,10 @@ namespace PuzzleSister {
 			if (last > len) {
 				last = len;
 			}
-			for (;index < len;) {
-				var achievement = aAchievements[index];
-				if (!achievement.beenAchieved) {
+			for (;index < len;index++) {
+				if (!aAchievements[index].beenAchieved) {
 					break;
 				}
-				index += 10;
 			}
 			if (index < len) {
 				for (int i = index; i < last; i++) {
@@ -241,6 +244,28 @@ namespace PuzzleSister {
 				}
 				unlockAchievement(BaseAchievementEnum.BASE_5);
 			} while (false);
+		}
+
+		private void checkSubscribedUGCPackageAchievement() {
+			var num = SteamUGC.GetNumSubscribedItems();
+			if (num >= 1) {
+				unlockAchievement(BaseAchievementEnum.BASE_6);
+			}
+			if (num >= 3) {
+				unlockAchievement(BaseAchievementEnum.BASE_7);
+			}
+			if (num >= 5) {
+				unlockAchievement(BaseAchievementEnum.BASE_8);
+			}
+			if (num >= 7) {
+				unlockAchievement(BaseAchievementEnum.BASE_9);
+			}
+			if (num >= 9) {
+				unlockAchievement(BaseAchievementEnum.BASE_10);
+			}
+			if (num >= 12) {
+				unlockAchievement(BaseAchievementEnum.BASE_13);
+			}
 		}
 
 		private class Achievement<T> {
