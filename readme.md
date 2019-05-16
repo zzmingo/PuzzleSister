@@ -2,6 +2,10 @@
 
 http://store.steampowered.com/app/710190/Puzzle_SistersFoer/
 
+```
+未经作者授权，不可用于商业行为，仅供参考的学习
+```
+
 ## 目录
 
 ```
