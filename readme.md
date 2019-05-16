@@ -2,10 +2,6 @@
 
 http://store.steampowered.com/app/710190/Puzzle_SistersFoer/
 
-## TODOs
-
-https://tower.im/projects/f792d0b8dd284d8e853f457e6668e386/
-
 ## 目录
 
 ```
